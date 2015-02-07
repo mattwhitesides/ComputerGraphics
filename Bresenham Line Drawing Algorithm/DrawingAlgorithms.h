@@ -49,6 +49,14 @@ public:
     */
     static QVector<QString> drawLines(int xa[], int ya[], int xb[], int yb[], int size);
 
+    /*<<<<<<<<<<<<<<<<<<<<<drawLines>>>>>>>>>>>>>>>>>>>>>>>>
+    // Draws a single pixel at a given x and y coord
+
+      int x - the x coord point
+      int y - the y coord point
+    */
+    static void drawPoint(int x, int y);
+
 	/*<<<<<<<<<<<<<<<<<<<<<<<<<round2f>>>>>>>>>>>>>>>>>>>
     Global function to round floats to nearest integers
     */

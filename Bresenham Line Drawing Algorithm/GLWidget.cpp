@@ -249,24 +249,26 @@ void GLWidget::paintGL()
         case GLWidget::LINE:
             if(clickCounter == 0 || (drawMode == GLWidget::DIALOG))
             {
+                //Bowtie?
+                int xaBow[] = {100,100,120,140,140,120};
+                int yaBow[] = {100, 60, 76, 60,100, 84};
+                int xbBow[] = {100,120,140,140,120,100};
+                int ybBow[] = {60 , 76, 60,100, 84,100};
+
                 //DDA Algorithm
                 //output = DrawingAlgorithms::dda(startX, startY, finishX, finishY);
 
                 //Breenhem Algorithm
-                //output = DrawingAlgorithms::drawLine(startX, startY, finishX, finishY);
+                for (int i = 0; i < 6; ++i)
+                    output = DrawingAlgorithms::drawLine(xaBow[i] * 2, yaBow[i] * 2, xbBow[i] * 2, ybBow[i] * 2);
 
                 //OpenGL Line Algorithm
                 //output.append("Using OpenGL's line draw function");
-               // DrawingAlgorithms::openGLDrawLine(startX, startY, finishX, finishY);
+               //DrawingAlgorithms::openGLDrawLine(startX, startY, finishX, finishY);
 
 
-                //Bowtie?
-                int xa[] = {100,100,120,140,140,120};
-                int xb[] = {100,120,140,140,120,100};
-                int ya[] = {100,60,76,60,100,84};
-                int yb[] = {60,76,60,100,84,100};
 
-                output = DrawingAlgorithms::drawLines(xa,xb,ya,yb,6);
+                //output = DrawingAlgorithms::drawLines(xa,xb,ya,yb,6);
             }
             else if(clickCounter == 1)
             {
