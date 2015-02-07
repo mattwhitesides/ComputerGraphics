@@ -253,23 +253,20 @@ void GLWidget::paintGL()
                 //output = DrawingAlgorithms::dda(startX, startY, finishX, finishY);
 
                 //Breenhem Algorithm
-                output = DrawingAlgorithms::drawLine(startX, startY, finishX, finishY);
+                //output = DrawingAlgorithms::drawLine(startX, startY, finishX, finishY);
 
-                //OpenGL Algorithm
+                //OpenGL Line Algorithm
                 //output.append("Using OpenGL's line draw function");
-                //DrawingAlgorithms::openGLDrawLine(startX, startY, finishX, finishY);
+               // DrawingAlgorithms::openGLDrawLine(startX, startY, finishX, finishY);
 
-//                int xa[] = {100,100,120,140,140,120};
-//                int xb[] = {100,120,140,140,120,100};
-//                int ya[] = {100,60,76,60,100,84};
-//                int yb[] = {60,76,60,100,84,100};
 
-//                int xa[] = {0,50};
-//                int xb[] = {100,50};
-//                int ya[] = {0,-50};
-//                int yb[] = {100,-50};
+                //Bowtie?
+                int xa[] = {100,100,120,140,140,120};
+                int xb[] = {100,120,140,140,120,100};
+                int ya[] = {100,60,76,60,100,84};
+                int yb[] = {60,76,60,100,84,100};
 
-//                output = DrawingAlgorithms::drawLines(xa,xb,ya,yb,2);
+                output = DrawingAlgorithms::drawLines(xa,xb,ya,yb,6);
             }
             else if(clickCounter == 1)
             {

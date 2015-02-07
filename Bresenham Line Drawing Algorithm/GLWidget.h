@@ -44,7 +44,7 @@ public:
   ~GLWidget();
 
   /*------------------drawLine, Version 1------------------
-  /* Draws a DDA line
+  Draws a DDA line
   Input: 
     int x1 - the starting x coord
 	int y1 - the starting y coord
@@ -54,7 +54,7 @@ public:
   void drawLine(int x1, int y1, int x2, int y2);
 
   /*------------------drawLine, Version 2------------------
-  /* Draws a DDA line
+  Draws a DDA line
   Input: 
     int x - the beginning x coord
 	int y - the beginning y coord
