@@ -94,6 +94,8 @@ public:
   static const int ELLIPSE;
   static const int POLYLINE;
   static const int POLYGON;
+
+  static const int FAN;
  
 public slots:
   

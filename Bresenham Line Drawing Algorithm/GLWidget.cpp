@@ -249,22 +249,37 @@ void GLWidget::paintGL()
         case GLWidget::LINE:
             if(clickCounter == 0 || (drawMode == GLWidget::DIALOG))
             {
-                //Bowtie?
-                int xaBow[] = {100,100,120,140,140,120};
-                int yaBow[] = {100, 60, 76, 60,100, 84};
-                int xbBow[] = {100,120,140,140,120,100};
-                int ybBow[] = {60 , 76, 60,100, 84,100};
+                //Bowtie
+                //                int xaBow[] = {100,100,120,140,140,120};
+                //                int yaBow[] = {100, 60, 76, 60,100, 84};
+                //                int xbBow[] = {100,120,140,140,120,100};
+                //                int ybBow[] = {60 , 76, 60,100, 84,100};
+
+                //Test for all 16 possible regions
+                int xaFanTest[] = {  0,   0,  0,   0,  0,   0,   0,   0,  0,  0,   0,   0,  0,  0,   0,   0,  0,   0};
+                int yaFanTest[] = {  0,   0,  0,   0,  0,   0,   0,   0,  0,  0,   0,   0,  0,  0,   0,   0,  0,   0};
+                int xbFanTest[] = {100,-100,100,-100,100,-100, 100,-100, 50,-50,  50, -50,100,100,-100,-100,  0,   0};
+                int ybFanTest[] = {100,-100,  0,   0,100,-100,-100, 100,100,100,-100,-100, 50,-50,  50, -50,100,-100};
 
                 //DDA Algorithm
                 //output = DrawingAlgorithms::dda(startX, startY, finishX, finishY);
 
                 //Breenhem Algorithm
-                for (int i = 0; i < 6; ++i)
-                    output = DrawingAlgorithms::drawLine(xaBow[i] * 2, yaBow[i] * 2, xbBow[i] * 2, ybBow[i] * 2);
+                for (int i = 0; i < 18; ++i)
+                    DrawingAlgorithms::drawLine((xbFanTest[i] * 2) + 220, ybFanTest[i] * 2, (xaFanTest[i] * 2) + 220, yaFanTest[i] * 2);
+
+                for (int i = 0; i < 18; ++i)
+                    DrawingAlgorithms::drawLine((xaFanTest[i] * 2) - 220, yaFanTest[i] * 2, (xbFanTest[i] * 2) - 220, ybFanTest[i] * 2);
+
+//                output = DrawingAlgorithms::drawLine(startX, startY, finishX, finishY);
 
                 //OpenGL Line Algorithm
                 //output.append("Using OpenGL's line draw function");
-               //DrawingAlgorithms::openGLDrawLine(startX, startY, finishX, finishY);
+//                for (int i = 0; i < 18; ++i)
+//                    DrawingAlgorithms::openGLDrawLine((xbFanTest[i] * 2) + 220, ybFanTest[i] * 2, (xaFanTest[i] * 2) + 220, yaFanTest[i] * 2);
+
+//                for (int i = 0; i < 18; ++i)
+//                    DrawingAlgorithms::openGLDrawLine((xaFanTest[i] * 2) - 220, yaFanTest[i] * 2, (xbFanTest[i] * 2) - 220, ybFanTest[i] * 2);
 
 
 

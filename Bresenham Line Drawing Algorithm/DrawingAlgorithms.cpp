@@ -76,10 +76,6 @@ QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
     //3. Calculate the constants Δx, Δy, 2Δy, and (2Δy - 2Δx) and get the first value for the decision parameter as: P0 = 2Δy - Δx
     int deltaX = (xb - xa);
     int deltaY = (yb - ya);
-    int twoDeltaY = 2 * deltaY;
-    int twoDeltaX = 2 * deltaX;
-    int twoDeltaYMinusTwoDeltaX = twoDeltaY - twoDeltaX;
-    int P = twoDeltaY - deltaX;
 
     //Check if the line is vertical
     if (deltaX == 0) {
@@ -94,9 +90,12 @@ QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
                 output.append(DrawingAlgorithms::convertCoordsToString(++k,xa,y));
             }
         }
+
+        glEnd();
+        return output;
     }
     //Check if the line is horizontal
-    else if (deltaY == 0) {
+    if (deltaY == 0) {
         if (xa < xb) {
             for (int x = (xa + 1); x <= xb; ++x) {
                 glVertex2i(x,ya);
@@ -108,13 +107,45 @@ QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
                 output.append(DrawingAlgorithms::convertCoordsToString(++k,x,ya));
             }
         }
-    }
-    else {
-        int y = ya;
-        //4. At each xk along the line, starting at k = 0, perform the following test. If pk < 0, the next point to plot is (xk+1, yk) and: Pk+1 = Pk + 2Δy
-        //   Otherwise, the next point to plot is (xk+1, yk+1) and: Pk+1 = Pk + 2Δy - 2Δx
 
+        glEnd();
+        return output;
+    }
+    //Check if the slope is exactly 45
+    if (deltaX == deltaY) {
         if (xa < xb) {
+            for (int x = xa; x <= xb; ++x) {
+                glVertex2i(x,++ya);
+                output.append(DrawingAlgorithms::convertCoordsToString(++k,x,ya + 1));
+            }
+        } else {
+            for (int x = xa; x >= xb; --x) {
+                glVertex2i(x,++ya);
+                output.append(DrawingAlgorithms::convertCoordsToString(++k,x,ya + 1));
+            }
+        }
+
+        glEnd();
+        return output;
+    }
+
+
+    int twoDeltaY = 2 * deltaY;
+    int twoDeltaX = 2 * deltaX;
+    int twoDeltaYMinusTwoDeltaX = twoDeltaY - twoDeltaX;
+    int P = twoDeltaY - deltaX;
+    int y = ya;
+
+    bool isSteep = (deltaY > deltaX);
+    //    if (isSteep) {
+    //        swapIntValues(&ya, &xa);
+    //        swapIntValues(&yb, &xb);
+    //    }
+
+    if (xa < xb) {
+        //4. At each xk along the line, starting at k = 0, perform the following test. If pk < 0, the next point to plot is (xk+1, yk) and: Pk+1 = Pk + 2Δy
+        //   Otherwise, the next point to plot is (xk+1, yk+1) and: Pk+1 = Pk + 2Δy - 2Δ
+        if (!isSteep) {
             for (int x = (xa + 1); x <= xb; ++x) {
                 if (P < 0) {
 
@@ -133,6 +164,29 @@ QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
                 //5. Repeat Step 4, (Δx – 1) times
             }
         } else {
+            int x = xa;
+            for (y = (ya + 1); y <= yb; ++y) {
+                if (P < 0) {
+
+                    glVertex2i(x,y);
+                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
+
+                    P = P + twoDeltaX;
+                } else {
+                    ++x;
+
+                    glVertex2i(x,y);
+                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
+
+                    P = P + twoDeltaX - twoDeltaY;
+                }
+                //5. Repeat Step 4, (Δx – 1) times
+            }
+        }
+    } else {
+        //4. At each xk along the line, starting at k = 0, perform the following test. If pk < 0, the next point to plot is (xk+1, yk) and: Pk+1 = Pk + 2Δy
+        //   Otherwise, the next point to plot is (xk+1, yk+1) and: Pk+1 = Pk + 2Δy - 2Δ
+        if (!isSteep) {
             for (int x = (xa - 1); x >= xb; --x) {
                 if (P < 0) {
 
@@ -147,6 +201,25 @@ QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
                     output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
 
                     P = P + twoDeltaYMinusTwoDeltaX;
+                }
+                //5. Repeat Step 4, (Δx – 1) times
+            }
+        } else {
+            int x = xa;
+            for (y = (ya - 1); y >= yb; --y) {
+                if (P < 0) {
+
+                    glVertex2i(x,y);
+                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
+
+                    P = P + twoDeltaX;
+                } else {
+                    ++x;
+
+                    glVertex2i(x,y);
+                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
+
+                    P = P + twoDeltaX - twoDeltaY;
                 }
                 //5. Repeat Step 4, (Δx – 1) times
             }
@@ -159,12 +232,12 @@ QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
 }
 
 /*<<<<<<<<<<<<<<<<<<<<<drawLines>>>>>>>>>>>>>>>>>>>>>>>>*/
-QVector<QString> DrawingAlgorithms::drawLines(int xa[], int ya[], int xb[], int yb[], int size)
-{
-    QVector<QString> output;
+//QVector<QString> DrawingAlgorithms::drawLines(int xa[], int ya[], int xb[], int yb[], int size)
+//{
+//    QVector<QString> output;
 
-    return output;
-}
+//    return output;
+//}
 
 void DrawingAlgorithms::drawPoint(int x, int y) {
     glBegin(GL_POINTS);
@@ -174,7 +247,7 @@ void DrawingAlgorithms::drawPoint(int x, int y) {
 
 //Use OpenGL to draw a line for testing
 void DrawingAlgorithms::openGLDrawLine(int xa, int ya, int xb, int yb) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLineWidth(1);
     glColor3f(0.0f, 1.0f, 0.0f);
 
