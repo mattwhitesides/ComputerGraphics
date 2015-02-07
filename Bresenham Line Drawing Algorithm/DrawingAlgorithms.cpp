@@ -155,57 +155,61 @@ QVector<QString> DrawingAlgorithms::drawLines(int xa[], int ya[], int xb[], int 
 {
     QVector<QString> output;
 
-    int x0 = 0;
-    int y0 = 0;
+    bool overForteyFive = false;
     int deltaX = 0;
     int deltaY = 0;
-    int twoDeltaY = 0;
-    int twoDeltaX = 0;
-    int x = 1;
-    int y = 1;
-    float p = 0;
+    int deltaErr = 0;
+    int yIteration = 0;
+    float err = 0.0;
+    int y = 0;
     int k = 0;
+
+    glBegin(GL_POINTS);
 
     for (int i = 0; i < size; ++i) {
 
-        //1. Input the two line end-points, storing the left endpointin (x0, y0)
-        x0 = xa[i];
-        y0 = ya[i];
-        y = y0;
+        printf("(%d,%d) to (%d,%d)\n", xa[i], ya[i], xb[i], yb[i]);
 
-        //2. Plot the point (x0, y0)
-        glBegin((GL_POINTS));
-        output.append(DrawingAlgorithms::convertCoordsToString(++k, roundf2(x), roundf2(y)));
-        glVertex2i(x0, y0);
-        glEnd();
+        deltaX = abs(xb[i] - xa[i]);
+        deltaY = abs(yb[i] - ya[i]);
+        overForteyFive = (deltaY > deltaX);
 
-        //3.Calculate the constants Δx, Δy, 2Δy, and (2Δy - 2Δx) and get the first value for the decision parameter as: p0 = 2Δy − Δx
-        deltaX = abs(xa[i] - xb[i]);
-        deltaY = abs(ya[i] - yb[i]);
-        twoDeltaY = (2 * deltaY);
-        twoDeltaX = (2 * deltaX);
-        p = (2 * deltaY) - deltaX;
-
-        //4. At each xk along the line, starting at k = 0, perform the following test. If pk < 0, the next point to plot is (xk+1, yk) and: Pk+1 = Pk + 2Δy
-        //   Otherwise, the next point to plot is (xk+1, yk+1) and: Pk+1 = Pk + 2Δy - 2Δx
-        for (k = 1; k < deltaX; ++k) {
-            glBegin((GL_POINTS));
-
-            if (p < 0) {
-                output.append(DrawingAlgorithms::convertCoordsToString(k, roundf2(x + 1), roundf2(y)));
-                glVertex2i(++x,y);
-                p = p + twoDeltaY;
-            } else {
-                output.append(DrawingAlgorithms::convertCoordsToString(k, roundf2(x + 1), roundf2(y + 1)));
-                glVertex2i(++x,++y);
-                p = p + twoDeltaY - twoDeltaX;
-            }
-
-            glEnd();
+        if (overForteyFive) {
+            swapIntValues(&xa[i], &ya[i]);
+            swapIntValues(&xb[i], &yb[i]);
+        }
+        if (xa[i] > xb[i]) {
+            swapIntValues(&xa[i], &xb[i]);
+            swapIntValues(&ya[i], &yb[i]);
         }
 
+        deltaErr = abs(yb[i] - ya[i]);
+        yIteration = ya[i] > yb[i] ? -1 : 1;
+        deltaX = xb[i] - xa[i];
 
+        err = 0.0;
+        y = 0;
+        k = 0;
+
+        for (int x = xa[i]; x <= xb[i]; ++x) {
+            if (overForteyFive) {
+                output.append(DrawingAlgorithms::convertCoordsToString(++k, y, x));
+                glVertex2i(y,x);
+            } else {
+                output.append(DrawingAlgorithms::convertCoordsToString(++k, x, y));
+                glVertex2i(x,y);
+            }
+
+            err += deltaErr;
+
+            if (err >= (0.5 * deltaX)) {
+                y += yIteration;
+                err -= deltaErr;
+            }
+        }
     }
+
+    glEnd();
 
     return output;
 }
