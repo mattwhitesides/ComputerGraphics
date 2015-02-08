@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Window_t {
-    QByteArrayData data[8];
-    char stringdata[130];
+    QByteArrayData data[12];
+    char stringdata[201];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,12 +36,18 @@ QT_MOC_LITERAL(3, 24, 17), // "chooseColorFromMW"
 QT_MOC_LITERAL(4, 42, 20), // "drawDialogLineFromMW"
 QT_MOC_LITERAL(5, 63, 19), // "drawMouseLineFromMW"
 QT_MOC_LITERAL(6, 83, 23), // "drawMousePolyLineFromMW"
-QT_MOC_LITERAL(7, 107, 22) // "drawMousePolygonFromMW"
+QT_MOC_LITERAL(7, 107, 22), // "drawMousePolygonFromMW"
+QT_MOC_LITERAL(8, 130, 17), // "drawFanTestFromMW"
+QT_MOC_LITERAL(9, 148, 19), // "drawHouseTestFromMW"
+QT_MOC_LITERAL(10, 168, 17), // "drawBowTestFromMW"
+QT_MOC_LITERAL(11, 186, 14) // "drawTestFromMW"
 
     },
     "Window\0printCallFromMW\0\0chooseColorFromMW\0"
     "drawDialogLineFromMW\0drawMouseLineFromMW\0"
-    "drawMousePolyLineFromMW\0drawMousePolygonFromMW"
+    "drawMousePolyLineFromMW\0drawMousePolygonFromMW\0"
+    "drawFanTestFromMW\0drawHouseTestFromMW\0"
+    "drawBowTestFromMW\0drawTestFromMW"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,22 +57,30 @@ static const uint qt_meta_data_Window[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       6,       // signalCount
+      10,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x06 /* Public */,
-       3,    0,   45,    2, 0x06 /* Public */,
-       4,    0,   46,    2, 0x06 /* Public */,
-       5,    0,   47,    2, 0x06 /* Public */,
-       6,    0,   48,    2, 0x06 /* Public */,
-       7,    0,   49,    2, 0x06 /* Public */,
+       1,    0,   64,    2, 0x06 /* Public */,
+       3,    0,   65,    2, 0x06 /* Public */,
+       4,    0,   66,    2, 0x06 /* Public */,
+       5,    0,   67,    2, 0x06 /* Public */,
+       6,    0,   68,    2, 0x06 /* Public */,
+       7,    0,   69,    2, 0x06 /* Public */,
+       8,    0,   70,    2, 0x06 /* Public */,
+       9,    0,   71,    2, 0x06 /* Public */,
+      10,    0,   72,    2, 0x06 /* Public */,
+      11,    0,   73,    2, 0x06 /* Public */,
 
  // signals: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -88,6 +102,10 @@ void Window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 3: _t->drawMouseLineFromMW(); break;
         case 4: _t->drawMousePolyLineFromMW(); break;
         case 5: _t->drawMousePolygonFromMW(); break;
+        case 6: _t->drawFanTestFromMW(); break;
+        case 7: _t->drawHouseTestFromMW(); break;
+        case 8: _t->drawBowTestFromMW(); break;
+        case 9: _t->drawTestFromMW(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -129,6 +147,30 @@ void Window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
                 *result = 5;
             }
         }
+        {
+            typedef void (Window::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawFanTestFromMW)) {
+                *result = 6;
+            }
+        }
+        {
+            typedef void (Window::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawHouseTestFromMW)) {
+                *result = 7;
+            }
+        }
+        {
+            typedef void (Window::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawBowTestFromMW)) {
+                *result = 8;
+            }
+        }
+        {
+            typedef void (Window::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawTestFromMW)) {
+                *result = 9;
+            }
+        }
     }
     Q_UNUSED(_a);
 }
@@ -158,13 +200,13 @@ int Window::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 10;
     }
     return _id;
 }
@@ -203,5 +245,29 @@ void Window::drawMousePolyLineFromMW()
 void Window::drawMousePolygonFromMW()
 {
     QMetaObject::activate(this, &staticMetaObject, 5, Q_NULLPTR);
+}
+
+// SIGNAL 6
+void Window::drawFanTestFromMW()
+{
+    QMetaObject::activate(this, &staticMetaObject, 6, Q_NULLPTR);
+}
+
+// SIGNAL 7
+void Window::drawHouseTestFromMW()
+{
+    QMetaObject::activate(this, &staticMetaObject, 7, Q_NULLPTR);
+}
+
+// SIGNAL 8
+void Window::drawBowTestFromMW()
+{
+    QMetaObject::activate(this, &staticMetaObject, 8, Q_NULLPTR);
+}
+
+// SIGNAL 9
+void Window::drawTestFromMW()
+{
+    QMetaObject::activate(this, &staticMetaObject, 9, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

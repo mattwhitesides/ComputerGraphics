@@ -22,6 +22,10 @@ signals:
 	void drawMouseLineFromMW();
 	void drawMousePolyLineFromMW();
 	void drawMousePolygonFromMW();
+    void drawFanTestFromMW();
+    void drawHouseTestFromMW();
+    void drawBowTestFromMW();
+    void drawTestFromMW();
 	
 private:
 	

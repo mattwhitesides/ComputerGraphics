@@ -96,6 +96,9 @@ public:
   static const int POLYGON;
 
   static const int FAN;
+  static const int BOW;
+  static const int HOUSE;
+  static const int TEST;
  
 public slots:
   
@@ -139,6 +142,15 @@ public slots:
   Launches a color picker to set the line color
   */
   void chooseColor();
+
+  void drawFanTest();
+
+  void drawBowTest();
+
+  void drawHouseTest();
+
+  void drawTest();
+
 
 signals:
   /*---------------------mouseMoved-------------------------
@@ -201,6 +213,8 @@ private:
   
   //Need a variable to ensure output is only printed once per shape
   bool printOnce;
+
+  int drawShape;
 
   PrintDialog* printDiag;
   LineDialog* lineDiag;

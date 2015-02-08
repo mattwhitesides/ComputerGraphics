@@ -30,6 +30,11 @@ const int GLWidget::ELLIPSE = 3;
 const int GLWidget::POLYGON = 4;
 const int GLWidget::POLYLINE = 5;
 
+const int GLWidget::FAN = 6;
+const int GLWidget::HOUSE = 7;
+const int GLWidget::BOW = 8;
+const int GLWidget::TEST = 9;
+
 
 //------------------------GLWidget::GLWidget-------------------------
 GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
@@ -147,6 +152,7 @@ void GLWidget::drawMouseLine()
 {
     drawMode = GLWidget::MOUSE;
     shapeMode = GLWidget::LINE;
+    drawShape = GLWidget::LINE;
     clearShapeVariables();
 }
 
@@ -235,6 +241,42 @@ void GLWidget::resizeGL(int w, int h)
     glOrtho(left, right, down, up, -1, 1);
 }
 
+void GLWidget::drawFanTest() {
+    printf("Fan Test Called\n");
+
+    drawMode = GLWidget::MOUSE;
+    shapeMode = GLWidget::LINE;
+    drawShape = GLWidget::FAN;
+    clearShapeVariables();
+}
+
+void GLWidget::drawBowTest() {
+    printf("Fan Test Called\n");
+
+    drawMode = GLWidget::MOUSE;
+    shapeMode = GLWidget::LINE;
+    drawShape = GLWidget::BOW;
+    clearShapeVariables();
+}
+
+void GLWidget::drawHouseTest() {
+    printf("Fan House Called\n");
+
+    drawMode = GLWidget::MOUSE;
+    shapeMode = GLWidget::LINE;
+    drawShape = GLWidget::HOUSE;
+    clearShapeVariables();
+}
+
+void GLWidget::drawTest() {
+    printf("Test Called\n");
+
+    drawMode = GLWidget::MOUSE;
+    shapeMode = GLWidget::LINE;
+    drawShape = GLWidget::TEST;
+    clearShapeVariables();
+}
+
 //--------------------------GLWidget::paintGL----------------------------------
 void GLWidget::paintGL()
 {
@@ -242,48 +284,54 @@ void GLWidget::paintGL()
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    if(!areShapesClear)
-    {
-        switch(shapeMode)
-        {
-        case GLWidget::LINE:
+    if(!areShapesClear) {
+        if (shapeMode == GLWidget::LINE) {
             if(clickCounter == 0 || (drawMode == GLWidget::DIALOG))
             {
-                //Bowtie
-                //                int xaBow[] = {100,100,120,140,140,120};
-                //                int yaBow[] = {100, 60, 76, 60,100, 84};
-                //                int xbBow[] = {100,120,140,140,120,100};
-                //                int ybBow[] = {60 , 76, 60,100, 84,100};
-
-                //Test for all 16 possible regions
-                int xaFanTest[] = {  0,   0,  0,   0,  0,   0,   0,   0,  0,  0,   0,   0,  0,  0,   0,   0,  0,   0};
-                int yaFanTest[] = {  0,   0,  0,   0,  0,   0,   0,   0,  0,  0,   0,   0,  0,  0,   0,   0,  0,   0};
-                int xbFanTest[] = {100,-100,100,-100,100,-100, 100,-100, 50,-50,  50, -50,100,100,-100,-100,  0,   0};
-                int ybFanTest[] = {100,-100,  0,   0,100,-100,-100, 100,100,100,-100,-100, 50,-50,  50, -50,100,-100};
-
-                //DDA Algorithm
-                //output = DrawingAlgorithms::dda(startX, startY, finishX, finishY);
 
                 //Breenhem Algorithm
-                for (int i = 0; i < 18; ++i)
-                    DrawingAlgorithms::drawLine((xbFanTest[i] * 2) + 220, ybFanTest[i] * 2, (xaFanTest[i] * 2) + 220, yaFanTest[i] * 2);
+                if (drawShape == GLWidget::FAN) {
+                    //Test for all 16 possible regions
+                    int xaFanTest[] = {  0,   0,  0,   0,  0,   0,   0,   0,  0,  0,   0,   0,  0,  0,   0,   0,  0,   0};
+                    int yaFanTest[] = {  0,   0,  0,   0,  0,   0,   0,   0,  0,  0,   0,   0,  0,  0,   0,   0,  0,   0};
+                    int xbFanTest[] = {100,-100,100,-100,100,-100, 100,-100, 50,-50,  50, -50,100,100,-100,-100,  0,   0};
+                    int ybFanTest[] = {100,-100,  0,   0,100,-100,-100, 100,100,100,-100,-100, 50,-50,  50, -50,100,-100};
 
-                for (int i = 0; i < 18; ++i)
-                    DrawingAlgorithms::drawLine((xaFanTest[i] * 2) - 220, yaFanTest[i] * 2, (xbFanTest[i] * 2) - 220, ybFanTest[i] * 2);
+                    for (int i = 0; i < 18; ++i)
+                        DrawingAlgorithms::drawLine((xbFanTest[i] * 2) + 220, ybFanTest[i] * 2, (xaFanTest[i] * 2) + 220, yaFanTest[i] * 2);
 
-//                output = DrawingAlgorithms::drawLine(startX, startY, finishX, finishY);
+                    for (int i = 0; i < 18; ++i)
+                        DrawingAlgorithms::drawLine((xaFanTest[i] * 2) - 220, yaFanTest[i] * 2, (xbFanTest[i] * 2) - 220, ybFanTest[i] * 2);
 
-                //OpenGL Line Algorithm
-                //output.append("Using OpenGL's line draw function");
-//                for (int i = 0; i < 18; ++i)
-//                    DrawingAlgorithms::openGLDrawLine((xbFanTest[i] * 2) + 220, ybFanTest[i] * 2, (xaFanTest[i] * 2) + 220, yaFanTest[i] * 2);
+                } else if (drawShape == GLWidget::BOW) {
+                    //Bowtie
+                    int xaBow[] = {100,100,120,140,140,120};
+                    int yaBow[] = {100, 60, 76, 60,100, 84};
+                    int xbBow[] = {100,120,140,140,120,100};
+                    int ybBow[] = {60 , 76, 60,100, 84,100};
+                    for (int i = 0; i < 6; ++i)
+                        DrawingAlgorithms::drawLine(xaBow[i] * 2, yaBow[i] * 2, xbBow[i] * 2, ybBow[i] * 2);
+                } else if (drawShape == HOUSE) {
+                    int xa[] = {40,40,70,100,100,50,50,60,50,60,80,90,85};
+                    int ya[] = {40,90,120,90,40,100,120,120,40,75,75,75,90};
+                    int xb[] = {40,70,100,100,40,50,60,60,60,70,90,85,80};
+                    int yb[] = {90,120,90,40,40,120,120,110,75,40,75,90,75};
+                    for (int i = 0; i < 13; ++i)
+                        DrawingAlgorithms::drawLine(xa[i] * 2, ya[i] * 2, xb[i] * 2, yb[i] * 2);
+                } else if (drawShape == TEST) {
+                    int xa[] = {10,-2,8,0,3,16,1,-1,1,-1,-1};
+                    int ya[] = {-10,8,8,-7,-9,5,1,0,0,1,-1};
+                    int xb[] = {-10,8,-2,0,16,3,1,1,-1,10,10};
+                    int yb[] = {10,8,8,5,5,-9,1,10,10,-1,1};
+                    for (int i = 0; i < 11; ++i)
+                        DrawingAlgorithms::drawLine(xa[i], ya[i], xb[i], yb[i]);
 
-//                for (int i = 0; i < 18; ++i)
-//                    DrawingAlgorithms::openGLDrawLine((xaFanTest[i] * 2) - 220, yaFanTest[i] * 2, (xbFanTest[i] * 2) - 220, ybFanTest[i] * 2);
+                } else {
+                    output = DrawingAlgorithms::drawLine(startX, startY, finishX, finishY);
+                    //DDA Algorithm
+                    //output = DrawingAlgorithms::dda(startX, startY, finishX, finishY);
+                }
 
-
-
-                //output = DrawingAlgorithms::drawLines(xa,xb,ya,yb,6);
             }
             else if(clickCounter == 1)
             {
@@ -292,11 +340,7 @@ void GLWidget::paintGL()
                 glVertex2i(startX, startY);
                 glEnd();
             }
-            break;
-
-        default: break;
         }
-
         if(!printOnce)
         {
             printOnce = true;

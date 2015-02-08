@@ -18,6 +18,10 @@ Window::Window(MainWindow *mw) : mainWindow(mw)
 	connect(this, SIGNAL(drawMouseLineFromMW()), glWindow, SLOT(drawMouseLine()));
 	connect(this, SIGNAL(drawMousePolyLineFromMW()), glWindow, SLOT(drawMousePolyline()));
 	connect(this, SIGNAL(drawMousePolygonFromMW()), glWindow, SLOT(drawMousePolygon()));
+    connect(this, SIGNAL(drawFanTestFromMW()), glWindow, SLOT(drawFanTest()));
+    connect(this, SIGNAL(drawHouseTestFromMW()), glWindow, SLOT(drawHouseTest()));
+    connect(this, SIGNAL(drawBowTestFromMW()), glWindow, SLOT(drawBowTest()));
+    connect(this, SIGNAL(drawTestFromMW()), glWindow, SLOT(drawTest()));
 	
 	QVBoxLayout* mainLayout = new QVBoxLayout;
 	QHBoxLayout* container = new QHBoxLayout;

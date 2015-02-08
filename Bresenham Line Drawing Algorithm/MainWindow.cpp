@@ -106,12 +106,20 @@ MainWindow::MainWindow()
 	//connect(mousePolygonAct, SIGNAL(triggered()), glWindow, SLOT(drawMousePolygon()));
 
     bowTieAct = new QAction(tr("BowTie"), this);
-    bowTieAct->setStatusTip(tr("Draw a bowtie on screen"));
-    connect(bowTieAct, SIGNAL(triggered()), childWindow, SIGNAL(drawMousePolygonFromMW()));
+    bowTieAct->setStatusTip(tr("Draw a bowtie on screen (Note: You have to click twice on the screen)"));
+    connect(bowTieAct, SIGNAL(triggered()), childWindow, SIGNAL(drawBowTestFromMW()));
 
     houseAct = new QAction(tr("House"), this);
-    houseAct->setStatusTip(tr("Draw a House on screen"));
-    connect(houseAct, SIGNAL(triggered()), childWindow, SIGNAL(drawMousePolygonFromMW()));
+    houseAct->setStatusTip(tr("Draw a House on screen (Note: You have to click twice on the screen)"));
+    connect(houseAct, SIGNAL(triggered()), childWindow, SIGNAL(drawHouseTestFromMW()));
+
+    fanAct = new QAction(tr("Fan"), this);
+    fanAct->setStatusTip(tr("Draw fans on screen (Note: You have to click twice on the screen)"));
+    connect(fanAct, SIGNAL(triggered()), childWindow, SIGNAL(drawFanTestFromMW()));
+
+    testAct = new QAction(tr("TestLines"), this);
+    testAct->setStatusTip(tr("Draw a test image on screen (Note: You have to click twice on the screen)"));
+    connect(testAct, SIGNAL(triggered()), childWindow, SIGNAL(drawTestFromMW()));
 
   }
 
@@ -133,6 +141,11 @@ MainWindow::MainWindow()
 	graphicsMenu = menuBar()->addMenu(tr("&Graphics"));
 	drawMenu = graphicsMenu->addMenu(tr("&Draw"));
 	drawMenu->addAction(diagLineAct);
+
+    //Test Menu
+//    testMenu = menuBar()->addMenu(tr("&Test"));
+//    houseMenu = testMenu->addMenu(tr("&House"));
+//    houseMenu->addAction(houseAct);
 		
 	//The rasterization menu
     rasterizeMenu = graphicsMenu->addMenu(tr("&Rasterize"));
@@ -151,4 +164,6 @@ MainWindow::MainWindow()
     //interactToolBar->addAction(mousePolygonAct);
     interactToolBar->addAction(bowTieAct);
     interactToolBar->addAction(houseAct);
+    interactToolBar->addAction(testAct);
+    interactToolBar->addAction(fanAct);
   }

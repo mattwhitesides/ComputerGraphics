@@ -60,6 +60,8 @@ private:
   QMenu* rasterizeMenu; 
   QMenu* transformMenu;
   QMenu* optionsMenu;
+  QMenu* testMenu;
+  QMenu* houseMenu;
   
   //The toolbar
   QToolBar* interactToolBar;
@@ -78,6 +80,8 @@ private:
   //Actions to create the required shapes
   QAction* bowTieAct;
   QAction* houseAct;
+  QAction* testAct;
+  QAction* fanAct;
 
   Window* childWindow;
   //GLWidget* glWindow;
