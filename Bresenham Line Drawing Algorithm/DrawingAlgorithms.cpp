@@ -146,9 +146,12 @@ QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
     int twoDeltaYMinusTwoDeltaX = twoDeltaY - twoDeltaX;
     int P = twoDeltaY - deltaX;
     int y = ya;
+    int x = xa;
     int yIncrement = (ya < yb) ? 1 : -1;
 
-    //bool isSteep = (deltaY > deltaX);
+
+
+    bool isSteep = (deltaY > deltaX);
     //    if (isSteep) {
     //        swapIntValues(&ya, &xa);
     //        swapIntValues(&yb, &xb);
@@ -165,24 +168,44 @@ QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
 
     //4. At each xk along the line, starting at k = 0, perform the following test. If pk < 0, the next point to plot is (xk+1, yk) and: Pk+1 = Pk + 2Δy
     //   Otherwise, the next point to plot is (xk+1, yk+1) and: Pk+1 = Pk + 2Δy - 2Δ
-    for (int x = (xa + 1); x <= xb; ++x) {
-        if (P < 0) {
+    if (!isSteep) {
+        for (x = (xa + 1); x <= xb; ++x) {
+            if (P < 0) {
 
-            glVertex2i(x,y);
-            output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
+                glVertex2i(x,y);
+                output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
 
-            P = P + twoDeltaY;
-        } else {
-            y += yIncrement;
+                P = P + twoDeltaY;
+            } else {
+                y += yIncrement;
 
-            glVertex2i(x,y);
-            output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
+                glVertex2i(x,y);
+                output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
 
-            P = P + twoDeltaYMinusTwoDeltaX;
+                P = P + twoDeltaYMinusTwoDeltaX;
+            }
+            //5. Repeat Step 4, (Δx – 1) times
         }
-        //5. Repeat Step 4, (Δx – 1) times
-    }
+    } else {
+        int xIncrement = (xa < xb) ? 1 : -1;
+        for (y = (ya + 1); y <= yb; ++y) {
+            if (P < 0) {
 
+                glVertex2i(x,y);
+                output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
+
+                P = P + twoDeltaX;
+            } else {
+                x += xIncrement;
+
+                glVertex2i(x,y);
+                output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
+
+                P = P + twoDeltaX - twoDeltaY;
+            }
+            //5. Repeat Step 4, (Δx – 1) times
+        }
+    }
     glEnd();
 
     return output;
