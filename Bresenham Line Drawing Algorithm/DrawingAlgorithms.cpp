@@ -130,30 +130,35 @@ QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
     int k = 0;
     QVector<QString> output;
 
+    glBegin(GL_POINTS);
+
+    //2. Plot the point (x0, y0)
+    glVertex2i(xa,ya);
+    output.append(DrawingAlgorithms::convertCoordsToString(++k,xa,ya));
+
     const bool isSteep = (abs(yb - ya) > abs(xb - xa));
 
-    if(isSteep)
-    {
+    if(isSteep) {
         std::swap(xa, ya);
         std::swap(xb, yb);
     }
 
-    if(xa > xb)
-    {
+    if(xa > xb) {
         std::swap(xa, xb);
         std::swap(ya, yb);
     }
 
+    //3. Calculate the constants Δx, Δy, 2Δy and get the first value for the decision parameter as: P0 = 2Δy - Δx
     const int dx = xb - xa;
     const int dy = abs(yb - ya);
-
-    float error = dx / 2.0f;
-    const int ystep = (ya < yb) ? 1 : -1;
+    const int twoDy = 2 * dy;
+    int decision = twoDy - dx;
+    const int yIteration = (ya < yb) ? 1 : -1;
     int y = ya;
 
-    glBegin(GL_POINTS);
-
-    for(int x = xa; x < xb; x++) {
+    //4. At each xk along the line, starting at k = 0, perform the following test. If pk < 0, the next point to plot is (xk+1, yk+1) and: Pk+1 = Pk + 2Δy
+    //   Otherwise, the next point to plot is (xk+1, yk+1) and: Pk+1 = Pk + 2Δy - 2Δx
+    for (int x = (xa + 1); x <= xb; x++) {
         if (isSteep) {
             glVertex2i(y,x);
             output.append(DrawingAlgorithms::convertCoordsToString(++k,y,x));
@@ -162,10 +167,10 @@ QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
             output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
         }
 
-        error -= dy;
-        if(error < 0) {
-            y += ystep;
-            error += dx;
+        decision -= dy;
+        if(decision < 0) {
+            y += yIteration;
+            decision += dx;
         }
     }
 
