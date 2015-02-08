@@ -60,12 +60,101 @@ QVector<QString> DrawingAlgorithms::dda(int xa, int ya, int xb, int yb)
     return output;
 }
 
+QVector<QString> DrawingAlgorithms::drawVertical(int xa, int ya, int yb) {
+    int k = 0;
+    QVector<QString> output;
+
+    glBegin(GL_POINTS);
+    if (ya < yb) {
+        for (int y = ya; y <= yb; ++y) {
+            glVertex2i(xa,y);
+            output.append(DrawingAlgorithms::convertCoordsToString(++k,xa,y));
+        }
+    } else {
+        for (int y = ya; y >= yb; --y) {
+            glVertex2i(xa,y);
+            output.append(DrawingAlgorithms::convertCoordsToString(++k,xa,y));
+        }
+    }
+    glEnd();
+    return output;
+}
+
+QVector<QString> DrawingAlgorithms::drawHorizontal(int xa, int ya, int xb) {
+    int k = 0;
+    QVector<QString> output;
+
+    glBegin(GL_POINTS);
+    if (xa < xb) {
+        for (int x = xa; x <= xb; ++x) {
+            glVertex2i(x,ya);
+            output.append(DrawingAlgorithms::convertCoordsToString(++k,x,ya));
+        }
+    } else {
+        for (int x = xa; x >= xb; --x) {
+            glVertex2i(x,ya);
+            output.append(DrawingAlgorithms::convertCoordsToString(++k,x,ya));
+        }
+    }
+    glEnd();
+    return output;
+}
+
+QVector<QString> DrawingAlgorithms::drawForteyFive(int xa, int ya, int xb) {
+    int k = 0;
+    QVector<QString> output;
+
+    glBegin(GL_POINTS);
+    if (xa < xb) {
+        for (int x = xa; x <= xb; ++x) {
+            glVertex2i(x,++ya);
+            output.append(DrawingAlgorithms::convertCoordsToString(++k,x,ya + 1));
+        }
+    } else {
+        for (int x = xa; x >= xb; --x) {
+            glVertex2i(x,++ya);
+            output.append(DrawingAlgorithms::convertCoordsToString(++k,x,ya + 1));
+        }
+    }
+    glEnd();
+    return output;
+}
+
+
+
 /*<<<<<<<<<<<<<<<<<<<<<drawLine>>>>>>>>>>>>>>>>>>>>>>>>*/
 //1. Input the two line end-points, storing the left endpointin (x0, y0)
 QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
 {
-    QVector<QString> output;
     int k = 0;
+
+    int deltaX = (xb - xa);
+    int deltaY = (yb - ya);
+
+    //Check if the line is vertical
+    if (deltaX == 0) return drawVertical(xa,ya,yb);
+
+    //Check if the line is horizontal
+    if (deltaY == 0) return drawHorizontal(xa,ya,xb);
+
+    //Check if the slope is exactly 45
+    if (deltaX == deltaY) return drawForteyFive(xa,ya,xb);
+
+    //3. Calculate the constants Δx, Δy, 2Δy, and (2Δy - 2Δx) and get the first value for the decision parameter as: P0 = 2Δy - Δx
+    int twoDeltaY = 2 * deltaY;
+    int twoDeltaX = 2 * deltaX;
+    int twoDeltaYMinusTwoDeltaX = twoDeltaY - twoDeltaX;
+    int P = twoDeltaY - deltaX;
+    int y = ya;
+    int yIncrement = (ya < yb) ? 1 : -1;
+
+    //bool isSteep = (deltaY > deltaX);
+    //    if (isSteep) {
+    //        swapIntValues(&ya, &xa);
+    //        swapIntValues(&yb, &xb);
+    //    }
+
+    QVector<QString> output;
 
     glBegin(GL_POINTS);
 
@@ -73,157 +162,25 @@ QVector<QString> DrawingAlgorithms::drawLine(int xa, int ya, int xb, int yb)
     glVertex2i(xa,ya);
     output.append(DrawingAlgorithms::convertCoordsToString(++k,xa,ya));
 
-    //3. Calculate the constants Δx, Δy, 2Δy, and (2Δy - 2Δx) and get the first value for the decision parameter as: P0 = 2Δy - Δx
-    int deltaX = (xb - xa);
-    int deltaY = (yb - ya);
 
-    //Check if the line is vertical
-    if (deltaX == 0) {
-        if (ya < yb) {
-            for (int y = (ya + 1); y <= yb; ++y) {
-                glVertex2i(xa,y);
-                output.append(DrawingAlgorithms::convertCoordsToString(++k,xa,y));
-            }
+    //4. At each xk along the line, starting at k = 0, perform the following test. If pk < 0, the next point to plot is (xk+1, yk) and: Pk+1 = Pk + 2Δy
+    //   Otherwise, the next point to plot is (xk+1, yk+1) and: Pk+1 = Pk + 2Δy - 2Δ
+    for (int x = (xa + 1); x <= xb; ++x) {
+        if (P < 0) {
+
+            glVertex2i(x,y);
+            output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
+
+            P = P + twoDeltaY;
         } else {
-            for (int y = (ya - 1); y >= yb; --y) {
-                glVertex2i(xa,y);
-                output.append(DrawingAlgorithms::convertCoordsToString(++k,xa,y));
-            }
+            y += yIncrement;
+
+            glVertex2i(x,y);
+            output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
+
+            P = P + twoDeltaYMinusTwoDeltaX;
         }
-
-        glEnd();
-        return output;
-    }
-    //Check if the line is horizontal
-    if (deltaY == 0) {
-        if (xa < xb) {
-            for (int x = (xa + 1); x <= xb; ++x) {
-                glVertex2i(x,ya);
-                output.append(DrawingAlgorithms::convertCoordsToString(++k,x,ya));
-            }
-        } else {
-            for (int x = (xa - 1); x >= xb; --x) {
-                glVertex2i(x,ya);
-                output.append(DrawingAlgorithms::convertCoordsToString(++k,x,ya));
-            }
-        }
-
-        glEnd();
-        return output;
-    }
-    //Check if the slope is exactly 45
-    if (deltaX == deltaY) {
-        if (xa < xb) {
-            for (int x = xa; x <= xb; ++x) {
-                glVertex2i(x,++ya);
-                output.append(DrawingAlgorithms::convertCoordsToString(++k,x,ya + 1));
-            }
-        } else {
-            for (int x = xa; x >= xb; --x) {
-                glVertex2i(x,++ya);
-                output.append(DrawingAlgorithms::convertCoordsToString(++k,x,ya + 1));
-            }
-        }
-
-        glEnd();
-        return output;
-    }
-
-
-    int twoDeltaY = 2 * deltaY;
-    int twoDeltaX = 2 * deltaX;
-    int twoDeltaYMinusTwoDeltaX = twoDeltaY - twoDeltaX;
-    int P = twoDeltaY - deltaX;
-    int y = ya;
-
-    bool isSteep = (deltaY > deltaX);
-    //    if (isSteep) {
-    //        swapIntValues(&ya, &xa);
-    //        swapIntValues(&yb, &xb);
-    //    }
-
-    if (xa < xb) {
-        //4. At each xk along the line, starting at k = 0, perform the following test. If pk < 0, the next point to plot is (xk+1, yk) and: Pk+1 = Pk + 2Δy
-        //   Otherwise, the next point to plot is (xk+1, yk+1) and: Pk+1 = Pk + 2Δy - 2Δ
-        if (!isSteep) {
-            for (int x = (xa + 1); x <= xb; ++x) {
-                if (P < 0) {
-
-                    glVertex2i(x,y);
-                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
-
-                    P = P + twoDeltaY;
-                } else {
-                    ++y;
-
-                    glVertex2i(x,y);
-                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
-
-                    P = P + twoDeltaYMinusTwoDeltaX;
-                }
-                //5. Repeat Step 4, (Δx – 1) times
-            }
-        } else {
-            int x = xa;
-            for (y = (ya + 1); y <= yb; ++y) {
-                if (P < 0) {
-
-                    glVertex2i(x,y);
-                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
-
-                    P = P + twoDeltaX;
-                } else {
-                    ++x;
-
-                    glVertex2i(x,y);
-                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
-
-                    P = P + twoDeltaX - twoDeltaY;
-                }
-                //5. Repeat Step 4, (Δx – 1) times
-            }
-        }
-    } else {
-        //4. At each xk along the line, starting at k = 0, perform the following test. If pk < 0, the next point to plot is (xk+1, yk) and: Pk+1 = Pk + 2Δy
-        //   Otherwise, the next point to plot is (xk+1, yk+1) and: Pk+1 = Pk + 2Δy - 2Δ
-        if (!isSteep) {
-            for (int x = (xa - 1); x >= xb; --x) {
-                if (P < 0) {
-
-                    glVertex2i(x,y);
-                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
-
-                    P = P + twoDeltaY;
-                } else {
-                    ++y;
-
-                    glVertex2i(x,y);
-                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
-
-                    P = P + twoDeltaYMinusTwoDeltaX;
-                }
-                //5. Repeat Step 4, (Δx – 1) times
-            }
-        } else {
-            int x = xa;
-            for (y = (ya - 1); y >= yb; --y) {
-                if (P < 0) {
-
-                    glVertex2i(x,y);
-                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
-
-                    P = P + twoDeltaX;
-                } else {
-                    ++x;
-
-                    glVertex2i(x,y);
-                    output.append(DrawingAlgorithms::convertCoordsToString(++k,x,y));
-
-                    P = P + twoDeltaX - twoDeltaY;
-                }
-                //5. Repeat Step 4, (Δx – 1) times
-            }
-        }
+        //5. Repeat Step 4, (Δx – 1) times
     }
 
     glEnd();

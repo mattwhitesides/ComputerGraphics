@@ -49,6 +49,12 @@ public:
     */
     static QVector<QString> drawLines(int xa[], int ya[], int xb[], int yb[], int size);
 
+    static QVector<QString> drawForteyFive(int xa, int ya, int xb);
+
+    static QVector<QString> drawVertical(int xa, int ya, int yb);
+
+    static QVector<QString> drawHorizontal(int xa, int ya, int xb);
+
     /*<<<<<<<<<<<<<<<<<<<<<drawLines>>>>>>>>>>>>>>>>>>>>>>>>
     // Draws a single pixel at a given x and y coord
 
