@@ -1,0 +1,52 @@
+Assignment 2:
+
+  1. Polyline drawing
+    -Mouse event processing (Qt)
+    -GLLines allowed
+      GL_LINES, GL_LINE_STRIP
+
+  2. Polygon Drawing
+    -GL_LINE_LOOP
+    -GL_POLYGON (Determines inside/outside for coloring)
+
+  3. Circle Drawing
+    -glLogicOps() for exclusive or drawings
+
+  4. Ellipse Drawing
+    -Symmetry
+
+      Parametric: X = Xsub(c) + Rsub(x) * CosTheta
+                  Y = Ysub(c) + Rsub(y) * SinTheta
+
+    -When done with the drawing
+
+        4 Segments:
+
+          1. Input Rsub(x), Rsub(y) Draw (Xsub(0),Ysub(0)) = (r,Rsub(y))
+          2. Init
+              Segment1: Psub(0) = squrt(Rsub(y)) - squrt(Rsub(x)) * Rsub(y) + (1/4) * squrt(Rsub(x))
+          3. For each x in segment 1
+
+              (Failed at note taking)
+
+
+
+
+    Ex: Circle R = 10;
+
+      Psub(0) = 1 - 10 = -9
+      Psub(k + 1) = Psub(k) + 2Xsub(k + 1) + 1 if Psub(k) < 0, East Step
+      Psub(k) = Psub(k) + 2Xsub(k + 1) - 2Ysub(k + 1) >= 0, South East Step
+
+      K   Xsub(k),Ysub(k)   Psub(k)
+
+      0   (0,10)            -9
+      1   (1,10)            -6 = -9 + 2(1) + 1
+      2   (2,10)            -1 = -6 + 4 + 1
+      3   (3,10)            +6 = -1 + 6 + 1
+      4   (4, 9)            -4 = +6 + 8 - 18
+      5   (5, 9)            +7 = -4 + 10 + 1
+      6   (6, 8)            +3 = +7 + 12 - 16
+      7   (7, 7)            +3 = +3 + 14 - 14
+
+      Loop ends if (x >= y)
