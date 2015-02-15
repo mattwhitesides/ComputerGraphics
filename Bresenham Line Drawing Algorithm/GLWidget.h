@@ -12,6 +12,11 @@
 #include <QGLWidget>
 #include <QString>
 
+typedef struct coord {
+    int x;
+    int y;
+} Coord;
+
 class PrintDialog;
 class LineDialog;
 
@@ -150,6 +155,11 @@ public slots:
   void drawHouseTest();
 
   void drawTest();
+
+  /*---------------------drawCircle-------------------
+    Enables interactive circle drawing
+  */
+  void drawCircle();
 
 
 signals:

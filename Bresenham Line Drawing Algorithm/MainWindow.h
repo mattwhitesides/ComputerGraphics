@@ -1,7 +1,7 @@
 /*
-	MainWindow.h - MainWindow class declaration. 
-	Written by:
-	Anoop Haridas
+    MainWindow.h - MainWindow class declaration.
+    Written by:
+    Anoop Haridas
 */
 
 #ifndef MAINWINDOW_H
@@ -24,67 +24,68 @@ Main container for all the widgets
 */
 class MainWindow : public QMainWindow
 {
-  Q_OBJECT
+    Q_OBJECT
 
 public:
-  
-  MainWindow(); 
-  
+
+    MainWindow();
+
 public slots:
 
-  /*
+    /*
   A slot to change the status bar when the mouse moves
   */
-  void updateStatusLabel(int x, int y);
+    void updateStatusLabel(int x, int y);
 
 private:
-  /*
+    /*
   Creates the actions triggered by the popup menus and toolbar icons
   */
-  void createActions();
-  
-  /*
-  Creates the popup menus 
-  */
-  void createMenus();
+    void createActions();
 
-  /*
+    /*
+  Creates the popup menus
+  */
+    void createMenus();
+
+    /*
   Creates the toolbar and icon buttons
   */
-  void createToolBar();
+    void createToolBar();
 
-  //The menus
-  QMenu* fileMenu;
-  QMenu* graphicsMenu;
-  QMenu* drawMenu;     
-  QMenu* rasterizeMenu; 
-  QMenu* transformMenu;
-  QMenu* optionsMenu;
-  QMenu* testMenu;
-  QMenu* houseMenu;
-  
-  //The toolbar
-  QToolBar* interactToolBar;
+    //The menus
+    QMenu* fileMenu;
+    QMenu* graphicsMenu;
+    QMenu* drawMenu;
+    QMenu* rasterizeMenu;
+    QMenu* transformMenu;
+    QMenu* optionsMenu;
+    QMenu* testMenu;
+    QMenu* houseMenu;
 
-  //The actions triggered by the menu and toolbar
-  QAction* printAct;
-  QAction* exitAct;
+    //The toolbar
+    QToolBar* interactToolBar;
 
-  QAction* colorAct;
+    //The actions triggered by the menu and toolbar
+    QAction* printAct;
+    QAction* exitAct;
 
-  QAction* diagLineAct;
-  QAction* mouseLineAct;  
-  QAction* mousePolylineAct;
-  QAction* mousePolygonAct;
+    QAction* colorAct;
 
-  //Actions to create the required shapes
-  QAction* bowTieAct;
-  QAction* houseAct;
-  QAction* testAct;
-  QAction* fanAct;
+    QAction* diagLineAct;
+    QAction* mouseLineAct;
+    QAction* mousePolylineAct;
+    QAction* mousePolygonAct;
 
-  Window* childWindow;
-  //GLWidget* glWindow;
+    //Actions to create the required shapes
+    QAction* bowTieAct;
+    QAction* houseAct;
+    QAction* testAct;
+    QAction* fanAct;
+    QAction* drawCircleAct;
+
+    Window* childWindow;
+    //GLWidget* glWindow;
 
 private slots:
 

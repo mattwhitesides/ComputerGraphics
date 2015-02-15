@@ -26,6 +26,7 @@ signals:
     void drawHouseTestFromMW();
     void drawBowTestFromMW();
     void drawTestFromMW();
+    void drawCircleFromMW();
 	
 private:
 	

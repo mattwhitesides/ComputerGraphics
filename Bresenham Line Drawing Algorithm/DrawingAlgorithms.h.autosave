@@ -82,6 +82,14 @@ public:
     //Test to see what OpenGL's line drawings look like
     static void openGLDrawLine(int xa, int ya, int xb, int yb);
 
+    /*<<<<<<<<<<<<<<<<<<swapIntValues>>>>>>>>>>>>>>>
+    Swaps the values of two given ints
+    Input:
+        QList<Coord> coords
+            A list of coordnate values using the Coord struct
+    Return:
+        A Vector List of Strings based on the output of the algorithem
+    */    
     static QVector<QString> drawPolyLine(QList<Coord> coords);
 
 private:

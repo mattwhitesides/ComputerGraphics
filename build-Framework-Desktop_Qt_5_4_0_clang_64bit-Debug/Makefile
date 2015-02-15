@@ -176,6 +176,7 @@ DIST          = ../../../../Qt/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/spec_post.prf \
+		../Bresenham Line Drawing Algorithm/.qmake.stash \
 		../../../../Qt/5.4/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/default_pre.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -356,6 +357,7 @@ Makefile: ../Bresenham\ Line\ Drawing\ Algorithm/Framework.pro ../../../../Qt/5.
 		../../../../Qt/5.4/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Qt/5.4/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/default_pre.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -489,6 +491,7 @@ Makefile: ../Bresenham\ Line\ Drawing\ Algorithm/Framework.pro ../../../../Qt/5.
 ../../../../Qt/5.4/clang_64/mkspecs/features/qt_config.prf:
 ../../../../Qt/5.4/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../../Qt/5.4/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Qt/5.4/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/5.4/clang_64/mkspecs/features/default_pre.prf:
 ../../../../Qt/5.4/clang_64/mkspecs/features/mac/default_pre.prf:
@@ -836,7 +839,11 @@ PrintDialog.o: ../Bresenham\ Line\ Drawing\ Algorithm/PrintDialog.cpp ../Bresenh
 DrawingAlgorithms.o: ../Bresenham\ Line\ Drawing\ Algorithm/DrawingAlgorithms.cpp ../Bresenham\ Line\ Drawing\ Algorithm/DrawingAlgorithms.h \
 		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QVector \
 		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
-		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h
+		../Bresenham\ Line\ Drawing\ Algorithm/GLWidget.h \
+		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
+		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DrawingAlgorithms.o ../Bresenham\ Line\ Drawing\ Algorithm/DrawingAlgorithms.cpp
 
 moc_GLWidget.o: moc_GLWidget.cpp 

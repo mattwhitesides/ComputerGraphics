@@ -207,7 +207,7 @@ void DrawingAlgorithms::drawPoint(int x, int y) {
 //Use OpenGL to draw a line for testing
 void DrawingAlgorithms::openGLDrawLine(int xa, int ya, int xb, int yb) {
     //    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLineWidth(1);
+    glLineWidth(3);
     glColor3f(0.0f, 1.0f, 0.0f);
 
     glBegin(GL_LINES);
@@ -216,6 +216,37 @@ void DrawingAlgorithms::openGLDrawLine(int xa, int ya, int xb, int yb) {
     glVertex2i((GLint) xb, (GLint) yb);
 
     glEnd();
+}
+
+QVector<QString> DrawingAlgorithms::drawPolyLine(QList<Coord> coords) {
+    QVector<QString> output;
+    glLineWidth(3);
+
+    int i = 0;
+    glBegin(GL_LINES);
+
+    glVertex2i((GLint) coords[0].x, (GLint) coords[0].y);
+    glVertex2i((GLint) coords[1].x, (GLint) coords[1].y);
+    output.append(DrawingAlgorithms::convertCoordsToString(i, roundf2(coords[0].x), roundf2(coords[0].y)));
+
+    for (i = 1; i < coords.size(); ++i) {
+        glVertex2i((GLint) coords[i - 1].x, (GLint) coords[i - 1].y);
+        glVertex2i((GLint) coords[i].x, (GLint) coords[i].y);
+        output.append(DrawingAlgorithms::convertCoordsToString(i, roundf2(coords[i].x), roundf2(coords[i].y)));
+    }
+
+    glVertex2i((GLint) coords[0].x, (GLint) coords[0].y);
+    glVertex2i((GLint) coords[i - 1].x, (GLint) coords[i - 1].y);
+    output.append(DrawingAlgorithms::convertCoordsToString(i, roundf2(coords[0].x), roundf2(coords[0].y)));
+
+    glEnd();
+
+    return output;
+}
+
+QVector<QString> DrawingAlgorithms::drawCircle(int xa, int ya, int xb, int yb) {
+    QVector<QString> output;
+    return output;
 }
 
 //Swicthes the values of two given values

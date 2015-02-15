@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_GLWidget_t {
-    QByteArrayData data[21];
-    char stringdata[207];
+    QByteArrayData data[22];
+    char stringdata[218];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -49,7 +49,8 @@ QT_MOC_LITERAL(16, 148, 11), // "chooseColor"
 QT_MOC_LITERAL(17, 160, 11), // "drawFanTest"
 QT_MOC_LITERAL(18, 172, 11), // "drawBowTest"
 QT_MOC_LITERAL(19, 184, 13), // "drawHouseTest"
-QT_MOC_LITERAL(20, 198, 8) // "drawTest"
+QT_MOC_LITERAL(20, 198, 8), // "drawTest"
+QT_MOC_LITERAL(21, 207, 10) // "drawCircle"
 
     },
     "GLWidget\0mouseMoved\0\0x\0y\0togglePrintDialog\0"
@@ -57,7 +58,7 @@ QT_MOC_LITERAL(20, 198, 8) // "drawTest"
     "y1\0x2\0y2\0drawMouseLine\0drawMousePolyline\0"
     "drawMousePolygon\0clearWindow\0chooseColor\0"
     "drawFanTest\0drawBowTest\0drawHouseTest\0"
-    "drawTest"
+    "drawTest\0drawCircle"
 };
 #undef QT_MOC_LITERAL
 
@@ -67,7 +68,7 @@ static const uint qt_meta_data_GLWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -75,21 +76,22 @@ static const uint qt_meta_data_GLWidget[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   79,    2, 0x06 /* Public */,
+       1,    2,   84,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    0,   84,    2, 0x0a /* Public */,
-       6,    0,   85,    2, 0x0a /* Public */,
-       7,    4,   86,    2, 0x0a /* Public */,
-      12,    0,   95,    2, 0x0a /* Public */,
-      13,    0,   96,    2, 0x0a /* Public */,
-      14,    0,   97,    2, 0x0a /* Public */,
-      15,    0,   98,    2, 0x0a /* Public */,
-      16,    0,   99,    2, 0x0a /* Public */,
-      17,    0,  100,    2, 0x0a /* Public */,
-      18,    0,  101,    2, 0x0a /* Public */,
-      19,    0,  102,    2, 0x0a /* Public */,
-      20,    0,  103,    2, 0x0a /* Public */,
+       5,    0,   89,    2, 0x0a /* Public */,
+       6,    0,   90,    2, 0x0a /* Public */,
+       7,    4,   91,    2, 0x0a /* Public */,
+      12,    0,  100,    2, 0x0a /* Public */,
+      13,    0,  101,    2, 0x0a /* Public */,
+      14,    0,  102,    2, 0x0a /* Public */,
+      15,    0,  103,    2, 0x0a /* Public */,
+      16,    0,  104,    2, 0x0a /* Public */,
+      17,    0,  105,    2, 0x0a /* Public */,
+      18,    0,  106,    2, 0x0a /* Public */,
+      19,    0,  107,    2, 0x0a /* Public */,
+      20,    0,  108,    2, 0x0a /* Public */,
+      21,    0,  109,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    3,    4,
@@ -98,6 +100,7 @@ static const uint qt_meta_data_GLWidget[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int,    8,    9,   10,   11,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -129,6 +132,7 @@ void GLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 10: _t->drawBowTest(); break;
         case 11: _t->drawHouseTest(); break;
         case 12: _t->drawTest(); break;
+        case 13: _t->drawCircle(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -168,13 +172,13 @@ int GLWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 14)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }
