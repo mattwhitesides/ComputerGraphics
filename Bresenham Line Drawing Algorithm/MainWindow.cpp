@@ -90,6 +90,10 @@ void MainWindow::createActions()
     connect(diagLineAct, SIGNAL(triggered()), childWindow, SIGNAL(drawDialogLineFromMW()));
     //connect(diagLineAct, SIGNAL(triggered()), glWindow, SLOT(drawDialogLine()));
 
+    diagCircleAct = new QAction(tr("Circle"), this);
+    diagCircleAct->setStatusTip(tr("Open dialog for circle drawing"));
+    connect(diagCircleAct, SIGNAL(triggered()), childWindow, SIGNAL(drawDialogCircleFromMW()));
+
     mouseLineAct  = new QAction(tr("Line"), this);
     mouseLineAct->setStatusTip(tr("Activate mouse line drawing"));
     connect(mouseLineAct, SIGNAL(triggered()), childWindow, SIGNAL(drawMouseLineFromMW()));
@@ -144,6 +148,7 @@ void MainWindow::createMenus()
     graphicsMenu = menuBar()->addMenu(tr("&Graphics"));
     drawMenu = graphicsMenu->addMenu(tr("&Draw"));
     drawMenu->addAction(diagLineAct);
+    drawMenu->addAction(diagCircleAct);
 
     //Test Menu
     //    testMenu = menuBar()->addMenu(tr("&Test"));

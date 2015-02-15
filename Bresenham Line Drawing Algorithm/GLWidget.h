@@ -19,6 +19,7 @@ typedef struct coord {
 
 class PrintDialog;
 class LineDialog;
+class CircleDialog;
 
 /*
 Note:  When an QGLWidget type is created the following happens immediately in this order:\
@@ -117,11 +118,22 @@ public slots:
   */
   void drawDialogLine();
 
+  /*---------------------drawDialogCircle---------------------
+  Invokes the line input dialog, then enables line drawing
+  */
+  void drawDialogCircle();
+
   /*---------------------updateDialogLine-------------------
   Updates the line variables from dialog
   Input: int x1, y1, x2, y2: the line endpoints
   */
   void updateDialogLine(int x1, int y1, int x2, int y2);
+
+  /*---------------------updateDialogCircle-------------------
+  Updates the circle variables from dialog
+  Input: int x1, y1, r: the line endpoints and radius
+  */
+  void updateDialogCircle(int x1, int y1, int r);
 
   /*---------------------drawMouseLine----------------------
   Enables interactive line drawing
@@ -204,7 +216,7 @@ private:
   void clearShapeVariables();
 
   //The end point coordinates for the DDA line
-  int startX, startY, finishX, finishY;
+  int startX, startY, finishX, finishY, radius;
 
   //The current line color
   GLubyte lineColor[3];
@@ -228,6 +240,7 @@ private:
 
   PrintDialog* printDiag;
   LineDialog* lineDiag;
+  CircleDialog* circleDiag;
 };
 
 #endif

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_GLWidget_t {
-    QByteArrayData data[22];
-    char stringdata[218];
+    QByteArrayData data[25];
+    char stringdata[256];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,29 +36,34 @@ QT_MOC_LITERAL(3, 21, 1), // "x"
 QT_MOC_LITERAL(4, 23, 1), // "y"
 QT_MOC_LITERAL(5, 25, 17), // "togglePrintDialog"
 QT_MOC_LITERAL(6, 43, 14), // "drawDialogLine"
-QT_MOC_LITERAL(7, 58, 16), // "updateDialogLine"
-QT_MOC_LITERAL(8, 75, 2), // "x1"
-QT_MOC_LITERAL(9, 78, 2), // "y1"
-QT_MOC_LITERAL(10, 81, 2), // "x2"
-QT_MOC_LITERAL(11, 84, 2), // "y2"
-QT_MOC_LITERAL(12, 87, 13), // "drawMouseLine"
-QT_MOC_LITERAL(13, 101, 17), // "drawMousePolyline"
-QT_MOC_LITERAL(14, 119, 16), // "drawMousePolygon"
-QT_MOC_LITERAL(15, 136, 11), // "clearWindow"
-QT_MOC_LITERAL(16, 148, 11), // "chooseColor"
-QT_MOC_LITERAL(17, 160, 11), // "drawFanTest"
-QT_MOC_LITERAL(18, 172, 11), // "drawBowTest"
-QT_MOC_LITERAL(19, 184, 13), // "drawHouseTest"
-QT_MOC_LITERAL(20, 198, 8), // "drawTest"
-QT_MOC_LITERAL(21, 207, 10) // "drawCircle"
+QT_MOC_LITERAL(7, 58, 16), // "drawDialogCircle"
+QT_MOC_LITERAL(8, 75, 16), // "updateDialogLine"
+QT_MOC_LITERAL(9, 92, 2), // "x1"
+QT_MOC_LITERAL(10, 95, 2), // "y1"
+QT_MOC_LITERAL(11, 98, 2), // "x2"
+QT_MOC_LITERAL(12, 101, 2), // "y2"
+QT_MOC_LITERAL(13, 104, 18), // "updateDialogCircle"
+QT_MOC_LITERAL(14, 123, 1), // "r"
+QT_MOC_LITERAL(15, 125, 13), // "drawMouseLine"
+QT_MOC_LITERAL(16, 139, 17), // "drawMousePolyline"
+QT_MOC_LITERAL(17, 157, 16), // "drawMousePolygon"
+QT_MOC_LITERAL(18, 174, 11), // "clearWindow"
+QT_MOC_LITERAL(19, 186, 11), // "chooseColor"
+QT_MOC_LITERAL(20, 198, 11), // "drawFanTest"
+QT_MOC_LITERAL(21, 210, 11), // "drawBowTest"
+QT_MOC_LITERAL(22, 222, 13), // "drawHouseTest"
+QT_MOC_LITERAL(23, 236, 8), // "drawTest"
+QT_MOC_LITERAL(24, 245, 10) // "drawCircle"
 
     },
     "GLWidget\0mouseMoved\0\0x\0y\0togglePrintDialog\0"
-    "drawDialogLine\0updateDialogLine\0x1\0"
-    "y1\0x2\0y2\0drawMouseLine\0drawMousePolyline\0"
-    "drawMousePolygon\0clearWindow\0chooseColor\0"
-    "drawFanTest\0drawBowTest\0drawHouseTest\0"
-    "drawTest\0drawCircle"
+    "drawDialogLine\0drawDialogCircle\0"
+    "updateDialogLine\0x1\0y1\0x2\0y2\0"
+    "updateDialogCircle\0r\0drawMouseLine\0"
+    "drawMousePolyline\0drawMousePolygon\0"
+    "clearWindow\0chooseColor\0drawFanTest\0"
+    "drawBowTest\0drawHouseTest\0drawTest\0"
+    "drawCircle"
 };
 #undef QT_MOC_LITERAL
 
@@ -68,7 +73,7 @@ static const uint qt_meta_data_GLWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -76,22 +81,24 @@ static const uint qt_meta_data_GLWidget[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   84,    2, 0x06 /* Public */,
+       1,    2,   94,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    0,   89,    2, 0x0a /* Public */,
-       6,    0,   90,    2, 0x0a /* Public */,
-       7,    4,   91,    2, 0x0a /* Public */,
-      12,    0,  100,    2, 0x0a /* Public */,
-      13,    0,  101,    2, 0x0a /* Public */,
-      14,    0,  102,    2, 0x0a /* Public */,
-      15,    0,  103,    2, 0x0a /* Public */,
-      16,    0,  104,    2, 0x0a /* Public */,
-      17,    0,  105,    2, 0x0a /* Public */,
-      18,    0,  106,    2, 0x0a /* Public */,
-      19,    0,  107,    2, 0x0a /* Public */,
-      20,    0,  108,    2, 0x0a /* Public */,
-      21,    0,  109,    2, 0x0a /* Public */,
+       5,    0,   99,    2, 0x0a /* Public */,
+       6,    0,  100,    2, 0x0a /* Public */,
+       7,    0,  101,    2, 0x0a /* Public */,
+       8,    4,  102,    2, 0x0a /* Public */,
+      13,    3,  111,    2, 0x0a /* Public */,
+      15,    0,  118,    2, 0x0a /* Public */,
+      16,    0,  119,    2, 0x0a /* Public */,
+      17,    0,  120,    2, 0x0a /* Public */,
+      18,    0,  121,    2, 0x0a /* Public */,
+      19,    0,  122,    2, 0x0a /* Public */,
+      20,    0,  123,    2, 0x0a /* Public */,
+      21,    0,  124,    2, 0x0a /* Public */,
+      22,    0,  125,    2, 0x0a /* Public */,
+      23,    0,  126,    2, 0x0a /* Public */,
+      24,    0,  127,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    3,    4,
@@ -99,7 +106,9 @@ static const uint qt_meta_data_GLWidget[] = {
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int,    8,    9,   10,   11,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int,    9,   10,   11,   12,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,    9,   10,   14,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -122,17 +131,19 @@ void GLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 0: _t->mouseMoved((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 1: _t->togglePrintDialog(); break;
         case 2: _t->drawDialogLine(); break;
-        case 3: _t->updateDialogLine((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
-        case 4: _t->drawMouseLine(); break;
-        case 5: _t->drawMousePolyline(); break;
-        case 6: _t->drawMousePolygon(); break;
-        case 7: _t->clearWindow(); break;
-        case 8: _t->chooseColor(); break;
-        case 9: _t->drawFanTest(); break;
-        case 10: _t->drawBowTest(); break;
-        case 11: _t->drawHouseTest(); break;
-        case 12: _t->drawTest(); break;
-        case 13: _t->drawCircle(); break;
+        case 3: _t->drawDialogCircle(); break;
+        case 4: _t->updateDialogLine((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
+        case 5: _t->updateDialogCircle((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 6: _t->drawMouseLine(); break;
+        case 7: _t->drawMousePolyline(); break;
+        case 8: _t->drawMousePolygon(); break;
+        case 9: _t->clearWindow(); break;
+        case 10: _t->chooseColor(); break;
+        case 11: _t->drawFanTest(); break;
+        case 12: _t->drawBowTest(); break;
+        case 13: _t->drawHouseTest(); break;
+        case 14: _t->drawTest(); break;
+        case 15: _t->drawCircle(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -172,13 +183,13 @@ int GLWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 16;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 16)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 14;
+        _id -= 16;
     }
     return _id;
 }

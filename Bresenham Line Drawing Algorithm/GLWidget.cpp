@@ -7,6 +7,7 @@
 
 #include "GLWidget.h"
 #include "LineDialog.h"
+#include "CircleDialog.h"
 
 #include "PrintDialog.h"
 #include "DrawingAlgorithms.h"
@@ -62,6 +63,12 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
     lineDiag->setModal(false);
     lineDiag->setVisible(false);
     connect(lineDiag, SIGNAL(valuesUpdated(int, int, int, int)), this, SLOT(updateDialogLine(int, int, int, int)));
+
+    //Input that comes up when selecting Graphics->Draw->Circle
+    circleDiag = new CircleDialog(this);
+    circleDiag->setModal(false);
+    circleDiag->setVisible(false);
+    connect(circleDiag, SIGNAL(valuesUpdated(int, int, int)), this, SLOT(updateDialogCircle(int, int, int)));
 
     // The following code allows for animated graphics by attempting to refresh the screen at 50fps.
     //	STEP 1: Create a timer
@@ -131,6 +138,15 @@ void GLWidget::drawDialogLine()
     lineDiag->show();
 }
 
+//------------------------GLWidget::drawDialogCircle--------------------------
+void GLWidget::drawDialogCircle()
+{
+    drawMode = GLWidget::DIALOG;
+    shapeMode = GLWidget::CIRCLE;
+    clearShapeVariables();
+    circleDiag->show();
+}
+
 /*-----------------------GLWidget::updateDialogLine-------------------------*/
 void GLWidget::updateDialogLine(int x1, int y1, int x2, int y2)
 {
@@ -143,6 +159,22 @@ void GLWidget::updateDialogLine(int x1, int y1, int x2, int y2)
     startY = y1;
     finishX = x2;
     finishY = y2;
+
+    areShapesClear = false;       //Indicate a shape is ready to draw
+    printOnce = false;            //Clear to allow the results to print once
+}
+
+/*-----------------------GLWidget::updateDialogCircle-------------------------*/
+void GLWidget::updateDialogCircle(int x, int y, int r)
+{
+    drawMode = GLWidget::DIALOG;  //Set the drawing mode to dialog
+    shapeMode = GLWidget::CIRCLE;   //Set shape to LINE
+    clearShapeVariables();        //Clear the state variables
+
+    //Set the line variables
+    startX = x;
+    startY = y;
+    radius = r;
 
     areShapesClear = false;       //Indicate a shape is ready to draw
     printOnce = false;            //Clear to allow the results to print once
@@ -321,7 +353,8 @@ void GLWidget::paintGL()
             if(clickCounter == 0 || (drawMode == GLWidget::DIALOG))
             {
                 //Circle Algorithm
-                output = DrawingAlgorithms::drawCircle(startX, startY, finishX, finishY);
+                if (drawMode == GLWidget::MOUSE) radius = sqrt(pow((finishX - startX),2) + pow((finishY - startY),2));
+                output = DrawingAlgorithms::drawCircle(startX, startY, radius);
             }
             else if(clickCounter == 1)
             {

@@ -49,16 +49,19 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../Bresenham\ Line\ Drawing\ Algorithm/main.cpp \
+		../Bresenham\ Line\ Drawing\ Algorithm/CircleDialog.cpp \
 		../Bresenham\ Line\ Drawing\ Algorithm/Window.cpp \
 		../Bresenham\ Line\ Drawing\ Algorithm/MainWindow.cpp \
 		../Bresenham\ Line\ Drawing\ Algorithm/GLWidget.cpp \
 		../Bresenham\ Line\ Drawing\ Algorithm/LineDialog.cpp \
 		../Bresenham\ Line\ Drawing\ Algorithm/PrintDialog.cpp \
 		../Bresenham\ Line\ Drawing\ Algorithm/DrawingAlgorithms.cpp moc_GLWidget.cpp \
+		moc_CircleDialog.cpp \
 		moc_LineDialog.cpp \
 		moc_Window.cpp \
 		moc_MainWindow.cpp
 OBJECTS       = main.o \
+		CircleDialog.o \
 		Window.o \
 		MainWindow.o \
 		GLWidget.o \
@@ -66,6 +69,7 @@ OBJECTS       = main.o \
 		PrintDialog.o \
 		DrawingAlgorithms.o \
 		moc_GLWidget.o \
+		moc_CircleDialog.o \
 		moc_LineDialog.o \
 		moc_Window.o \
 		moc_MainWindow.o
@@ -198,11 +202,13 @@ DIST          = ../../../../Qt/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/yacc.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/lex.prf \
 		../Bresenham Line Drawing Algorithm/Framework.pro ../Bresenham\ Line\ Drawing\ Algorithm/GLWidget.h \
+		../Bresenham\ Line\ Drawing\ Algorithm/CircleDialog.h \
 		../Bresenham\ Line\ Drawing\ Algorithm/LineDialog.h \
 		../Bresenham\ Line\ Drawing\ Algorithm/PrintDialog.h \
 		../Bresenham\ Line\ Drawing\ Algorithm/Window.h \
 		../Bresenham\ Line\ Drawing\ Algorithm/MainWindow.h \
 		../Bresenham\ Line\ Drawing\ Algorithm/DrawingAlgorithms.h ../Bresenham\ Line\ Drawing\ Algorithm/main.cpp \
+		../Bresenham\ Line\ Drawing\ Algorithm/CircleDialog.cpp \
 		../Bresenham\ Line\ Drawing\ Algorithm/Window.cpp \
 		../Bresenham\ Line\ Drawing\ Algorithm/MainWindow.cpp \
 		../Bresenham\ Line\ Drawing\ Algorithm/GLWidget.cpp \
@@ -546,8 +552,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../Bresenham Line Drawing Algorithm/GLWidget.h ../Bresenham Line Drawing Algorithm/LineDialog.h ../Bresenham Line Drawing Algorithm/PrintDialog.h ../Bresenham Line Drawing Algorithm/Window.h ../Bresenham Line Drawing Algorithm/MainWindow.h ../Bresenham Line Drawing Algorithm/DrawingAlgorithms.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Bresenham Line Drawing Algorithm/main.cpp ../Bresenham Line Drawing Algorithm/Window.cpp ../Bresenham Line Drawing Algorithm/MainWindow.cpp ../Bresenham Line Drawing Algorithm/GLWidget.cpp ../Bresenham Line Drawing Algorithm/LineDialog.cpp ../Bresenham Line Drawing Algorithm/PrintDialog.cpp ../Bresenham Line Drawing Algorithm/DrawingAlgorithms.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Bresenham Line Drawing Algorithm/GLWidget.h ../Bresenham Line Drawing Algorithm/CircleDialog.h ../Bresenham Line Drawing Algorithm/LineDialog.h ../Bresenham Line Drawing Algorithm/PrintDialog.h ../Bresenham Line Drawing Algorithm/Window.h ../Bresenham Line Drawing Algorithm/MainWindow.h ../Bresenham Line Drawing Algorithm/DrawingAlgorithms.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Bresenham Line Drawing Algorithm/main.cpp ../Bresenham Line Drawing Algorithm/CircleDialog.cpp ../Bresenham Line Drawing Algorithm/Window.cpp ../Bresenham Line Drawing Algorithm/MainWindow.cpp ../Bresenham Line Drawing Algorithm/GLWidget.cpp ../Bresenham Line Drawing Algorithm/LineDialog.cpp ../Bresenham Line Drawing Algorithm/PrintDialog.cpp ../Bresenham Line Drawing Algorithm/DrawingAlgorithms.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -572,15 +578,22 @@ compiler_objective_c_make_all:
 compiler_objective_c_clean:
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_GLWidget.cpp moc_LineDialog.cpp moc_Window.cpp moc_MainWindow.cpp
+compiler_moc_header_make_all: moc_GLWidget.cpp moc_CircleDialog.cpp moc_LineDialog.cpp moc_Window.cpp moc_MainWindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_GLWidget.cpp moc_LineDialog.cpp moc_Window.cpp moc_MainWindow.cpp
+	-$(DEL_FILE) moc_GLWidget.cpp moc_CircleDialog.cpp moc_LineDialog.cpp moc_Window.cpp moc_MainWindow.cpp
 moc_GLWidget.cpp: ../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
 		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
 		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
 		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
 		../Bresenham\ Line\ Drawing\ Algorithm/GLWidget.h
 	/Users/MattSides734/Qt/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/MattSides734/Qt/5.4/clang_64/mkspecs/macx-clang -I'/Users/MattSides734/Documents/School/ComputerGraphics/Bresenham Line Drawing Algorithm' -I/Users/MattSides734/Qt/5.4/clang_64/lib/QtOpenGL.framework/Headers -I/Users/MattSides734/Qt/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/MattSides734/Qt/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/MattSides734/Qt/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/MattSides734/Qt/5.4/clang_64/lib ../Bresenham\ Line\ Drawing\ Algorithm/GLWidget.h -o moc_GLWidget.cpp
+
+moc_CircleDialog.cpp: ../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		../Bresenham\ Line\ Drawing\ Algorithm/CircleDialog.h
+	/Users/MattSides734/Qt/5.4/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/MattSides734/Qt/5.4/clang_64/mkspecs/macx-clang -I'/Users/MattSides734/Documents/School/ComputerGraphics/Bresenham Line Drawing Algorithm' -I/Users/MattSides734/Qt/5.4/clang_64/lib/QtOpenGL.framework/Headers -I/Users/MattSides734/Qt/5.4/clang_64/lib/QtWidgets.framework/Headers -I/Users/MattSides734/Qt/5.4/clang_64/lib/QtGui.framework/Headers -I/Users/MattSides734/Qt/5.4/clang_64/lib/QtCore.framework/Headers -I. -F/Users/MattSides734/Qt/5.4/clang_64/lib ../Bresenham\ Line\ Drawing\ Algorithm/CircleDialog.h -o moc_CircleDialog.cpp
 
 moc_LineDialog.cpp: ../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
@@ -633,6 +646,20 @@ main.o: ../Bresenham\ Line\ Drawing\ Algorithm/main.cpp ../../../../Qt/5.4/clang
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Bresenham\ Line\ Drawing\ Algorithm/main.cpp
+
+CircleDialog.o: ../Bresenham\ Line\ Drawing\ Algorithm/CircleDialog.cpp ../Bresenham\ Line\ Drawing\ Algorithm/CircleDialog.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CircleDialog.o ../Bresenham\ Line\ Drawing\ Algorithm/CircleDialog.cpp
 
 Window.o: ../Bresenham\ Line\ Drawing\ Algorithm/Window.cpp ../Bresenham\ Line\ Drawing\ Algorithm/GLWidget.h \
 		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
@@ -848,6 +875,9 @@ DrawingAlgorithms.o: ../Bresenham\ Line\ Drawing\ Algorithm/DrawingAlgorithms.cp
 
 moc_GLWidget.o: moc_GLWidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_GLWidget.o moc_GLWidget.cpp
+
+moc_CircleDialog.o: moc_CircleDialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_CircleDialog.o moc_CircleDialog.cpp
 
 moc_LineDialog.o: moc_LineDialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_LineDialog.o moc_LineDialog.cpp

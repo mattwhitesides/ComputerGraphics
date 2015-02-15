@@ -73,9 +73,11 @@ private:
     QAction* colorAct;
 
     QAction* diagLineAct;
+    QAction* diagCircleAct;
     QAction* mouseLineAct;
     QAction* mousePolylineAct;
     QAction* mousePolygonAct;
+
 
     //Actions to create the required shapes
     QAction* bowTieAct;

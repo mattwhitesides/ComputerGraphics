@@ -19,6 +19,7 @@ Window::Window(MainWindow *mw) : mainWindow(mw)
     connect(this, SIGNAL(drawMousePolyLineFromMW()), glWindow, SLOT(drawMousePolyline()));
     connect(this, SIGNAL(drawMousePolygonFromMW()), glWindow, SLOT(drawMousePolygon()));
     connect(this, SIGNAL(drawCircleFromMW()), glWindow, SLOT(drawCircle()));
+    connect(this, SIGNAL(drawDialogCircleFromMW()), glWindow, SLOT(drawDialogCircle()));
 
 
     //     Use to Reenable line tests
