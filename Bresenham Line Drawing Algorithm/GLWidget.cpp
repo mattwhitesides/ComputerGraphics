@@ -320,8 +320,8 @@ void GLWidget::paintGL()
         case GLWidget::CIRCLE:
             if(clickCounter == 0 || (drawMode == GLWidget::DIALOG))
             {
-                //Breenhem Algorithm
-                output = DrawingAlgorithms::drawLine(startX, startY, finishX, finishY);
+                //Circle Algorithm
+                output = DrawingAlgorithms::drawCircle(startX, startY, finishX, finishY);
             }
             else if(clickCounter == 1)
             {

@@ -82,7 +82,38 @@ public:
     //Test to see what OpenGL's line drawings look like
     static void openGLDrawLine(int xa, int ya, int xb, int yb);
 
+    /*<<<<<<<<<<<<<<<<<<drawPolyLine>>>>>>>>>>>>>>>
+    Draws a polyline based upon a list of coords given
+    Input:
+        QList<Coord> coords
+            A list of coordnate values using the Coord struct
+    Return:
+        A Vector List of Strings based on the output of the algorithem
+    */
     static QVector<QString> drawPolyLine(QList<Coord> coords);
+
+    /*<<<<<<<<<<<<<<<<<<drawCircle>>>>>>>>>>>>>>>
+    Draws a circle using the circle algorithem
+    Input:
+      int xa - the x coord of the start point
+      int ya - the y coord of the start point
+      int xb - the x coord of the end point
+      int yb - the y coord of the end point
+    Return:
+        A Vector List of Strings based on the output of the algorithem
+    */
+    static QVector<QString> drawCircle(int xa, int ya, int xb, int yb);
+
+    /*<<<<<<<<<<<<<<<<<<drawCircle>>>>>>>>>>>>>>>
+    Draws a circle using the circle algorithem
+    Input:
+      int xa - the x coord of the start point
+      int ya - the y coord of the start point
+      int r - the radius of the desired circle
+    Return:
+        A Vector List of Strings based on the output of the algorithem
+    */
+    static QVector<QString> drawCircle(int xa, int ya, int r);
 
 private:
 	/*<<<<<<<<<<<<<<<<<<convertCoordsToString>>>>>>>>>>>>>>>

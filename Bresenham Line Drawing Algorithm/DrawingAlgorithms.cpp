@@ -246,6 +246,109 @@ QVector<QString> DrawingAlgorithms::drawPolyLine(QList<Coord> coords) {
 
 QVector<QString> DrawingAlgorithms::drawCircle(int xa, int ya, int xb, int yb) {
     QVector<QString> output;
+    int i = 0;
+
+    //Calculate Radius
+    int r = sqrt(pow((xb - xa),2) + pow((yb - ya),2));
+
+    //Init y to radius and x to 0
+    int x = 0;
+    int y = r;
+
+    //Round decision variable to 1 - r
+    int p = 1 - r;
+
+    glBegin(GL_POINTS);
+
+    //Plot first point
+    glVertex2i((GLint) x, (GLint) y);
+
+    //Calculate all points based on first segment of circle
+    while (x < y) {
+        if (p < 0) {
+            p += 2 * x + 3;
+            ++x;
+        } else {
+            p += 2 * (x - y) + 5;
+            ++x;
+            --y;
+        }
+
+        //Plot all 8 symetric points
+        glVertex2i(x + xa, y + ya);
+        glVertex2i(y + xa, x + ya);
+        glVertex2i(-x + xa, y + ya);
+        glVertex2i(-y + xa, x + ya);
+        glVertex2i(-x + xa, -y + ya);
+        glVertex2i(-y + xa, -x + ya);
+        glVertex2i(x + xa, -y + ya);
+        glVertex2i(y + xa, -x + ya);
+
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, x + xa, y + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, y + xa, x + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, -x + xa, y + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, -y + xa, x + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, -x + xa, -y + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, -y + xa, -x + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, x + xa, -y + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, y + xa, -x + ya));
+    }
+
+    glEnd();
+
+    return output;
+}
+
+//Overloaded version that already includes radius
+QVector<QString> DrawingAlgorithms::drawCircle(int xa, int ya, int r) {
+    QVector<QString> output;
+    int i = 0;
+
+    //Init y to radius and x to 0
+    int x = 0;
+    int y = r;
+
+    //Round decision variable to 1 - r
+    int p = 1 - r;
+
+    glBegin(GL_POINTS);
+
+    //Plot first point
+    glVertex2i((GLint) x, (GLint) y);
+
+    //Calculate all points based on first segment of circle
+    while (x < y) {
+        if (p < 0) {
+            p += 2 * x + 3;
+            ++x;
+        } else {
+            p += 2 * (x - y) + 5;
+            ++x;
+            --y;
+        }
+
+        //Plot all 8 symetric points
+        glVertex2i(x + xa, y + ya);
+        glVertex2i(y + xa, x + ya);
+        glVertex2i(-x + xa, y + ya);
+        glVertex2i(-y + xa, x + ya);
+        glVertex2i(-x + xa, -y + ya);
+        glVertex2i(-y + xa, -x + ya);
+        glVertex2i(x + xa, -y + ya);
+        glVertex2i(y + xa, -x + ya);
+
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, x + xa, y + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, y + xa, x + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, -x + xa, y + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, -y + xa, x + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, -x + xa, -y + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, -y + xa, -x + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, x + xa, -y + ya));
+        output.append(DrawingAlgorithms::convertCoordsToString(++i, y + xa, -x + ya));
+    }
+
+    glEnd();
+
     return output;
 }
 

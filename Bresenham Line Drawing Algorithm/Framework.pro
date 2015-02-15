@@ -14,14 +14,16 @@ TARGET = Assignment1
 
 #Add HEADERS and SOURCES as shown below
 
-HEADERS += GLWidget.h
+HEADERS += GLWidget.h \
+    CircleDialog.h
 HEADERS += LineDialog.h
 HEADERS += PrintDialog.h
 HEADERS += Window.h
 HEADERS += MainWindow.h
 HEADERS += DrawingAlgorithms.h
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    CircleDialog.cpp
 SOURCES += Window.cpp
 SOURCES += MainWindow.cpp
 SOURCES += GLWidget.cpp

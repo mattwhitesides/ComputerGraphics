@@ -13,8 +13,7 @@
 
 
 //The dialog box where the user enters their x and y values
-LineDialog::LineDialog(QWidget *parent) : QDialog(parent) 
-  {
+LineDialog::LineDialog(QWidget *parent) : QDialog(parent) {
     
     //This code builds a dialog box with 2 buttons and a set of labelled
     //lineEdits (text boxes).  It also connects the action of pushing
