@@ -1,14 +1,14 @@
 #include "GLWidget.h"
 #include "Drawings.h"
+#include <QTextStream>
+#include <QTimer>
 
-GLWidget::GLWidget(QWidget* parent) : QGLWidget(parent)
-{
 
+GLWidget::GLWidget(QWidget* parent) : QGLWidget(parent) {
+    clearVariables();
 }
 
-GLWidget::~GLWidget()
-{
-
+GLWidget::~GLWidget() {
 }
 
 void GLWidget::resizeGL(int w, int h) {
@@ -35,7 +35,9 @@ void GLWidget::resizeGL(int w, int h) {
 }
 
 void GLWidget::initializeGL() {
+    //Set the background a blue color
     qglClearColor(QColor(33,150,243));
+    //Set line drawing width and color white
     glLineWidth(3);
     glColor3f(1.0f, 1.0f, 1.0f);
 }
@@ -43,6 +45,22 @@ void GLWidget::initializeGL() {
 void GLWidget::paintGL() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    Drawings::drawLine(-200,-200,200,200);
+    //Draws a simple line using GL_LINES
+    Drawings::drawLine(x1,y1,x2,y2);
+}
+
+void GLWidget::updateBtnClicked(int xa, int ya, int xb, int yb) {
+    x1 = xa;
+    y1 = ya;
+    x2 = xb;
+    y2 = yb;
+    QGLWidget::update();
+}
+
+void GLWidget::clearVariables() {
+    x1 = 0;
+    y1 = 0;
+    x2 = 0;
+    y2 = 0;
 }
 

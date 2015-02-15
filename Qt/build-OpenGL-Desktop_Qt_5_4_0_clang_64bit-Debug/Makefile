@@ -613,7 +613,11 @@ mainwindow.o: ../OpenGL/mainwindow.cpp ../OpenGL/mainwindow.h \
 		/Users/MattSides734/Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
 		/Users/MattSides734/Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
 		ui_mainwindow.h \
-		../OpenGL/glwidget.h
+		../OpenGL/glwidget.h \
+		/Users/MattSides734/Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
+		/Users/MattSides734/Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		/Users/MattSides734/Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QTextStream \
+		/Users/MattSides734/Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qtextstream.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../OpenGL/mainwindow.cpp
 
 GLWidget.o: ../OpenGL/GLWidget.cpp ../OpenGL/GLWidget.h \
@@ -622,7 +626,10 @@ GLWidget.o: ../OpenGL/GLWidget.cpp ../OpenGL/GLWidget.h \
 		../OpenGL/Drawings.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GLWidget.o ../OpenGL/GLWidget.cpp
 
-Drawings.o: ../OpenGL/Drawings.cpp ../OpenGL/Drawings.h
+Drawings.o: ../OpenGL/Drawings.cpp ../OpenGL/Drawings.h \
+		../OpenGL/GLWidget.h \
+		/Users/MattSides734/Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
+		/Users/MattSides734/Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Drawings.o ../OpenGL/Drawings.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

@@ -19,6 +19,8 @@ public:
 private slots:
     void on_updateBtn_clicked();
 
+    void on_updateBtn_released();
+
 private:
     Ui::MainWindow *ui;
 };
