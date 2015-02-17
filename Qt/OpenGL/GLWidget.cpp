@@ -58,9 +58,9 @@ void GLWidget::updateBtnClicked(int xa, int ya, int xb, int yb) {
 }
 
 void GLWidget::clearVariables() {
-    x1 = 0;
-    y1 = 0;
-    x2 = 0;
-    y2 = 0;
+    x1 = 200;
+    y1 = 200;
+    x2 = -200;
+    y2 = -200;
 }
 

@@ -56,7 +56,7 @@ MainWindow::MainWindow()
 
     setWindowTitle(tr("CS 4610/7610 Assignment 1 Framework"));
     setMinimumSize(100, 100);
-    resize(500, 500);
+    resize(720, 540);
 }
 
 void MainWindow::updateStatusLabel(int x, int y)

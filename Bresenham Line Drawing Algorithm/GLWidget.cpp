@@ -334,7 +334,7 @@ void GLWidget::paintGL()
             if(clickCounter == 0 || (drawMode == GLWidget::DIALOG))
             {
                 //Breenhem Algorithm
-                output = DrawingAlgorithms::drawLine(startX, startY, finishX, finishY);
+                output = DrawingAlgorithms::drawLine(startX * 2, startY * 2, finishX * 2, finishY * 2);
             }
             else if(clickCounter == 1)
             {
@@ -354,7 +354,7 @@ void GLWidget::paintGL()
             {
                 //Circle Algorithm
                 if (drawMode == GLWidget::MOUSE) radius = sqrt(pow((finishX - startX),2) + pow((finishY - startY),2));
-                output = DrawingAlgorithms::drawCircle(startX, startY, radius);
+                output = DrawingAlgorithms::drawCircle(startX * 2, startY * 2, radius * 2);
             }
             else if(clickCounter == 1)
             {
@@ -427,8 +427,8 @@ void GLWidget::mousePressEvent(QMouseEvent* e)
                 startY = height()/2 - e->y();     // Get the Y mouse position and translate so (0,0) is screen center
 
                 printf("Adding to polyline list: (%d,%d).\n",startX,startY);
-                newCoord.x = startX;
-                newCoord.y = startY;
+                newCoord.x = startX * 2;
+                newCoord.y = startY * 2;
                 polyLineList.append(newCoord);
                 break;
 
@@ -444,8 +444,8 @@ void GLWidget::mousePressEvent(QMouseEvent* e)
         switch(shapeMode)
         {
         case GLWidget::POLYLINE:
-                clearShapeVariables();
-                clickCounter = 0;
+            clearShapeVariables();
+            clickCounter = 0;
             break;
 
         case GLWidget::POLYGON:
