@@ -352,6 +352,87 @@ QVector<QString> DrawingAlgorithms::drawCircle(int xa, int ya, int r) {
     return output;
 }
 
+QVector<QString> DrawingAlgorithms::drawEllipse(int x, int y, int xR, int yR) {
+    QVector<QString> output;
+
+    //Init the midpoints of x an y
+    int midx = xR / 2;
+    int midy = yR / 2;
+    //Save the origional positions of x and y for translation later
+    int x2 = x;
+    int y2 = y;
+
+    //Precalcualte x and y radius squared and that squared
+    int twoXR = xR * xR;
+    int twoYR = yR * yR;
+    int twoXRSquard = 2 * twoXR;
+    int twoYRSquard = 2 * twoYR;
+
+    //Init desicion variables
+    int dx = 0;
+    x = dx;
+    y = yR;
+    int dy = twoXRSquard * y;
+
+    glBegin(GL_POINTS);
+
+    //Draw top, bottom, left and right points
+    glVertex2i(midx + x + x2, midy + y + y2);
+    glVertex2i(midx - x + x2, midy + y + y2);
+    glVertex2i(midx + x + x2, midy - y + y2);
+    glVertex2i(midx - x + x2, midy - y + y2);
+
+    //Calculate first decision
+    int d = (int)(0.5 + twoYR - (twoXR * yR) + (0.25 * twoXR));
+
+    //Loop until the change in x surpasses the change in y
+    while (dx < dy) {
+        x = x + 1;
+        dx = dx + twoYRSquard;
+
+        if (d < 0) {
+            d = d + twoYR + dx;
+        } else {
+            y = y - 1;
+            dy = dy - twoXRSquard;
+            d = d + twoYR + dx - dy;
+        }
+
+        //Draw the four symetrical points
+        glVertex2i(midx + x + x2, midy + y + y2);
+        glVertex2i(midx - x + x2, midy + y + y2);
+        glVertex2i(midx + x + x2, midy - y + y2);
+        glVertex2i(midx - x + x2, midy - y + y2);
+    }
+
+    //Calculate new decision for the bottom slope drawing
+    d = (int)(0.5 + twoYR * (x + 0.5) * (x + 0.5) + twoXR * (y - 1) * (y - 1) - twoXR * twoYR);
+
+    //Calculate the rest of the ellipse
+    while (y > 0) {
+        y = y - 1;
+        dy = dy - twoXRSquard;
+
+        if (d > 0) {
+            d = d + twoXR - dy;
+        } else {
+            x = x + 1;
+            dx = dx + twoYRSquard;
+            d = d + twoXR - dy + dx;
+        }
+
+        //Draw the four symetrical points
+        glVertex2i(midx + x + x2, midy + y + y2);
+        glVertex2i(midx - x + x2, midy + y + y2);
+        glVertex2i(midx + x + x2, midy - y + y2);
+        glVertex2i(midx - x + x2, midy - y + y2);
+    }
+
+    glEnd();
+
+    return output;
+}
+
 //Swicthes the values of two given values
 void DrawingAlgorithms::swapIntValues(int* a, int* b) {
     int temp = *a;

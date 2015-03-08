@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_CircleDialog_t {
-    QByteArrayData data[8];
-    char stringdata[55];
+    QByteArrayData data[9];
+    char stringdata[59];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,13 +34,14 @@ QT_MOC_LITERAL(1, 13, 13), // "valuesUpdated"
 QT_MOC_LITERAL(2, 27, 0), // ""
 QT_MOC_LITERAL(3, 28, 1), // "x"
 QT_MOC_LITERAL(4, 30, 1), // "y"
-QT_MOC_LITERAL(5, 32, 1), // "r"
-QT_MOC_LITERAL(6, 34, 10), // "hideDialog"
-QT_MOC_LITERAL(7, 45, 9) // "getValues"
+QT_MOC_LITERAL(5, 32, 2), // "rX"
+QT_MOC_LITERAL(6, 35, 2), // "rY"
+QT_MOC_LITERAL(7, 38, 10), // "hideDialog"
+QT_MOC_LITERAL(8, 49, 9) // "getValues"
 
     },
-    "CircleDialog\0valuesUpdated\0\0x\0y\0r\0"
-    "hideDialog\0getValues"
+    "CircleDialog\0valuesUpdated\0\0x\0y\0rX\0"
+    "rY\0hideDialog\0getValues"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,14 +59,14 @@ static const uint qt_meta_data_CircleDialog[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    3,   29,    2, 0x06 /* Public */,
+       1,    4,   29,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       6,    0,   36,    2, 0x08 /* Private */,
-       7,    0,   37,    2, 0x08 /* Private */,
+       7,    0,   38,    2, 0x08 /* Private */,
+       8,    0,   39,    2, 0x08 /* Private */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,    3,    4,    5,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int,    3,    4,    5,    6,
 
  // slots: parameters
     QMetaType::Void,
@@ -79,7 +80,7 @@ void CircleDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     if (_c == QMetaObject::InvokeMetaMethod) {
         CircleDialog *_t = static_cast<CircleDialog *>(_o);
         switch (_id) {
-        case 0: _t->valuesUpdated((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 0: _t->valuesUpdated((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
         case 1: _t->hideDialog(); break;
         case 2: _t->getValues(); break;
         default: ;
@@ -88,7 +89,7 @@ void CircleDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (CircleDialog::*_t)(int , int , int );
+            typedef void (CircleDialog::*_t)(int , int , int , int );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CircleDialog::valuesUpdated)) {
                 *result = 0;
             }
@@ -133,9 +134,9 @@ int CircleDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void CircleDialog::valuesUpdated(int _t1, int _t2, int _t3)
+void CircleDialog::valuesUpdated(int _t1, int _t2, int _t3, int _t4)
 {
-    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

@@ -1,0 +1,56 @@
+Hern & Baker Method:
+
+  1. Start with smallest non-empty y value in ET.
+  2. Init AET to empty.
+  3. While current y <= top y value:
+    a. Merge y bucket from SET into AET - entering edges ymin == y; sort on xmin (xbot).
+    b. Fill Pixels between rounded pairs of x values in AET.
+    c. Remove edges from AET whose ymax (ytop) == current y.
+    d. Increment xmin (xbot) by 1/m fro edges in AET.
+    e. Increment y by 1.
+
+  Summary:
+    0. Init AET to empty
+    1. Add entering edges
+    2. Sort
+    3. Fill
+    4. Remove exiting edges
+    5. Update (x-values, scanline y for active edges)
+
+      Should do explicit shortening of edges
+
+      AET: 1->5->4->2
+
+      Add edges before remove exiting edges
+      After sorting
+
+      5 ->  4 -> 1  ->  2
+        fill  no    fill
+
+Prefered Alternative Method (Implicit shorting):
+
+  0. Initialize AET from SET
+  1. Fill
+  2. Remove
+  3. Add entering edges
+  4. Sort on x
+  5. Update
+
+Alternative (Taley & Van Dan):
+
+  0. Init
+  1. Add
+  2. Remove
+  3. Sort
+  4. Fill
+  5. Update
+
+
+Shading:
+
+  Goraud Shading (Smooth Interpolation):
+
+    1. Interpolation between verticies (along boundry edges)
+    2. Interpolate along a scanline (x-axis)
+        Spatial coherence (like bresenham for lines)
+    3. 
