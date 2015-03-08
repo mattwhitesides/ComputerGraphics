@@ -155,6 +155,8 @@ public slots:
   Draws the test coords for scanfill
   */
   void drawScanFillTest();
+  void drawScanFillTest2();
+  void drawScanFillTest3();
  
   /*----------------------clearWindow-----------------------
   Clears the render window

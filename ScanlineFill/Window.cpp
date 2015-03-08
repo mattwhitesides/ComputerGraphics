@@ -21,7 +21,8 @@ Window::Window(MainWindow *mw) : mainWindow(mw)
     connect(this, SIGNAL(drawCircleFromMW()), glWindow, SLOT(drawCircle()));
     connect(this, SIGNAL(drawDialogCircleFromMW()), glWindow, SLOT(drawDialogCircle()));
     connect(this, SIGNAL(drawScanFillTestFromMW()), glWindow, SLOT(drawScanFillTest()));
-
+    connect(this, SIGNAL(drawScanFillTest2FromMW()), glWindow, SLOT(drawScanFillTest2()));
+    connect(this, SIGNAL(drawScanFillTest3FromMW()), glWindow, SLOT(drawScanFillTest3()));
 
     //     Use to Reenable line tests
     //    connect(this, SIGNAL(drawFanTestFromMW()), glWindow, SLOT(drawFanTest()));

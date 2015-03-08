@@ -99,8 +99,8 @@ void MainWindow::createActions()
     connect(mouseLineAct, SIGNAL(triggered()), childWindow, SIGNAL(drawMouseLineFromMW()));
     //connect(mouseLineAct, SIGNAL(triggered()), glWindow, SLOT(drawMouseLine()));
 
-    mousePolylineAct = new QAction(tr("Polyline"), this);
-    mousePolylineAct->setStatusTip(tr("Activate mouse polyline drawing"));
+    mousePolylineAct = new QAction(tr("Draw"), this);
+    mousePolylineAct->setStatusTip(tr("Draw Test To Screen"));
     connect(mousePolylineAct, SIGNAL(triggered()), childWindow, SIGNAL(drawMousePolyLineFromMW()));
     //connect(mousePolylineAct, SIGNAL(triggered()), glWindow, SLOT(drawMousePolyline()));
 
@@ -129,9 +129,19 @@ void MainWindow::createActions()
     //    drawCircleAct->setStatusTip(tr("Draw a circle or ellipse on screen"));
     //    connect(drawCircleAct, SIGNAL(triggered()), childWindow, SIGNAL(drawCircleFromMW()));
 
-    scanFillTestAct = new QAction(tr("ScanFillTest"), this);
+    scanFillTestAct = new QAction(tr("ScanFillTriangle"), this);
     scanFillTestAct->setStatusTip(tr("Draw the first test scanfill algorithem"));
     connect(scanFillTestAct, SIGNAL(triggered()), childWindow, SIGNAL(drawScanFillTestFromMW()));
+    //connect(mousePolylineAct, SIGNAL(triggered()), glWindow, SLOT(drawScanFillTestFromMW()));
+
+    scanFillTest2Act = new QAction(tr("Polygon8"), this);
+    scanFillTest2Act->setStatusTip(tr("Draw the second test scanfill algorithem"));
+    connect(scanFillTest2Act, SIGNAL(triggered()), childWindow, SIGNAL(drawScanFillTest2FromMW()));
+    //connect(mousePolylineAct, SIGNAL(triggered()), glWindow, SLOT(drawScanFillTestFromMW()));
+
+    scanFillTest3Act = new QAction(tr("Polygon9"), this);
+    scanFillTest3Act->setStatusTip(tr("Draw the third test scanfill algorithem"));
+    connect(scanFillTest3Act, SIGNAL(triggered()), childWindow, SIGNAL(drawScanFillTest3FromMW()));
     //connect(mousePolylineAct, SIGNAL(triggered()), glWindow, SLOT(drawScanFillTestFromMW()));
 }
 
@@ -181,4 +191,6 @@ void MainWindow::createToolBar()
     //    interactToolBar->addAction(testAct);
     //    interactToolBar->addAction(fanAct);
     interactToolBar->addAction(scanFillTestAct);
+    interactToolBar->addAction(scanFillTest2Act);
+    interactToolBar->addAction(scanFillTest3Act);
 }

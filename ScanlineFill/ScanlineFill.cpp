@@ -23,10 +23,10 @@ ScanlineFill::ScanlineFill(Coord* edgeArray, int size) {
         printf("Empty edge array\n");
         return;
     }
-    if (size % 2 != 0) {
-        printf("Incorrect number of coordnates to make edges.\n");
-        return;
-    }
+//    if (size % 2 != 0) {
+//        printf("Incorrect number of coordnates to make edges.\n");
+//        return;
+//    }
     int yMax = edgeArray[0].y;
     int yMin = edgeArray[0].y;
     int j = 0;
@@ -49,7 +49,7 @@ ScanlineFill::ScanlineFill(Coord* edgeArray, int size) {
     while (j < size) {
         insertNewEdge(edgeArray[j],edgeArray[j + 1]);
         //printf("[%d]: (%d,%d),(%d,%d)\n",j,edgeArray[j].x,edgeArray[j].y,edgeArray[j + 1].x,edgeArray[j + 1].y);
-        j += 2;
+        j++;
     }  
 }
 
@@ -78,9 +78,10 @@ Edge* ScanlineFill::insertNewEdge(Coord vert1, Coord vert2) {
         xAtYMin = vert2.x;
     }
 
+    if (vert1.y == vert2.y || vert1.x == vert2.x) slope = 0.0f;
     slope = 1/((float(vert2.y) - vert1.y) / (vert2.x - vert1.x));
 
-    //printf("Inserting into bucket at idx %d:\n\tyMax: %d\n\txAtYMin: %d\n\txIncrement: %f\n", yMin - offset, yMax, xAtYMin, slope);
+    printf("Inserting into bucket at idx %d:\n\tyMax: %d\n\txAtYMin: %d\n\txIncrement: %f\n", yMin - offset, yMax, xAtYMin, slope);
 
     Edge* newEdge = new Edge;
     const int idx = yMin - offset;

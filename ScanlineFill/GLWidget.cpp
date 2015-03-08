@@ -222,6 +222,29 @@ void GLWidget::drawScanFillTest()
 {
     drawMode = GLWidget::MOUSE;
     shapeMode = GLWidget::SCANFILL;
+    Coord pp[] = {{120,120},{280,320},{280,320},{40,240},{40,240},{120,120}};
+    filler = new ScanlineFill(pp, 6);
+    clickCounter++;
+    clearShapeVariables();
+}
+
+void GLWidget::drawScanFillTest2()
+{
+    drawMode = GLWidget::MOUSE;
+    shapeMode = GLWidget::SCANFILL;
+    Coord polygon8[] =  { {0, 0}, {35, 0}, {35, 40}, {0, 40}, {0, 10},{25, 10}, {25, 30}, {10, 30}, {10, 20}, {15, 20},{15, 25}, {20, 25}, {20, 15}, {5, 15}, {5, 35}, {30, 35}, {30, 5}, {0, 5} };
+    filler = new ScanlineFill(polygon8, 18);
+    clickCounter++;
+    clearShapeVariables();
+}
+
+void GLWidget::drawScanFillTest3()
+{
+    drawMode = GLWidget::MOUSE;
+    shapeMode = GLWidget::SCANFILL;
+    Coord polygon9[] = { {0, 0}, {15, 20}, {30, 0}, {45, 20}, {60, 0}, {75, 20}, {90, 0}, {90, 30}, {70, 30}, {60, 15},{50, 30}, {40, 30}, {30, 15}, {20, 30}, {0, 30}};
+    filler = new ScanlineFill(polygon9, 15);
+    clickCounter++;
     clearShapeVariables();
 }
 
@@ -442,13 +465,13 @@ void GLWidget::mousePressEvent(QMouseEvent* e)
             case GLWidget::POLYLINE:
                 if (clickCounter > 0) areShapesClear = false;
                 ++clickCounter;
-                startX = e->x() - width()/2;      // Get the X mouse position and translate so (0,0) is screen center
-                startY = height()/2 - e->y();     // Get the Y mouse position and translate so (0,0) is screen center
+//                startX = e->x() - width()/2;      // Get the X mouse position and translate so (0,0) is screen center
+//                startY = height()/2 - e->y();     // Get the Y mouse position and translate so (0,0) is screen center
 
-                printf("Adding to polyline list: (%d,%d).\n",startX,startY);
-                newCoord.x = startX * 2;
-                newCoord.y = startY * 2;
-                polyLineList.append(newCoord);
+//                printf("Adding to polyline list: (%d,%d).\n",startX,startY);
+//                newCoord.x = startX * 2;
+//                newCoord.y = startY * 2;
+//                polyLineList.append(newCoord);
                 break;
             case GLWidget::SCANFILL:
                 //Coord polygon8[] = { {0, 0}, {35, 0}, {35, 40}, {0, 40}, {0, 10}, {25, 10}, {25, 30}, {10, 30}, {10, 20}, {15, 20}, {15, 25}, {20, 25}, {20, 15}, {5, 15}, {5, 35}, {30, 35}, {30, 5}, {0, 5} };
@@ -459,8 +482,8 @@ void GLWidget::mousePressEvent(QMouseEvent* e)
 
                 //Coord pp[] = {{200,100},{300,500},{300,500},{600,600},{600,600},{300,800},{300,800},{0,400},{0,400},{200,100}};
 
-                Coord pp[] = {{20,10},{30,50},{30,50},{60,60},{60,60},{30,80},{30,80},{0,40},{0,40},{20,10}};
-                filler = new ScanlineFill(pp, 10);
+//                Coord pp[] = {{20,10},{30,50},{30,50},{60,60},{60,60},{30,80},{30,80},{0,40},{0,40},{20,10}};
+//                filler = new ScanlineFill(pp, 10);
 
                 //Coord pp[] = {{0,0},{5,5},{5,5},{-5,-5},{-5,-5},{0,0}};
                 //Coord pp[] = {{0,0},{50,50},{50,50},{-50,-50},{-50,-50},{0,0}};

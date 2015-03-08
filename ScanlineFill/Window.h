@@ -29,6 +29,8 @@ signals:
     void drawCircleFromMW();
     void drawDialogCircleFromMW();
     void drawScanFillTestFromMW();
+    void drawScanFillTest2FromMW();
+    void drawScanFillTest3FromMW();
 	
 private:
 	

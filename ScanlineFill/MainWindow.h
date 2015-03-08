@@ -86,6 +86,8 @@ private:
     QAction* fanAct;
     QAction* drawCircleAct;
     QAction* scanFillTestAct;
+    QAction* scanFillTest2Act;
+    QAction* scanFillTest3Act;
 
     Window* childWindow;
     //GLWidget* glWindow;
