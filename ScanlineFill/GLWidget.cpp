@@ -32,15 +32,20 @@ const int GLWidget::ELLIPSE = 3;
 const int GLWidget::POLYGON = 4;
 const int GLWidget::POLYLINE = 5;
 const int GLWidget::SCANFILL = 6;
+const int GLWidget::SHADING = 10;
 
 const int GLWidget::FAN = 6;
 const int GLWidget::HOUSE = 7;
 const int GLWidget::BOW = 8;
 const int GLWidget::TEST = 9;
 
+const int GLWidget::MULTI = 11;
+const int GLWidget::GSHADE = 12;
+
 QList<Coord> polyLineList;
 QList<Coord> scanFillEdgeList;
 ScanlineFill* filler = NULL;
+ScanlineFill* fillAry[10];
 
 //------------------------GLWidget::GLWidget-------------------------
 GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
@@ -50,8 +55,10 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
     lineColor[1] = 255;
     lineColor[2] = 255;
 
+    printAET = false;
+
     clickCounter = 0;
-    drawMode = shapeMode = 0;
+    drawMode = shapeMode = scanMode = 0;
 
     clearShapeVariables();
 
@@ -218,34 +225,82 @@ void GLWidget::drawCircle()
     clearShapeVariables();
 }
 
+void GLWidget::enableAETAct()
+{
+    if (!printAET) {
+        printAET = true;
+        printf("Enabled Active Edge Table printing.\n");
+    } else {
+        printAET = false;
+        printf("Disabled Active Edge Table Printing.\n");
+    }
+}
+
+void GLWidget::enableSETAct()
+{
+
+}
+
 void GLWidget::drawScanFillTest()
 {
     drawMode = GLWidget::MOUSE;
     shapeMode = GLWidget::SCANFILL;
-    Coord pp[] = {{120,120},{280,320},{280,320},{40,240},{40,240},{120,120}};
-    filler = new ScanlineFill(pp, 6);
+    scanMode = GLWidget::GSHADE;
     clickCounter++;
     clearShapeVariables();
+    Coord pp[] = {{120,120},{280,320},{280,320},{40,240},{40,240},{120,120}};
+    filler = new ScanlineFill(pp, 6);
 }
 
 void GLWidget::drawScanFillTest2()
 {
     drawMode = GLWidget::MOUSE;
     shapeMode = GLWidget::SCANFILL;
-    Coord polygon8[] =  { {0, 0}, {35, 0}, {35, 40}, {0, 40}, {0, 10},{25, 10}, {25, 30}, {10, 30}, {10, 20}, {15, 20},{15, 25}, {20, 25}, {20, 15}, {5, 15}, {5, 35}, {30, 35}, {30, 5}, {0, 5} };
-    filler = new ScanlineFill(polygon8, 18);
+    scanMode = GLWidget::SHADING;
     clickCounter++;
     clearShapeVariables();
+    Coord polygon8[] =  { {0, 0}, {35, 0}, {35, 40}, {0, 40}, {0, 10},{25, 10}, {25, 30}, {10, 30}, {10, 20}, {15, 20},{15, 25}, {20, 25}, {20, 15}, {5, 15}, {5, 35}, {30, 35}, {30, 5}, {0, 5} };
+    filler = new ScanlineFill(polygon8, 18);
 }
 
 void GLWidget::drawScanFillTest3()
 {
     drawMode = GLWidget::MOUSE;
     shapeMode = GLWidget::SCANFILL;
-    Coord polygon9[] = { {0, 0}, {15, 20}, {30, 0}, {45, 20}, {60, 0}, {75, 20}, {90, 0}, {90, 30}, {70, 30}, {60, 15},{50, 30}, {40, 30}, {30, 15}, {20, 30}, {0, 30}};
-    filler = new ScanlineFill(polygon9, 15);
+    scanMode = GLWidget::SHADING;
     clickCounter++;
     clearShapeVariables();
+    Coord polygon9[] = { {0, 0}, {15, 20}, {30, 0}, {45, 20}, {60, 0}, {75, 20}, {90, 0}, {90, 30}, {70, 30}, {60, 15},{50, 30}, {40, 30}, {30, 15}, {20, 30}, {0, 30}, {0,0}};
+    filler = new ScanlineFill(polygon9, 16);
+}
+
+void GLWidget::drawScanFillTest4()
+{
+    drawMode = GLWidget::MOUSE;
+    shapeMode = GLWidget::SCANFILL;
+    scanMode = GLWidget::MULTI;
+    clickCounter++;
+    clearShapeVariables();
+
+    Coord polyAry1[] = { {0, 30}, {10, 10}, {50, 10}, {80, 40}, {100, 40}, {110, 50}, {110, 115}, {130, 120}, {130, 130}, {100, 135}, {130, 140}, {130, 150}, {110, 160}, {80, 160}, {70, 150}, {70, 130}, {80, 120}, {70, 110}, {60, 60}, {40, 30}, {30, 20}, {10, 20} };
+    Coord polyAry2[] = { {80, 100}, {90, 90}, {100, 90}, {130, 80}, {140, 90}, {160, 90}, {150, 95}, {160, 100}, {150, 100}, {155, 110}, {145, 100}, {140, 110}, {140, 100}, {130, 90}, {110, 110}, {90, 110} };
+    Coord polyAry3[] = { {-80, -60}, {-80, -40}, {-90, -30}, {-90, -20}, {-80, -10}, {-80, -5}, {-90, -0}, {-120, -0}, {-100, -10}, {-100, -20}, {-120, -40}, {-110, -60}, {-100, -70}, {-90, -70} };
+    Coord polyAry4[] = { {87, 150}, {90, 147}, {96, 147}, {101, 150}, {96, 152}, {90, 152} };
+    Coord polyAry5[] = { {125,275}, {375,275}, { 150, 150}, {250, 350}, {350, 150} };
+    Coord polyAry6[] = { {9*4,5*4}, {14*4,5*4}, {14*4,11*4}, {22*4,11*4}, {27*4,16*4}, {20*4,25*4}, {13*4,25*4}, {13*4,20*4}, {8*4,20*4}, {8*4,16*4}, {4*4,16*4}, {4*4,9*4} };
+    Coord polyAry7[] = { {2,3}, {7,1}, {13,5}, {13,11}, {7,7}, {2,9} };
+    Coord polyAry8[] =  { {0, 0}, {35, 0}, {35, 40}, {0, 40}, {0, 10},{25, 10}, {25, 30}, {10, 30}, {10, 20}, {15, 20},{15, 25}, {20, 25}, {20, 15}, {5, 15}, {5, 35}, {30, 35}, {30, 5}, {0, 5} };
+    Coord polyAry9[] = { {0, 0}, {15, 20}, {30, 0}, {45, 20}, {60, 0}, {75, 20}, {90, 0}, {90, 30}, {70, 30}, {60, 15},{50, 30}, {40, 30}, {30, 15}, {20, 30}, {0, 30}, {0,0}};
+
+    fillAry[0] = new ScanlineFill(polyAry1, 22);
+    fillAry[1] = new ScanlineFill(polyAry2, 16);
+    fillAry[2] = new ScanlineFill(polyAry3, 14);
+    fillAry[3] = new ScanlineFill(polyAry4, 6);
+    fillAry[4] = new ScanlineFill(polyAry5, 5);
+    fillAry[5] = new ScanlineFill(polyAry6, 12);
+    fillAry[6] = new ScanlineFill(polyAry7, 6);
+    fillAry[7] = new ScanlineFill(polyAry8, 18);
+    fillAry[8] = new ScanlineFill(polyAry9, 16);
 }
 
 //----------------------------GLWidget::clearWindow---------------------------
@@ -383,7 +438,20 @@ void GLWidget::paintGL()
             break;
 
         case GLWidget::POLYLINE:
-            if (filler) filler->scanLineFillAlgorithm();
+            if (scanMode == GLWidget::MULTI) {
+                fillAry[0]->scanLineFillAlgorithm(printAET);
+                fillAry[1]->scanLineFillAlgorithm(printAET);
+                fillAry[2]->scanLineFillAlgorithm(printAET);
+                fillAry[3]->scanLineFillAlgorithm(printAET);
+                fillAry[4]->scanLineFillAlgorithm(printAET);
+                fillAry[5]->scanLineFillAlgorithm(printAET);
+                fillAry[6]->scanLineFillAlgorithm(printAET);
+                fillAry[7]->scanLineFillAlgorithm(printAET);
+                fillAry[8]->scanLineFillAlgorithm(printAET);
+            } else if (scanMode == GLWidget::GSHADE && filler) {
+                filler->goraudShading();
+            } else if (filler && scanMode == GLWidget::SHADING) filler->scanLineFillAlgorithm(printAET);
+
             //            output = DrawingAlgorithms::drawPolyLine(polyLineList);
             break;
 
@@ -429,8 +497,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent* e)
 
 //---------------------GLWidget::MousePressEvent----------------------------
 void GLWidget::mousePressEvent(QMouseEvent* e)
-{
-    Coord newCoord;
+{    
     //This is a method overridden from the base QWidget.
     //When a mouse button is pressed this method is automatically called.
     //The QMouseEvent parameter has information including
@@ -465,13 +532,13 @@ void GLWidget::mousePressEvent(QMouseEvent* e)
             case GLWidget::POLYLINE:
                 if (clickCounter > 0) areShapesClear = false;
                 ++clickCounter;
-//                startX = e->x() - width()/2;      // Get the X mouse position and translate so (0,0) is screen center
-//                startY = height()/2 - e->y();     // Get the Y mouse position and translate so (0,0) is screen center
+                //                startX = e->x() - width()/2;      // Get the X mouse position and translate so (0,0) is screen center
+                //                startY = height()/2 - e->y();     // Get the Y mouse position and translate so (0,0) is screen center
 
-//                printf("Adding to polyline list: (%d,%d).\n",startX,startY);
-//                newCoord.x = startX * 2;
-//                newCoord.y = startY * 2;
-//                polyLineList.append(newCoord);
+                //                printf("Adding to polyline list: (%d,%d).\n",startX,startY);
+                //                newCoord.x = startX * 2;
+                //                newCoord.y = startY * 2;
+                //                polyLineList.append(newCoord);
                 break;
             case GLWidget::SCANFILL:
                 //Coord polygon8[] = { {0, 0}, {35, 0}, {35, 40}, {0, 40}, {0, 10}, {25, 10}, {25, 30}, {10, 30}, {10, 20}, {15, 20}, {15, 25}, {20, 25}, {20, 15}, {5, 15}, {5, 35}, {30, 35}, {30, 5}, {0, 5} };
@@ -482,8 +549,8 @@ void GLWidget::mousePressEvent(QMouseEvent* e)
 
                 //Coord pp[] = {{200,100},{300,500},{300,500},{600,600},{600,600},{300,800},{300,800},{0,400},{0,400},{200,100}};
 
-//                Coord pp[] = {{20,10},{30,50},{30,50},{60,60},{60,60},{30,80},{30,80},{0,40},{0,40},{20,10}};
-//                filler = new ScanlineFill(pp, 10);
+                //                Coord pp[] = {{20,10},{30,50},{30,50},{60,60},{60,60},{30,80},{30,80},{0,40},{0,40},{20,10}};
+                //                filler = new ScanlineFill(pp, 10);
 
                 //Coord pp[] = {{0,0},{5,5},{5,5},{-5,-5},{-5,-5},{0,0}};
                 //Coord pp[] = {{0,0},{50,50},{50,50},{-50,-50},{-50,-50},{0,0}};

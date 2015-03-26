@@ -1,8 +1,8 @@
 /*
-	GLWidget.h - GLWidget class declaration. 
-	Class for widget doing OpenGL drawing for CS 4610/7610.
-	Written by:
-	Anoop Haridas
+    GLWidget.h - GLWidget class declaration.
+    Class for widget doing OpenGL drawing for CS 4610/7610.
+    Written by:
+    Anoop Haridas
 */
 
 #ifndef GLWIDGET_H
@@ -36,219 +36,230 @@ This class is widget containing the OpenGL context for drawing the graphics
 */
 class GLWidget : public QGLWidget
 {
-  
-  // The Q_OBJECT macro MUST be placed like this, at the beginning of ALL Qt classes that handle signals and slots, 
-  // and/or have GUI elements. This macro signals that Qt's meta-object compiler (moc) must be called for this class.
-  Q_OBJECT
+
+    // The Q_OBJECT macro MUST be placed like this, at the beginning of ALL Qt classes that handle signals and slots,
+    // and/or have GUI elements. This macro signals that Qt's meta-object compiler (moc) must be called for this class.
+    Q_OBJECT
 
 public:
-  
-  //Constructor
-  GLWidget(QWidget *parent = 0);
-  
-  //Destructor
-  ~GLWidget();
 
-  /*------------------drawLine, Version 1------------------
+    //Constructor
+    GLWidget(QWidget *parent = 0);
+
+    //Destructor
+    ~GLWidget();
+
+    /*------------------drawLine, Version 1------------------
   Draws a DDA line
-  Input: 
+  Input:
     int x1 - the starting x coord
-	int y1 - the starting y coord
-	int x2 - the ending x coord
-	int y1 - the ending y coord
+    int y1 - the starting y coord
+    int x2 - the ending x coord
+    int y1 - the ending y coord
   */
-  void drawLine(int x1, int y1, int x2, int y2);
+    void drawLine(int x1, int y1, int x2, int y2);
 
-  /*------------------drawLine, Version 2------------------
+    /*------------------drawLine, Version 2------------------
   Draws a DDA line
-  Input: 
+  Input:
     int x - the beginning x coord
-	int y - the beginning y coord
-	int l - the length of the line
+    int y - the beginning y coord
+    int l - the length of the line
   */
-  void drawLine(int x, int y, int l);
-  
-  /*------------------minimumSizeHint----------------------
+    void drawLine(int x, int y, int l);
+
+    /*------------------minimumSizeHint----------------------
   Suggests the smallest size for the window
   */
-  QSize minimumSizeHint() const;
-  
-  /*----------------------sizeHint-------------------------
+    QSize minimumSizeHint() const;
+
+    /*----------------------sizeHint-------------------------
   Suggests the size for the window
   */
-  QSize sizeHint() const;
+    QSize sizeHint() const;
 
-  /*------------------setDrawingMode-----------------------
+    /*------------------setDrawingMode-----------------------
   Sets which mode of drawing is currently active
   */
-  void setDrawingMode(int mode);
+    void setDrawingMode(int mode);
 
-  /*------------------setShapeMode-------------------------
+    /*------------------setShapeMode-------------------------
   Sets which shape is currently active
   */
-  void setShapeMode(int mode);
+    void setShapeMode(int mode);
 
-  //Set of static variables to represent the drawing mode
-  static const int NONE;
-  static const int MOUSE;
-  static const int DIALOG;
+    //Set of static variables to represent the drawing mode
+    static const int NONE;
+    static const int MOUSE;
+    static const int DIALOG;
 
-  //Set of static variables to represent the shapes 
-  static const int CLEAR;
-  static const int LINE;
-  static const int CIRCLE;
-  static const int ELLIPSE;
-  static const int POLYLINE;
-  static const int POLYGON;
+    //Set of static variables to represent the shapes
+    static const int CLEAR;
+    static const int LINE;
+    static const int CIRCLE;
+    static const int ELLIPSE;
+    static const int POLYLINE;
+    static const int POLYGON;
 
-  static const int FAN;
-  static const int BOW;
-  static const int HOUSE;
-  static const int TEST;
-  static const int SCANFILL;
- 
+    static const int FAN;
+    static const int BOW;
+    static const int HOUSE;
+    static const int TEST;
+    static const int SCANFILL;
+    static const int SHADING;
+    static const int GSHADE;
+
+    static const int MULTI;
 public slots:
-  
-  /*---------------------togglePrintDialog------------------
+
+    /*---------------------togglePrintDialog------------------
   Invokes the print dialog for displaying results
   */
-  void togglePrintDialog();
+    void togglePrintDialog();
 
-  /*---------------------drawDialogLine---------------------
+    /*---------------------drawDialogLine---------------------
   Invokes the line input dialog, then enables line drawing
   */
-  void drawDialogLine();
+    void drawDialogLine();
 
-  /*---------------------drawDialogCircle---------------------
+    /*---------------------drawDialogCircle---------------------
   Invokes the line input dialog, then enables line drawing
   */
-  void drawDialogCircle();
+    void drawDialogCircle();
 
-  /*---------------------updateDialogLine-------------------
+    /*---------------------updateDialogLine-------------------
   Updates the line variables from dialog
   Input: int x1, y1, x2, y2: the line endpoints
   */
-  void updateDialogLine(int x1, int y1, int x2, int y2);
+    void updateDialogLine(int x1, int y1, int x2, int y2);
 
-  /*---------------------updateDialogCircle-------------------
+    /*---------------------updateDialogCircle-------------------
   Updates the circle variables from dialog
   Input: int x1, y1, r: the line endpoints and radius
   */
-  void updateDialogCircle(int x1, int y1, int rX, int rY);
+    void updateDialogCircle(int x1, int y1, int rX, int rY);
 
-  /*---------------------drawMouseLine----------------------
+    /*---------------------drawMouseLine----------------------
   Enables interactive line drawing
   */
-  void drawMouseLine();
+    void drawMouseLine();
 
-  /*---------------------drawMousePolyline------------------
+    /*---------------------drawMousePolyline------------------
   Enables interactive polyline drawing
   */
-  void drawMousePolyline();
+    void drawMousePolyline();
 
-  /*---------------------drawMousePolygon-------------------
+    /*---------------------drawMousePolygon-------------------
   Enables interactive polygon drawing
   */
-  void drawMousePolygon();
+    void drawMousePolygon();
 
-  /*---------------------drawScanFillTest-------------------
+    /*---------------------drawScanFillTest-------------------
   Draws the test coords for scanfill
   */
-  void drawScanFillTest();
-  void drawScanFillTest2();
-  void drawScanFillTest3();
- 
-  /*----------------------clearWindow-----------------------
+    void drawScanFillTest();
+    void drawScanFillTest2();
+    void drawScanFillTest3();
+    void drawScanFillTest4();
+
+    void enableAETAct();
+    void enableSETAct();
+
+    /*----------------------clearWindow-----------------------
   Clears the render window
   */
-  void clearWindow();
-  
-  /*----------------------chooseColor-----------------------
+    void clearWindow();
+
+    /*----------------------chooseColor-----------------------
   Launches a color picker to set the line color
   */
-  void chooseColor();
+    void chooseColor();
 
-  void drawFanTest();
+    void drawFanTest();
 
-  void drawBowTest();
+    void drawBowTest();
 
-  void drawHouseTest();
+    void drawHouseTest();
 
-  void drawTest();
+    void drawTest();
 
-  /*---------------------drawCircle-------------------
+    /*---------------------drawCircle-------------------
     Enables interactive circle drawing
   */
-  void drawCircle();
+    void drawCircle();
 
 
 signals:
-  /*---------------------mouseMoved-------------------------
+    /*---------------------mouseMoved-------------------------
   This signal is responsible for sending the current mouse
   position back to the MainWindow.
   */
-  void mouseMoved(int x, int y);
+    void mouseMoved(int x, int y);
 
 protected:
-  /*-----------------------initializeGL--------------------
+    /*-----------------------initializeGL--------------------
   Initializes the GL window by doing operations such as setting
   the clear color, the lighting model, shading properties, etc.
   */
-  virtual void initializeGL();
+    virtual void initializeGL();
 
-  /*-----------------------resizeGL------------------------
+    /*-----------------------resizeGL------------------------
   Called every time the GL widget is resized
   */
-  virtual void resizeGL(int w, int h);
+    virtual void resizeGL(int w, int h);
 
-  /*-----------------------paintGL-------------------------
+    /*-----------------------paintGL-------------------------
   All graphics drawing is done (or called) from in here
   */
-  virtual void paintGL();
+    virtual void paintGL();
 
-  /*--------------------MouseMoveEvent---------------------
+    /*--------------------MouseMoveEvent---------------------
   Captures mouse movement events
   */
-  virtual void mouseMoveEvent(QMouseEvent* e);
- 
-  /*--------------------MousePressEvent--------------------
+    virtual void mouseMoveEvent(QMouseEvent* e);
+
+    /*--------------------MousePressEvent--------------------
   Captures mouse click events
   */
-  virtual void mousePressEvent(QMouseEvent* e);
+    virtual void mousePressEvent(QMouseEvent* e);
 
 
 private:
-  /*-------------------ClearShapeVariables-----------------
+    /*-------------------ClearShapeVariables-----------------
   Clears the variables containing the shape coordinates
   */
-  void clearShapeVariables();
+    void clearShapeVariables();
 
-  //The end point coordinates for the DDA line & Circle
-  int startX, startY, finishX, finishY, radiusX, radiusY;
+    //The end point coordinates for the DDA line & Circle
+    int startX, startY, finishX, finishY, radiusX, radiusY;
 
-  //The current line color
-  GLubyte lineColor[3];
+    //The current line color
+    GLubyte lineColor[3];
 
-  //Counter for number of mouse clicks 
-  int clickCounter; 
-  
-  //The current drawing mode (either dialog or mouse selection)
-  int drawMode;
+    //Counter for number of mouse clicks
+    int clickCounter;
 
-  //The current shape being drawn (line, circle or ellipse)
-  int shapeMode;
-  
-  //Have the shape variables been cleared out?
-  bool areShapesClear;
-  
-  //Need a variable to ensure output is only printed once per shape
-  bool printOnce;
+    //The current drawing mode (either dialog or mouse selection)
+    int drawMode;
 
-  int drawShape;
+    //The current shape being drawn (line, circle or ellipse)
+    int shapeMode;
 
-  PrintDialog* printDiag;
-  LineDialog* lineDiag;
-  CircleDialog* circleDiag;
+    //Sets the expected input for scanning
+    int scanMode;
+
+    //Have the shape variables been cleared out?
+    bool areShapesClear;
+
+    //Need a variable to ensure output is only printed once per shape
+    bool printOnce;
+
+    int drawShape;
+
+    PrintDialog* printDiag;
+    LineDialog* lineDiag;
+    CircleDialog* circleDiag;
+    bool printAET;
 };
 
 #endif

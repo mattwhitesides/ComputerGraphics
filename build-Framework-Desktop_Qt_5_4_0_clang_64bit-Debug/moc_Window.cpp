@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../ScanlineFill/Window.h"
+#include "../3D/Window.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Window_t {
-    QByteArrayData data[17];
-    char stringdata[312];
+    QByteArrayData data[7];
+    char stringdata[106];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,27 +35,12 @@ QT_MOC_LITERAL(2, 23, 0), // ""
 QT_MOC_LITERAL(3, 24, 17), // "chooseColorFromMW"
 QT_MOC_LITERAL(4, 42, 20), // "drawDialogLineFromMW"
 QT_MOC_LITERAL(5, 63, 19), // "drawMouseLineFromMW"
-QT_MOC_LITERAL(6, 83, 23), // "drawMousePolyLineFromMW"
-QT_MOC_LITERAL(7, 107, 22), // "drawMousePolygonFromMW"
-QT_MOC_LITERAL(8, 130, 17), // "drawFanTestFromMW"
-QT_MOC_LITERAL(9, 148, 19), // "drawHouseTestFromMW"
-QT_MOC_LITERAL(10, 168, 17), // "drawBowTestFromMW"
-QT_MOC_LITERAL(11, 186, 14), // "drawTestFromMW"
-QT_MOC_LITERAL(12, 201, 16), // "drawCircleFromMW"
-QT_MOC_LITERAL(13, 218, 22), // "drawDialogCircleFromMW"
-QT_MOC_LITERAL(14, 241, 22), // "drawScanFillTestFromMW"
-QT_MOC_LITERAL(15, 264, 23), // "drawScanFillTest2FromMW"
-QT_MOC_LITERAL(16, 288, 23) // "drawScanFillTest3FromMW"
+QT_MOC_LITERAL(6, 83, 22) // "drawMousePolygonFromMW"
 
     },
     "Window\0printCallFromMW\0\0chooseColorFromMW\0"
     "drawDialogLineFromMW\0drawMouseLineFromMW\0"
-    "drawMousePolyLineFromMW\0drawMousePolygonFromMW\0"
-    "drawFanTestFromMW\0drawHouseTestFromMW\0"
-    "drawBowTestFromMW\0drawTestFromMW\0"
-    "drawCircleFromMW\0drawDialogCircleFromMW\0"
-    "drawScanFillTestFromMW\0drawScanFillTest2FromMW\0"
-    "drawScanFillTest3FromMW"
+    "drawMousePolygonFromMW"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,41 +50,21 @@ static const uint qt_meta_data_Window[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      15,       // signalCount
+       5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   89,    2, 0x06 /* Public */,
-       3,    0,   90,    2, 0x06 /* Public */,
-       4,    0,   91,    2, 0x06 /* Public */,
-       5,    0,   92,    2, 0x06 /* Public */,
-       6,    0,   93,    2, 0x06 /* Public */,
-       7,    0,   94,    2, 0x06 /* Public */,
-       8,    0,   95,    2, 0x06 /* Public */,
-       9,    0,   96,    2, 0x06 /* Public */,
-      10,    0,   97,    2, 0x06 /* Public */,
-      11,    0,   98,    2, 0x06 /* Public */,
-      12,    0,   99,    2, 0x06 /* Public */,
-      13,    0,  100,    2, 0x06 /* Public */,
-      14,    0,  101,    2, 0x06 /* Public */,
-      15,    0,  102,    2, 0x06 /* Public */,
-      16,    0,  103,    2, 0x06 /* Public */,
+       1,    0,   39,    2, 0x06 /* Public */,
+       3,    0,   40,    2, 0x06 /* Public */,
+       4,    0,   41,    2, 0x06 /* Public */,
+       5,    0,   42,    2, 0x06 /* Public */,
+       6,    0,   43,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -118,17 +83,7 @@ void Window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 1: _t->chooseColorFromMW(); break;
         case 2: _t->drawDialogLineFromMW(); break;
         case 3: _t->drawMouseLineFromMW(); break;
-        case 4: _t->drawMousePolyLineFromMW(); break;
-        case 5: _t->drawMousePolygonFromMW(); break;
-        case 6: _t->drawFanTestFromMW(); break;
-        case 7: _t->drawHouseTestFromMW(); break;
-        case 8: _t->drawBowTestFromMW(); break;
-        case 9: _t->drawTestFromMW(); break;
-        case 10: _t->drawCircleFromMW(); break;
-        case 11: _t->drawDialogCircleFromMW(); break;
-        case 12: _t->drawScanFillTestFromMW(); break;
-        case 13: _t->drawScanFillTest2FromMW(); break;
-        case 14: _t->drawScanFillTest3FromMW(); break;
+        case 4: _t->drawMousePolygonFromMW(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -160,68 +115,8 @@ void Window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         }
         {
             typedef void (Window::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawMousePolyLineFromMW)) {
-                *result = 4;
-            }
-        }
-        {
-            typedef void (Window::*_t)();
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawMousePolygonFromMW)) {
-                *result = 5;
-            }
-        }
-        {
-            typedef void (Window::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawFanTestFromMW)) {
-                *result = 6;
-            }
-        }
-        {
-            typedef void (Window::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawHouseTestFromMW)) {
-                *result = 7;
-            }
-        }
-        {
-            typedef void (Window::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawBowTestFromMW)) {
-                *result = 8;
-            }
-        }
-        {
-            typedef void (Window::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawTestFromMW)) {
-                *result = 9;
-            }
-        }
-        {
-            typedef void (Window::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawCircleFromMW)) {
-                *result = 10;
-            }
-        }
-        {
-            typedef void (Window::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawDialogCircleFromMW)) {
-                *result = 11;
-            }
-        }
-        {
-            typedef void (Window::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawScanFillTestFromMW)) {
-                *result = 12;
-            }
-        }
-        {
-            typedef void (Window::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawScanFillTest2FromMW)) {
-                *result = 13;
-            }
-        }
-        {
-            typedef void (Window::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawScanFillTest3FromMW)) {
-                *result = 14;
+                *result = 4;
             }
         }
     }
@@ -253,13 +148,13 @@ int Window::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 15;
+        _id -= 5;
     }
     return _id;
 }
@@ -289,68 +184,8 @@ void Window::drawMouseLineFromMW()
 }
 
 // SIGNAL 4
-void Window::drawMousePolyLineFromMW()
-{
-    QMetaObject::activate(this, &staticMetaObject, 4, Q_NULLPTR);
-}
-
-// SIGNAL 5
 void Window::drawMousePolygonFromMW()
 {
-    QMetaObject::activate(this, &staticMetaObject, 5, Q_NULLPTR);
-}
-
-// SIGNAL 6
-void Window::drawFanTestFromMW()
-{
-    QMetaObject::activate(this, &staticMetaObject, 6, Q_NULLPTR);
-}
-
-// SIGNAL 7
-void Window::drawHouseTestFromMW()
-{
-    QMetaObject::activate(this, &staticMetaObject, 7, Q_NULLPTR);
-}
-
-// SIGNAL 8
-void Window::drawBowTestFromMW()
-{
-    QMetaObject::activate(this, &staticMetaObject, 8, Q_NULLPTR);
-}
-
-// SIGNAL 9
-void Window::drawTestFromMW()
-{
-    QMetaObject::activate(this, &staticMetaObject, 9, Q_NULLPTR);
-}
-
-// SIGNAL 10
-void Window::drawCircleFromMW()
-{
-    QMetaObject::activate(this, &staticMetaObject, 10, Q_NULLPTR);
-}
-
-// SIGNAL 11
-void Window::drawDialogCircleFromMW()
-{
-    QMetaObject::activate(this, &staticMetaObject, 11, Q_NULLPTR);
-}
-
-// SIGNAL 12
-void Window::drawScanFillTestFromMW()
-{
-    QMetaObject::activate(this, &staticMetaObject, 12, Q_NULLPTR);
-}
-
-// SIGNAL 13
-void Window::drawScanFillTest2FromMW()
-{
-    QMetaObject::activate(this, &staticMetaObject, 13, Q_NULLPTR);
-}
-
-// SIGNAL 14
-void Window::drawScanFillTest3FromMW()
-{
-    QMetaObject::activate(this, &staticMetaObject, 14, Q_NULLPTR);
+    QMetaObject::activate(this, &staticMetaObject, 4, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

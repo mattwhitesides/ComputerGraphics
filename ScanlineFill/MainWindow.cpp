@@ -129,7 +129,7 @@ void MainWindow::createActions()
     //    drawCircleAct->setStatusTip(tr("Draw a circle or ellipse on screen"));
     //    connect(drawCircleAct, SIGNAL(triggered()), childWindow, SIGNAL(drawCircleFromMW()));
 
-    scanFillTestAct = new QAction(tr("ScanFillTriangle"), this);
+    scanFillTestAct = new QAction(tr("GoraudShadingTriangle"), this);
     scanFillTestAct->setStatusTip(tr("Draw the first test scanfill algorithem"));
     connect(scanFillTestAct, SIGNAL(triggered()), childWindow, SIGNAL(drawScanFillTestFromMW()));
     //connect(mousePolylineAct, SIGNAL(triggered()), glWindow, SLOT(drawScanFillTestFromMW()));
@@ -142,6 +142,20 @@ void MainWindow::createActions()
     scanFillTest3Act = new QAction(tr("Polygon9"), this);
     scanFillTest3Act->setStatusTip(tr("Draw the third test scanfill algorithem"));
     connect(scanFillTest3Act, SIGNAL(triggered()), childWindow, SIGNAL(drawScanFillTest3FromMW()));
+    //connect(mousePolylineAct, SIGNAL(triggered()), glWindow, SLOT(drawScanFillTestFromMW()));
+
+    scanFillTest4Act = new QAction(tr("OtherPolygons"), this);
+    scanFillTest4Act->setStatusTip(tr("Draw the other test polygons using scanfill"));
+    connect(scanFillTest4Act, SIGNAL(triggered()), childWindow, SIGNAL(drawScanFillTest4FromMW()));
+    //connect(mousePolylineAct, SIGNAL(triggered()), glWindow, SLOT(drawScanFillTestFromMW()));
+
+    enableSETAct = new QAction(tr("EnableSETPrint"), this);
+    enableSETAct->setStatusTip(tr("Prints out the Sorted Edge Table to console"));
+    connect(enableSETAct, SIGNAL(triggered()), childWindow, SIGNAL(enableSETActFromMW()));
+
+    enableAETAct = new QAction(tr("EnableAETPrinting"), this);
+    enableAETAct->setStatusTip(tr("Prints out the Active Edge Table to console"));
+    connect(enableAETAct, SIGNAL(triggered()), childWindow, SIGNAL(enableAETActFromMW()));
     //connect(mousePolylineAct, SIGNAL(triggered()), glWindow, SLOT(drawScanFillTestFromMW()));
 }
 
@@ -190,7 +204,10 @@ void MainWindow::createToolBar()
     //    interactToolBar->addAction(houseAct);
     //    interactToolBar->addAction(testAct);
     //    interactToolBar->addAction(fanAct);
-    interactToolBar->addAction(scanFillTestAct);
     interactToolBar->addAction(scanFillTest2Act);
     interactToolBar->addAction(scanFillTest3Act);
+    interactToolBar->addAction(scanFillTest4Act);
+    interactToolBar->addAction(scanFillTestAct);
+    interactToolBar->addAction(enableAETAct);
+    //interactToolBar->addAction(enableSETAct);
 }

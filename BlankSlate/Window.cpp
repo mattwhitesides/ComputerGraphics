@@ -16,22 +16,7 @@ Window::Window(MainWindow *mw) : mainWindow(mw)
     connect(this, SIGNAL(chooseColorFromMW()), glWindow, SLOT(chooseColor()));
     connect(this, SIGNAL(drawDialogLineFromMW()), glWindow, SLOT(drawDialogLine()));
     connect(this, SIGNAL(drawMouseLineFromMW()), glWindow, SLOT(drawMouseLine()));
-    connect(this, SIGNAL(drawMousePolyLineFromMW()), glWindow, SLOT(drawMousePolyline()));
     connect(this, SIGNAL(drawMousePolygonFromMW()), glWindow, SLOT(drawMousePolygon()));
-    connect(this, SIGNAL(drawCircleFromMW()), glWindow, SLOT(drawCircle()));
-    connect(this, SIGNAL(drawDialogCircleFromMW()), glWindow, SLOT(drawDialogCircle()));
-    connect(this, SIGNAL(drawScanFillTestFromMW()), glWindow, SLOT(drawScanFillTest()));
-    connect(this, SIGNAL(drawScanFillTest2FromMW()), glWindow, SLOT(drawScanFillTest2()));
-    connect(this, SIGNAL(drawScanFillTest3FromMW()), glWindow, SLOT(drawScanFillTest3()));
-    connect(this, SIGNAL(drawScanFillTest4FromMW()), glWindow, SLOT(drawScanFillTest4()));
-    connect(this, SIGNAL(enableAETActFromMW()), glWindow, SLOT(enableAETAct()));
-    connect(this, SIGNAL(enableSETActFromMW()), glWindow, SLOT(enableSETAct()));
-
-    //     Use to Reenable line tests
-    //    connect(this, SIGNAL(drawFanTestFromMW()), glWindow, SLOT(drawFanTest()));
-    //    connect(this, SIGNAL(drawHouseTestFromMW()), glWindow, SLOT(drawHouseTest()));
-    //    connect(this, SIGNAL(drawBowTestFromMW()), glWindow, SLOT(drawBowTest()));
-    //    connect(this, SIGNAL(drawTestFromMW()), glWindow, SLOT(drawTest()));
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     QHBoxLayout* container = new QHBoxLayout;

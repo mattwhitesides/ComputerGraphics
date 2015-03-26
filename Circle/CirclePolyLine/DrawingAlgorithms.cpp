@@ -249,7 +249,7 @@ QVector<QString> DrawingAlgorithms::drawCircle(int xa, int ya, int xb, int yb) {
     int i = 0;
 
     //Calculate Radius
-    int r = sqrt(pow((xb - xa),2) + pow((yb - ya),2));
+    int r = sqrt((double)(pow((xb - xa),2) + pow((yb - ya),2)));
 
     //Init y to radius and x to 0
     int x = 0;

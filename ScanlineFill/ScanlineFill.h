@@ -22,16 +22,24 @@ struct AET {
     AET* next;
 };
 
+struct Color {
+    float r;
+    float g;
+    float b;
+};
+
 class ScanlineFill
 {
 
 private:
     int offset;
     int yMax;
+    int yMin;
 
 public:
     Edge** bucket;
     int bucketSize;
+    Color fillColor;
 
     ScanlineFill();
     ScanlineFill(int yMin, int yMax, int offset);
@@ -54,7 +62,10 @@ public:
     void printActive(AET* list);
 
     void scanLineFillAlgorithm();
+    void scanLineFillAlgorithm(bool print);
+    void goraudShading();
     void fillIntersection(AET* list, int y);
+    void goraudFillIntersection(AET* list, int y);
     void updateActiveX(AET* list);
 };
 

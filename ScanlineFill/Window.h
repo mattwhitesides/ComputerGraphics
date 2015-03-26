@@ -31,7 +31,10 @@ signals:
     void drawScanFillTestFromMW();
     void drawScanFillTest2FromMW();
     void drawScanFillTest3FromMW();
-	
+    void drawScanFillTest4FromMW();
+    void enableAETActFromMW();
+    void enableSETActFromMW();
+
 private:
 	
 	GLWidget* glWindow;

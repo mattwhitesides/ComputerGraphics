@@ -60,8 +60,6 @@ private:
     QMenu* rasterizeMenu;
     QMenu* transformMenu;
     QMenu* optionsMenu;
-    QMenu* testMenu;
-    QMenu* houseMenu;
 
     //The toolbar
     QToolBar* interactToolBar;
@@ -73,24 +71,7 @@ private:
     QAction* colorAct;
 
     QAction* diagLineAct;
-    QAction* diagCircleAct;
     QAction* mouseLineAct;
-    QAction* mousePolylineAct;
-    QAction* mousePolygonAct;
-
-
-    //Actions to create the required shapes
-    QAction* bowTieAct;
-    QAction* houseAct;
-    QAction* testAct;
-    QAction* fanAct;
-    QAction* drawCircleAct;
-    QAction* scanFillTestAct;
-    QAction* scanFillTest2Act;
-    QAction* scanFillTest3Act;
-    QAction* scanFillTest4Act;
-    QAction* enableAETAct;
-    QAction* enableSETAct;
 
     Window* childWindow;
     //GLWidget* glWindow;

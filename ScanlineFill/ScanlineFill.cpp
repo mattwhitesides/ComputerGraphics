@@ -5,16 +5,21 @@ ScanlineFill::ScanlineFill() {
     offset = 0;
     bucketSize = 0;
     yMax = 0;
+    yMin = 0;
+    fillColor.r = 0.0f;
+    fillColor.g = 0.0f;
+    fillColor.b = 0.0f;
 }
 
 ScanlineFill::ScanlineFill(int yMin, int yMax, int offset) {
     ScanlineFill();
     bucketSize = yMax - yMin - offset + 1;
     ScanlineFill::yMax = yMax;
+    ScanlineFill::yMin = yMin;
     bucket = new Edge*[bucketSize];
     for (int i = 0; i < bucketSize; ++i) bucket[i] = NULL;
     ScanlineFill::offset = offset;
-    //printf("\nInitialized bucket with a size of %d and offset: %d\n\n", bucketSize, ScanlineFill::offset);
+    printf("\nInitialized bucket with a size of %d and offset: %d\n\n", bucketSize, ScanlineFill::offset);
 }
 
 ScanlineFill::ScanlineFill(Coord* edgeArray, int size) {
@@ -23,15 +28,11 @@ ScanlineFill::ScanlineFill(Coord* edgeArray, int size) {
         printf("Empty edge array\n");
         return;
     }
-//    if (size % 2 != 0) {
-//        printf("Incorrect number of coordnates to make edges.\n");
-//        return;
-//    }
     int yMax = edgeArray[0].y;
     int yMin = edgeArray[0].y;
     int j = 0;
 
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i <= size; ++i) {
         if (edgeArray[i].y < yMin)
             yMin = edgeArray[i].y;
         if (edgeArray[i].y > yMax)
@@ -79,7 +80,7 @@ Edge* ScanlineFill::insertNewEdge(Coord vert1, Coord vert2) {
     }
 
     if (vert1.y == vert2.y || vert1.x == vert2.x) slope = 0.0f;
-    slope = 1/((float(vert2.y) - vert1.y) / (vert2.x - vert1.x));
+    else slope = 1/(((float)vert2.y - vert1.y) / ((float)vert2.x - vert1.x));
 
     printf("Inserting into bucket at idx %d:\n\tyMax: %d\n\txAtYMin: %d\n\txIncrement: %f\n", yMin - offset, yMax, xAtYMin, slope);
 
@@ -210,22 +211,6 @@ void ScanlineFill::printActive(AET* list) {
     }
 }
 
-void ScanlineFill::fillIntersection(AET* list, int y) {
-    AET* p1;
-    AET* p2;
-
-    p1 = list;
-    p2 = list->next;
-    while (p2) {
-        if (p1 && p2) {
-            glVertex2i(p1->x,y + offset);
-            glVertex2i(p2->x,y + offset);
-        }
-        p2 = p2->next;
-        p1 = p1->next;
-    }
-}
-
 void ScanlineFill::updateActiveX(AET* list) {
     while (list) {
         list->x += list->xIncrement;
@@ -233,20 +218,89 @@ void ScanlineFill::updateActiveX(AET* list) {
     }
 }
 
-void ScanlineFill::scanLineFillAlgorithm() {
+void ScanlineFill::fillIntersection(AET* list, int y) {
+    AET* p1;
+    AET* p2;
+
+    bool draw = true;
+    y += offset;
+    p1 = list;
+    p2 = list->next;
+    while (p2) {
+        if (draw) {
+            glVertex2i(p1->x,y);
+            glVertex2i(p2->x,y);
+        }
+        p2 = p2->next;
+        p1 = p1->next;
+        draw = (draw) ? false : true;
+    }
+}
+
+void ScanlineFill::goraudFillIntersection(AET* list, int y) {
+    AET* p1;
+    AET* p2;
+
+    y += offset;
+
+    Color i1 = {1.0f, 0.0f, 0.0f};
+    Color i2 = {0.0f, 0.0f, 1.0f};
+    Color i3 = {0.0f, 1.0f, 0.0f};
+    Color intensity = {0.0f, 0.0f, 0.0f};
+    Color iA = {0.0f, 0.0f, 0.0f};
+    Color iB = {0.0f, 0.0f, 0.0f};
+
+    bool draw = true;
+    int x = 0;
+    p1 = list;
+    p2 = list->next;
+    while (p2) {
+        if (draw) {
+            x = p1->x;
+
+            iA.r = (i1.r - i2.r) / (p1->yMax - y);
+            iA.g = (i1.g - i2.g) / (p1->yMax - y);
+            iA.g = (i1.b - i2.b) / (p1->yMax - y);
+
+            iB.r = (i1.r - i3.r) / (p1->yMax - p2->yMax);
+            iB.g = (i1.g - i3.g) / (p1->yMax - p2->yMax);
+            iB.b = (i1.b - i3.b) / (p1->yMax - p2->yMax);
+
+            intensity.r = (iB.r - iA.r) / (p2->x - p1->x);
+            intensity.g = (iB.g - iA.g) / (p2->x - p1->x);
+            intensity.b = (iB.b - iA.b) / (p2->x - p1->x);
+
+            while (x < p2->x) {
+                glColor3f((GLfloat)intensity.r,(GLfloat)intensity.g,(GLfloat)intensity.b);
+                glVertex2i(x,y);
+                intensity.r += intensity.r;
+                intensity.g += intensity.g;
+                intensity.b += intensity.b;
+                ++x;
+            }
+        }
+        p2 = p2->next;
+        p1 = p1->next;
+        draw = (draw) ? false : true;
+    }
+}
+
+void ScanlineFill::goraudShading() {
     if (bucketSize == 0) {
         printf("Please Initialize a Bucket.\n");
         return;
     }
 
+    //glColor3ub((GLubyte)fillColor.r,(GLubyte)fillColor.g,(GLubyte)fillColor.b);
+
     int y = 0;
     AET* act = NULL;
     act = insertSortedIntoActive(act, bucket[0]);
 
-    glBegin(GL_LINES);
+    glBegin(GL_POINTS);
 
     while(y < bucketSize) {
-        fillIntersection(act,y);
+        goraudFillIntersection(act,y);
         act = removeNodeAET(act, y);
         act = insertSortedIntoActive(act, bucket[y]);
         act = sortActive(act);
@@ -256,5 +310,73 @@ void ScanlineFill::scanLineFillAlgorithm() {
         ++y;
     }
 
+    freeAET(act);
     glEnd();
+}
+
+void ScanlineFill::scanLineFillAlgorithm() {
+    if (bucketSize == 0) {
+        printf("Please Initialize a Bucket.\n");
+        return;
+    }
+
+    //glColor3ub((GLubyte)fillColor.r,(GLubyte)fillColor.g,(GLubyte)fillColor.b);
+
+    int y = 0;
+    AET* act = NULL;
+    act = insertSortedIntoActive(act, bucket[0]);
+
+    glBegin(GL_LINES);
+    glColor3ub((GLubyte)0,(GLubyte)188,(GLubyte)212);
+
+    while(y < bucketSize) {        
+        fillIntersection(act,y);
+        act = removeNodeAET(act, y);
+        act = insertSortedIntoActive(act, bucket[y]);
+        act = sortActive(act);
+        updateActiveX(act);
+        //printf("y: %d\n",y);
+        printActive(act);
+        ++y;
+    }
+
+    freeAET(act);
+    glEnd();
+
+}
+
+void ScanlineFill::scanLineFillAlgorithm(bool print) {
+    if (bucketSize == 0) {
+        printf("Please Initialize a Bucket.\n");
+        return;
+    }
+
+    //glColor3ub((GLubyte)fillColor.r,(GLubyte)fillColor.g,(GLubyte)fillColor.b);
+
+    int y = 0;
+    AET* act = NULL;
+
+    glBegin(GL_LINES);
+    glColor3ub((GLubyte)0,(GLubyte)188,(GLubyte)212);
+
+    while (!bucket[y]) {
+        ++y;
+    }
+
+    act = insertSortedIntoActive(act, bucket[y]);
+
+    while (y < bucketSize) {
+        fillIntersection(act,y);
+        act = removeNodeAET(act, y);
+        act = insertSortedIntoActive(act, bucket[y]);
+        act = sortActive(act);
+        updateActiveX(act);
+        printf("y: %d\n",y);
+        if (print) printActive(act);
+        ++y;
+    }
+
+    freeAET(act);
+    glEnd();
+
 }
