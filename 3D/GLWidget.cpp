@@ -7,7 +7,6 @@
 
 #include "GLWidget.h"
 #include "LineDialog.h"
-#include "CircleDialog.h"
 
 #include "PrintDialog.h"
 #include "DrawingAlgorithms.h"
@@ -28,8 +27,6 @@ const int GLWidget::CLEAR = 0;
 const int GLWidget::LINE = 1;
 const int GLWidget::POLYGON = 4;
 
-QList<Coord> polyLineList;
-
 //------------------------GLWidget::GLWidget-------------------------
 GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 {
@@ -38,8 +35,7 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
     lineColor[1] = 255;
     lineColor[2] = 255;
 
-    clickCounter = 0;
-    drawMode = shapeMode = 0;
+    clickCounter = drawMode = shapeMode = 0;
 
     clearShapeVariables();
 
@@ -196,73 +192,50 @@ void GLWidget::initializeGL()
 {
     // This function initializes the OpenGL prior to drawing anything
 
-    glClearColor(0.0, 0.0, 0.0, 0.0);		// Sets the OpenGL color when the widget is cleared, a dark blue in this case
-    glShadeModel(GL_FLAT);				// Sets the flat shading model
-    glEnable(GL_DEPTH_TEST);				// Enables depth testing
-    glEnable(GL_CULL_FACE);				// Enables face culling
+    glShadeModel(GL_SMOOTH);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+    glClearDepth(1.0f);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 }
 
 //-----------------------GLWidget::resizeGL-----------------------------------
 void GLWidget::resizeGL(int w, int h)
 {
-    // This function is called whenever a window is resized
+//    // This function is called whenever a window is resized
 
-    // Loads the identity matrix onto the matrix stack.
-    glLoadIdentity();
+//    // Loads the identity matrix onto the matrix stack.
+//    glLoadIdentity();
 
-    // Sets the viewport
-    glViewport(0, 0, w, h);
+//    // Sets the viewport
+//    glViewport(0, 0, w, h);
 
-    GLdouble left, right, up, down;
+//    GLdouble left, right, up, down;
 
-    /* These variables specify the coordinate set to be used in glOrtho() */
-    /* width() gives the width of the window */
-    /* height() gives the height of the window */
-    /* See QWidget documentation for more info */
-    left = - (float) w / 2;
-    right = (float) w / 2;
-    down = - (float) h / 2;
-    up = (float) h / 2;
+//    /* These variables specify the coordinate set to be used in glOrtho() */
+//    /* width() gives the width of the window */
+//    /* height() gives the height of the window */
+//    /* See QWidget documentation for more info */
+//    left = - (float) w / 2;
+//    right = (float) w / 2;
+//    down = - (float) h / 2;
+//    up = (float) h / 2;
 
-    glOrtho(left, right, down, up, -1, 1);
+//    glOrtho(left, right, down, up, -1, 1);
+
+    DrawingAlgorithms::myReshape(w,h);
 }
+
 
 //--------------------------GLWidget::paintGL----------------------------------
 void GLWidget::paintGL()
 {
-    QVector<QString> output;
-
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    if(!areShapesClear)
-    {
-        switch(shapeMode)
-        {
-        case GLWidget::LINE:
-            if(clickCounter == 0 || (drawMode == GLWidget::DIALOG))
-            {
-                //Breenhem Algorithm
-                DrawingAlgorithms::openGLDrawLine(startX * 2, startY * 2, finishX * 2, finishY * 2);
-            }
-            else if(clickCounter == 1)
-            {
-                //Draw first point
-                glBegin(GL_POINTS);
-                glVertex2i(startX, startY);
-                glEnd();
-            }
-            break;
+    //DrawingAlgorithms::drawCube();
 
-        default: break;
-        }
-
-        if(!printOnce)
-        {
-            printOnce = true;
-            printDiag->setContents(output);
-        }
-    }
+    DrawingAlgorithms::displayTetra();
 }
 
 //---------------------GLWidget::MouseMoveEvent-----------------------------
@@ -335,6 +308,4 @@ void GLWidget::clearShapeVariables()
     areShapesClear = true;
 
     printOnce = true;
-
-    polyLineList.clear();
 }

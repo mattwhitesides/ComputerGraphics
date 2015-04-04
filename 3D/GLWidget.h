@@ -11,6 +11,11 @@
 #include <qgl.h>
 #include <QGLWidget>
 #include <QString>
+#if defined(__APPLE__) || defined(MACOSX)
+  #include <GLUT/glut.h>
+#else
+  #include <gl/glut.h>
+#endif
 
 typedef struct coord {
     int x;

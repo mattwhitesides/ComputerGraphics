@@ -56,7 +56,7 @@ MainWindow::MainWindow()
 
     setWindowTitle(tr("CS 4610/7610 Assignment 1 Framework"));
     setMinimumSize(100, 100);
-    resize(720, 540);
+    resize(720, 720);
 }
 
 void MainWindow::updateStatusLabel(int x, int y)
@@ -85,15 +85,15 @@ void MainWindow::createActions()
     connect(colorAct, SIGNAL(triggered()), childWindow, SIGNAL(chooseColorFromMW()));
     //connect(colorAct, SIGNAL(triggered()), glWindow, SLOT(chooseColor()));
 
-    diagLineAct = new QAction(tr("Line"), this);
-    diagLineAct->setStatusTip(tr("Open dialog for line drawing"));
-    connect(diagLineAct, SIGNAL(triggered()), childWindow, SIGNAL(drawDialogLineFromMW()));
-    //connect(diagLineAct, SIGNAL(triggered()), glWindow, SLOT(drawDialogLine()));
+//    diagLineAct = new QAction(tr("Line"), this);
+//    diagLineAct->setStatusTip(tr("Open dialog for line drawing"));
+//    connect(diagLineAct, SIGNAL(triggered()), childWindow, SIGNAL(drawDialogLineFromMW()));
+//    //connect(diagLineAct, SIGNAL(triggered()), glWindow, SLOT(drawDialogLine()));
 
-    mouseLineAct  = new QAction(tr("Line"), this);
-    mouseLineAct->setStatusTip(tr("Activate mouse line drawing"));
-    connect(mouseLineAct, SIGNAL(triggered()), childWindow, SIGNAL(drawMouseLineFromMW()));
-    //connect(mouseLineAct, SIGNAL(triggered()), glWindow, SLOT(drawMouseLine()));
+//    mouseLineAct  = new QAction(tr("Line"), this);
+//    mouseLineAct->setStatusTip(tr("Activate mouse line drawing"));
+//    connect(mouseLineAct, SIGNAL(triggered()), childWindow, SIGNAL(drawMouseLineFromMW()));
+//    //connect(mouseLineAct, SIGNAL(triggered()), glWindow, SLOT(drawMouseLine()));
 }
 
 /*<<<<<<<<<<<<<<<<<<<<<<createMenus>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -113,7 +113,7 @@ void MainWindow::createMenus()
     //The graphics menu
     graphicsMenu = menuBar()->addMenu(tr("&Graphics"));
     drawMenu = graphicsMenu->addMenu(tr("&Draw"));
-    drawMenu->addAction(diagLineAct);
+    //drawMenu->addAction(diagLineAct);
 
     //The rasterization menu
     rasterizeMenu = graphicsMenu->addMenu(tr("&Rasterize"));
@@ -127,5 +127,5 @@ void MainWindow::createMenus()
 void MainWindow::createToolBar()
 {
     interactToolBar = addToolBar(tr("Interact"));
-    interactToolBar->addAction(mouseLineAct);
+    //interactToolBar->addAction(mouseLineAct);
 }

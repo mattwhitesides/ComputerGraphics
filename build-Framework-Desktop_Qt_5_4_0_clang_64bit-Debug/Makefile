@@ -36,7 +36,7 @@ DISTNAME      = Assignment11.0.0
 DISTDIR = /Users/MattSides734/Documents/School/ComputerGraphics/3D/.tmp/Assignment11.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -headerpad_max_install_names -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -mmacosx-version-min=10.7 -Wl,-rpath,/Users/MattSides734/Qt/5.4/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/MattSides734/Qt/5.4/clang_64/lib -framework QtOpenGL -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL 
+LIBS          = $(SUBLIBS) -F/Users/MattSides734/Qt/5.4/clang_64/lib -framework GLUT -framework QtOpenGL -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -49,6 +49,7 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../3D/main.cpp \
+		../3D/loadObj.cpp \
 		../3D/Window.cpp \
 		../3D/MainWindow.cpp \
 		../3D/GLWidget.cpp \
@@ -59,6 +60,7 @@ SOURCES       = ../3D/main.cpp \
 		moc_Window.cpp \
 		moc_MainWindow.cpp
 OBJECTS       = main.o \
+		loadObj.o \
 		Window.o \
 		MainWindow.o \
 		GLWidget.o \
@@ -198,11 +200,13 @@ DIST          = ../../../../Qt/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/yacc.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/lex.prf \
 		../3D/Framework.pro ../3D/GLWidget.h \
+		../3D/loadObj.h \
 		../3D/LineDialog.h \
 		../3D/PrintDialog.h \
 		../3D/Window.h \
 		../3D/MainWindow.h \
 		../3D/DrawingAlgorithms.h ../3D/main.cpp \
+		../3D/loadObj.cpp \
 		../3D/Window.cpp \
 		../3D/MainWindow.cpp \
 		../3D/GLWidget.cpp \
@@ -546,8 +550,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../3D/GLWidget.h ../3D/LineDialog.h ../3D/PrintDialog.h ../3D/Window.h ../3D/MainWindow.h ../3D/DrawingAlgorithms.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../3D/main.cpp ../3D/Window.cpp ../3D/MainWindow.cpp ../3D/GLWidget.cpp ../3D/LineDialog.cpp ../3D/PrintDialog.cpp ../3D/DrawingAlgorithms.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../3D/GLWidget.h ../3D/loadObj.h ../3D/LineDialog.h ../3D/PrintDialog.h ../3D/Window.h ../3D/MainWindow.h ../3D/DrawingAlgorithms.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../3D/main.cpp ../3D/loadObj.cpp ../3D/Window.cpp ../3D/MainWindow.cpp ../3D/GLWidget.cpp ../3D/LineDialog.cpp ../3D/PrintDialog.cpp ../3D/DrawingAlgorithms.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -633,6 +637,9 @@ main.o: ../3D/main.cpp ../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versi
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../3D/main.cpp
+
+loadObj.o: ../3D/loadObj.cpp ../3D/loadObj.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o loadObj.o ../3D/loadObj.cpp
 
 Window.o: ../3D/Window.cpp ../3D/GLWidget.h \
 		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \

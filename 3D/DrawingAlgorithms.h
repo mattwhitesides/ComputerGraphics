@@ -22,6 +22,18 @@ public:
     //Test to see what OpenGL's line drawings look like
     static void openGLDrawLine(int xa, int ya, int xb, int yb);
 
+    static void triangle(GLfloat *va, GLfloat *vb, GLfloat *vc);
+
+    static void tetra(GLfloat *a, GLfloat *b, GLfloat *c, GLfloat *d);
+
+    static void divide_tetra(GLfloat *a, GLfloat *b, GLfloat *c, GLfloat *d, int m);
+
+    static void displayTetra();
+
+    static void myReshape(int w, int h);
+
+    static void drawCube();
+
 private:
 	/*<<<<<<<<<<<<<<<<<<convertCoordsToString>>>>>>>>>>>>>>>
     Converts the X and Y coordinates to a formated string output
