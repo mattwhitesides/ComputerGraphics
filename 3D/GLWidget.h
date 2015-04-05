@@ -175,6 +175,8 @@ protected:
   */
   virtual void mousePressEvent(QMouseEvent* e);
 
+  virtual void keyPressEvent(QKeyEvent* event);
+
 
 private:
   /*-------------------ClearShapeVariables-----------------

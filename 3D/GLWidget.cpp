@@ -27,6 +27,13 @@ const int GLWidget::CLEAR = 0;
 const int GLWidget::LINE = 1;
 const int GLWidget::POLYGON = 4;
 
+GLfloat translateX = 0.0;
+GLfloat translateY = 0.0;
+GLfloat translateZ = -2.0;
+GLfloat rotX = 0.0;
+GLfloat rotY = 0.0;
+GLfloat rotZ = 0.0;
+
 //------------------------GLWidget::GLWidget-------------------------
 GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 {
@@ -63,6 +70,10 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
     // Enables mouse tracking. This means that whenever the mouse is moved
     // and/or clicked on the widget, a mouse event is generated
     setMouseTracking(true);
+
+    setFocusPolicy( Qt::StrongFocus );
+    setFocus( Qt::PopupFocusReason );
+    setEnabled( true );
 }
 
 //--------------------------GLWidget::~GLWidget----------------------------
@@ -203,28 +214,28 @@ void GLWidget::initializeGL()
 //-----------------------GLWidget::resizeGL-----------------------------------
 void GLWidget::resizeGL(int w, int h)
 {
-//    // This function is called whenever a window is resized
+    //    // This function is called whenever a window is resized
 
-//    // Loads the identity matrix onto the matrix stack.
-//    glLoadIdentity();
+    //    // Loads the identity matrix onto the matrix stack.
+    //    glLoadIdentity();
 
-//    // Sets the viewport
-//    glViewport(0, 0, w, h);
+    //    // Sets the viewport
+    //    glViewport(0, 0, w, h);
 
-//    GLdouble left, right, up, down;
+    //    GLdouble left, right, up, down;
 
-//    /* These variables specify the coordinate set to be used in glOrtho() */
-//    /* width() gives the width of the window */
-//    /* height() gives the height of the window */
-//    /* See QWidget documentation for more info */
-//    left = - (float) w / 2;
-//    right = (float) w / 2;
-//    down = - (float) h / 2;
-//    up = (float) h / 2;
+    //    /* These variables specify the coordinate set to be used in glOrtho() */
+    //    /* width() gives the width of the window */
+    //    /* height() gives the height of the window */
+    //    /* See QWidget documentation for more info */
+    //    left = - (float) w / 2;
+    //    right = (float) w / 2;
+    //    down = - (float) h / 2;
+    //    up = (float) h / 2;
 
-//    glOrtho(left, right, down, up, -1, 1);
+    //    glOrtho(left, right, down, up, -1, 1);
 
-    DrawingAlgorithms::myReshape(w,h);
+    DrawingAlgorithms::myReshape(w, h);
 }
 
 
@@ -235,7 +246,9 @@ void GLWidget::paintGL()
 
     //DrawingAlgorithms::drawCube();
 
-    DrawingAlgorithms::displayTetra();
+    DrawingAlgorithms::displayTetra(translateX,translateY,translateZ,rotX,rotY,rotZ);
+
+    glFlush();
 }
 
 //---------------------GLWidget::MouseMoveEvent-----------------------------
@@ -297,6 +310,40 @@ void GLWidget::mousePressEvent(QMouseEvent* e)
             break;
         }
     }
+}
+
+void GLWidget::keyPressEvent(QKeyEvent* event) {
+    GLfloat moveInc = 0.15;
+    GLfloat rotInc = 2.0;
+    switch (event->key()) {
+    case Qt::Key_Up:
+        if(event->modifiers() & Qt::ShiftModifier ) translateZ += moveInc;
+        else translateY += moveInc;
+        break;
+    case Qt::Key_Down:
+        if(event->modifiers() & Qt::ShiftModifier ) translateZ -= moveInc;
+        else translateY -= moveInc;
+        break;
+    case Qt::Key_Left:
+        translateX -= moveInc;
+        break;
+    case Qt::Key_Right:
+        translateX += moveInc;
+        break;
+    case Qt::Key_W:
+        rotX += rotInc;
+        break;
+    case Qt::Key_A:
+        rotY -= rotInc;
+        break;
+    case Qt::Key_S:
+        rotX -= rotInc;
+        break;
+    case Qt::Key_D:
+        rotY += rotInc;
+        break;
+    }
+    printf("Translate:\n\t%lf\n\t%lf\n\t%lf\n\n",translateX,translateY,translateZ);
 }
 
 //-----------------GLWidget::ClearShapeVariables-------------------------

@@ -10,7 +10,7 @@
 #include <qgl.h>
 
 GLfloat v[4][3]={{0.0, 0.0, 1.0}, {0.0, 0.942809, -0.33333},
-      {-0.816497, -0.471405, -0.333333}, {0.816497, -0.471405, -0.333333}};
+                 {-0.816497, -0.471405, -0.333333}, {0.816497, -0.471405, -0.333333}};
 
 GLfloat colors[4][3] = {{1.0, 0.0, 0.0}, {0.0, 1.0, 0.0},
                         {0.0, 0.0, 1.0}, {0.0, 0.0, 0.0}};
@@ -47,36 +47,36 @@ void DrawingAlgorithms::drawCube() {
     glTranslatef(0.0f,0.0f,0.0f);
     glRotatef(rquad,0.25f,0.50f,0.25f);
     glBegin(GL_QUADS);
-        glColor3f(0.0f,1.0f,0.0f);
-        glVertex3f( 0.5f, 0.5f,-0.5f);
-        glVertex3f(-0.5f, 0.5f,-0.5f);
-        glVertex3f(-0.5f, 0.5f, 0.5f);
-        glVertex3f( 0.5f, 0.5f, 0.5f);
-        glColor3f(1.0f,0.5f,0.0f);
-        glVertex3f( 0.5f,-0.5f, 0.5f);
-        glVertex3f(-0.5f,-0.5f, 0.5f);
-        glVertex3f(-0.5f,-0.5f,-0.5f);
-        glVertex3f( 0.5f,-0.5f,-0.5f);
-        glColor3f(1.0f,0.0f,0.0f);
-        glVertex3f( 0.5f, 0.5f, 0.5f);
-        glVertex3f(-0.5f, 0.5f, 0.5f);
-        glVertex3f(-0.5f,-0.5f, 0.5f);
-        glVertex3f( 0.5f,-0.5f, 0.5f);
-        glColor3f(1.0f,1.0f,0.0f);
-        glVertex3f( 0.5f,-0.5f,-0.5f);
-        glVertex3f(-0.5f,-0.5f,-0.5f);
-        glVertex3f(-0.5f, 0.5f,-0.5f);
-        glVertex3f( 0.5f, 0.5f,-0.5f);
-        glColor3f(0.0f,0.0f,1.0f);
-        glVertex3f(-0.5f, 0.5f, 0.5f);
-        glVertex3f(-0.5f, 0.5f,-0.5f);
-        glVertex3f(-0.5f,-0.5f,-0.5f);
-        glVertex3f(-0.5f,-0.5f, 0.5f);
-        glColor3f(1.0f,0.0f,1.0f);
-        glVertex3f( 0.5f, 0.5f,-0.5f);
-        glVertex3f( 0.5f, 0.5f, 0.5f);
-        glVertex3f( 0.5f,-0.5f, 0.5f);
-        glVertex3f( 0.5f,-0.5f,-0.5f);
+    glColor3f(0.0f,1.0f,0.0f);
+    glVertex3f( 0.5f, 0.5f,-0.5f);
+    glVertex3f(-0.5f, 0.5f,-0.5f);
+    glVertex3f(-0.5f, 0.5f, 0.5f);
+    glVertex3f( 0.5f, 0.5f, 0.5f);
+    glColor3f(1.0f,0.5f,0.0f);
+    glVertex3f( 0.5f,-0.5f, 0.5f);
+    glVertex3f(-0.5f,-0.5f, 0.5f);
+    glVertex3f(-0.5f,-0.5f,-0.5f);
+    glVertex3f( 0.5f,-0.5f,-0.5f);
+    glColor3f(1.0f,0.0f,0.0f);
+    glVertex3f( 0.5f, 0.5f, 0.5f);
+    glVertex3f(-0.5f, 0.5f, 0.5f);
+    glVertex3f(-0.5f,-0.5f, 0.5f);
+    glVertex3f( 0.5f,-0.5f, 0.5f);
+    glColor3f(1.0f,1.0f,0.0f);
+    glVertex3f( 0.5f,-0.5f,-0.5f);
+    glVertex3f(-0.5f,-0.5f,-0.5f);
+    glVertex3f(-0.5f, 0.5f,-0.5f);
+    glVertex3f( 0.5f, 0.5f,-0.5f);
+    glColor3f(0.0f,0.0f,1.0f);
+    glVertex3f(-0.5f, 0.5f, 0.5f);
+    glVertex3f(-0.5f, 0.5f,-0.5f);
+    glVertex3f(-0.5f,-0.5f,-0.5f);
+    glVertex3f(-0.5f,-0.5f, 0.5f);
+    glColor3f(1.0f,0.0f,1.0f);
+    glVertex3f( 0.5f, 0.5f,-0.5f);
+    glVertex3f( 0.5f, 0.5f, 0.5f);
+    glVertex3f( 0.5f,-0.5f, 0.5f);
+    glVertex3f( 0.5f,-0.5f,-0.5f);
     glEnd();
 
     rtri+=0.2f;
@@ -91,9 +91,9 @@ QString DrawingAlgorithms::convertCoordsToString(int num, int x, int y)
 
 void DrawingAlgorithms::triangle(GLfloat *va, GLfloat *vb, GLfloat *vc)
 {
-       glVertex3fv(va);
-       glVertex3fv(vb);
-       glVertex3fv(vc);
+    glVertex3fv(va);
+    glVertex3fv(vb);
+    glVertex3fv(vc);
 }
 
 void DrawingAlgorithms::tetra(GLfloat *a, GLfloat *b, GLfloat *c, GLfloat *d)
@@ -136,17 +136,19 @@ void DrawingAlgorithms::divide_tetra(GLfloat *a, GLfloat *b, GLfloat *c, GLfloat
 }
 
 
-void DrawingAlgorithms::displayTetra()
+void DrawingAlgorithms::displayTetra(GLfloat translateX, GLfloat translateY, GLfloat translateZ, GLfloat rotX, GLfloat rotY, GLfloat rotZ)
 {
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    glTranslatef(0.0f,0.0f,0.0f);
-    glRotatef(rtri,0.25f,0.50f,0.25f);
+    glTranslatef(translateX,translateY,translateZ);
+    glRotatef(rotX, 1.0f, 0.0f, 0.0f);   //X
+    glRotatef(rotY, 0.0f, 1.0f, 0.0f);   //Y
+    glRotatef(rotZ, 0.0f, 0.0f, 1.0f);   //Z
     glBegin(GL_TRIANGLES);
     divide_tetra(v[0], v[1], v[2], v[3], numDivisions);
     glEnd();
     glFlush();
-    rtri+=0.35f;
+    //rtri += .35;
 }
 
 
@@ -155,12 +157,18 @@ void DrawingAlgorithms::myReshape(int w, int h)
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    if (w <= h)
-        glOrtho(-2.0, 2.0, -2.0 * (GLfloat) h / (GLfloat) w,
-            2.0 * (GLfloat) h / (GLfloat) w, -10.0, 10.0);
-    else
-        glOrtho(-2.0 * (GLfloat) w / (GLfloat) h,
-            2.0 * (GLfloat) w / (GLfloat) h, -2.0, 2.0, -10.0, 10.0);
+
+    gluPerspective(90,(w/h),0.1,600);
+
+//    if (w <= h) {
+//        //glOrtho(-2.0, 2.0, -2.0 * (GLfloat) h / (GLfloat) w, 2.0 * (GLfloat) h / (GLfloat) w, -10.0, 10.0);
+//        //glFrustum(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble near, GLdouble far);
+//    }
+//    else {
+//        //glOrtho(-2.0 * (GLfloat) w / (GLfloat) h, 2.0 * (GLfloat) w / (GLfloat) h, -2.0, 2.0, -10.0, 10.0);
+//    }
+
     glMatrixMode(GL_MODELVIEW);
-    glutPostRedisplay();
+    glLoadIdentity();
+
 }
