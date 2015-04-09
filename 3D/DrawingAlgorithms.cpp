@@ -5,15 +5,30 @@
 */
 
 #include "DrawingAlgorithms.h"
+#include "loadObj.h"
 #include <math.h>
 #include <stdlib.h>
 #include <qgl.h>
+#include <qdir.h>
+#include <qstring.h>
+#include <stdio.h>
+#include <qfiledialog.h>
+#ifdef WINDOWS
+#include <direct.h>
+#define GetCurrentDir _getcwd
+#else
+#include <unistd.h>
+#define GetCurrentDir getcwd
+#endif
 
-GLfloat v[4][3]={{0.0, 0.0, 1.0}, {0.0, 0.942809, -0.33333},
-                 {-0.816497, -0.471405, -0.333333}, {0.816497, -0.471405, -0.333333}};
+//244,67,54
+//33,150,243
+//76,175,80
 
-GLfloat colors[4][3] = {{1.0, 0.0, 0.0}, {0.0, 1.0, 0.0},
-                        {0.0, 0.0, 1.0}, {0.0, 0.0, 0.0}};
+
+GLfloat v[4][3]={{0.0, 0.0, 1.0}, {0.0, 0.942809, -0.33333}, {-0.816497, -0.471405, -0.333333}, {0.816497, -0.471405, -0.333333}};
+GLfloat colors[4][3] = {{0.97, 0.26, 0.21}, {0.13, 0.59, 0.95}, {0.30, 0.69, 0.31}, {1.0, 0.47, 0.0}};
+
 GLfloat	rtri = 0.0;
 GLfloat	rquad = 0.0;
 int numDivisions = 2;
@@ -42,10 +57,13 @@ int DrawingAlgorithms::roundf2(float f)
 }
 
 
-void DrawingAlgorithms::drawCube() {
+void DrawingAlgorithms::drawCube(Translate* t, Rotate* r, Scale* s) {
     glLoadIdentity();
-    glTranslatef(0.0f,0.0f,0.0f);
-    glRotatef(rquad,0.25f,0.50f,0.25f);
+    glTranslatef(t->x,t->y,t->z);
+    glRotatef(r->x, 1.0f, 0.0f, 0.0f);   //X
+    glRotatef(r->y, 0.0f, 1.0f, 0.0f);   //Y
+    glRotatef(r->z, 0.0f, 0.0f, 1.0f);   //Z
+    glScalef(s->x,s->y,s->z);
     glBegin(GL_QUADS);
     glColor3f(0.0f,1.0f,0.0f);
     glVertex3f( 0.5f, 0.5f,-0.5f);
@@ -136,14 +154,15 @@ void DrawingAlgorithms::divide_tetra(GLfloat *a, GLfloat *b, GLfloat *c, GLfloat
 }
 
 
-void DrawingAlgorithms::displayTetra(GLfloat translateX, GLfloat translateY, GLfloat translateZ, GLfloat rotX, GLfloat rotY, GLfloat rotZ)
+void DrawingAlgorithms::displayTetra(Translate* t, Rotate* r, Scale* s)
 {
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    glTranslatef(translateX,translateY,translateZ);
-    glRotatef(rotX, 1.0f, 0.0f, 0.0f);   //X
-    glRotatef(rotY, 0.0f, 1.0f, 0.0f);   //Y
-    glRotatef(rotZ, 0.0f, 0.0f, 1.0f);   //Z
+    glTranslatef(t->x,t->y,t->z);
+    glRotatef(r->x, 1.0f, 0.0f, 0.0f);   //X
+    glRotatef(r->y, 0.0f, 1.0f, 0.0f);   //Y
+    glRotatef(r->z, 0.0f, 0.0f, 1.0f);   //Z
+    glScalef(s->x,s->y,s->z);
     glBegin(GL_TRIANGLES);
     divide_tetra(v[0], v[1], v[2], v[3], numDivisions);
     glEnd();
@@ -160,15 +179,24 @@ void DrawingAlgorithms::myReshape(int w, int h)
 
     gluPerspective(90,(w/h),0.1,600);
 
-//    if (w <= h) {
-//        //glOrtho(-2.0, 2.0, -2.0 * (GLfloat) h / (GLfloat) w, 2.0 * (GLfloat) h / (GLfloat) w, -10.0, 10.0);
-//        //glFrustum(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble near, GLdouble far);
-//    }
-//    else {
-//        //glOrtho(-2.0 * (GLfloat) w / (GLfloat) h, 2.0 * (GLfloat) w / (GLfloat) h, -2.0, 2.0, -10.0, 10.0);
-//    }
+    //    if (w <= h) {
+    //        //glOrtho(-2.0, 2.0, -2.0 * (GLfloat) h / (GLfloat) w, 2.0 * (GLfloat) h / (GLfloat) w, -10.0, 10.0);
+    //        //glFrustum(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble near, GLdouble far);
+    //    }
+    //    else {
+    //        //glOrtho(-2.0 * (GLfloat) w / (GLfloat) h, 2.0 * (GLfloat) w / (GLfloat) h, -2.0, 2.0, -10.0, 10.0);
+    //    }
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
+}
+
+void DrawingAlgorithms::drawObj(loadObj* obj) {
+    QString fn = QFileDialog::getOpenFileName(NULL, "Open File", "", "Obj files (*.obj)");
+    QByteArray ba = fn.toLatin1();
+    char* fn2 = ba.data();
+    printf("\nFn2: %s", fn2);
+
+    obj->Load(fn2);
 }

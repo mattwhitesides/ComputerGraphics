@@ -55,7 +55,8 @@ SOURCES       = ../3D/main.cpp \
 		../3D/GLWidget.cpp \
 		../3D/LineDialog.cpp \
 		../3D/PrintDialog.cpp \
-		../3D/DrawingAlgorithms.cpp moc_GLWidget.cpp \
+		../3D/DrawingAlgorithms.cpp qrc_objectfiles.cpp \
+		moc_GLWidget.cpp \
 		moc_LineDialog.cpp \
 		moc_Window.cpp \
 		moc_MainWindow.cpp
@@ -67,6 +68,7 @@ OBJECTS       = main.o \
 		LineDialog.o \
 		PrintDialog.o \
 		DrawingAlgorithms.o \
+		qrc_objectfiles.o \
 		moc_GLWidget.o \
 		moc_LineDialog.o \
 		moc_Window.o \
@@ -201,6 +203,7 @@ DIST          = ../../../../Qt/5.4/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/lex.prf \
 		../3D/Framework.pro ../3D/GLWidget.h \
 		../3D/loadObj.h \
+		../3D/structures.h \
 		../3D/LineDialog.h \
 		../3D/PrintDialog.h \
 		../3D/Window.h \
@@ -383,6 +386,7 @@ Makefile: ../3D/Framework.pro ../../../../Qt/5.4/clang_64/mkspecs/macx-clang/qma
 		../../../../Qt/5.4/clang_64/mkspecs/features/yacc.prf \
 		../../../../Qt/5.4/clang_64/mkspecs/features/lex.prf \
 		../3D/Framework.pro \
+		../3D/objectfiles.qrc \
 		/Users/MattSides734/Qt/5.4/clang_64/lib/QtOpenGL.framework/QtOpenGL.prl \
 		/Users/MattSides734/Qt/5.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
 		/Users/MattSides734/Qt/5.4/clang_64/lib/QtGui.framework/QtGui.prl \
@@ -517,6 +521,7 @@ Makefile: ../3D/Framework.pro ../../../../Qt/5.4/clang_64/mkspecs/macx-clang/qma
 ../../../../Qt/5.4/clang_64/mkspecs/features/yacc.prf:
 ../../../../Qt/5.4/clang_64/mkspecs/features/lex.prf:
 ../3D/Framework.pro:
+../3D/objectfiles.qrc:
 /Users/MattSides734/Qt/5.4/clang_64/lib/QtOpenGL.framework/QtOpenGL.prl:
 /Users/MattSides734/Qt/5.4/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
 /Users/MattSides734/Qt/5.4/clang_64/lib/QtGui.framework/QtGui.prl:
@@ -550,7 +555,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../3D/GLWidget.h ../3D/loadObj.h ../3D/LineDialog.h ../3D/PrintDialog.h ../3D/Window.h ../3D/MainWindow.h ../3D/DrawingAlgorithms.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../3D/objectfiles.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents ../3D/GLWidget.h ../3D/loadObj.h ../3D/structures.h ../3D/LineDialog.h ../3D/PrintDialog.h ../3D/Window.h ../3D/MainWindow.h ../3D/DrawingAlgorithms.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../3D/main.cpp ../3D/loadObj.cpp ../3D/Window.cpp ../3D/MainWindow.cpp ../3D/GLWidget.cpp ../3D/LineDialog.cpp ../3D/PrintDialog.cpp ../3D/DrawingAlgorithms.cpp $(DISTDIR)/
 
 
@@ -574,8 +580,12 @@ check: first
 
 compiler_objective_c_make_all:
 compiler_objective_c_clean:
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_objectfiles.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_objectfiles.cpp
+qrc_objectfiles.cpp: ../3D/objectfiles.qrc
+	/Users/MattSides734/Qt/5.4/clang_64/bin/rcc -name objectfiles ../3D/objectfiles.qrc -o qrc_objectfiles.cpp
+
 compiler_moc_header_make_all: moc_GLWidget.cpp moc_LineDialog.cpp moc_Window.cpp moc_MainWindow.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_GLWidget.cpp moc_LineDialog.cpp moc_Window.cpp moc_MainWindow.cpp
@@ -621,7 +631,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean 
 
 ####### Compile
 
@@ -638,7 +648,8 @@ main.o: ../3D/main.cpp ../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versi
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../3D/main.cpp
 
-loadObj.o: ../3D/loadObj.cpp ../3D/loadObj.h
+loadObj.o: ../3D/loadObj.cpp ../3D/loadObj.h \
+		../3D/structures.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o loadObj.o ../3D/loadObj.cpp
 
 Window.o: ../3D/Window.cpp ../3D/GLWidget.h \
@@ -806,6 +817,8 @@ GLWidget.o: ../3D/GLWidget.cpp ../3D/GLWidget.h \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QDialog \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qdialog.h \
+		../3D/loadObj.h \
+		../3D/structures.h \
 		../3D/PrintDialog.h \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QTextEdit \
 		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qtextedit.h \
@@ -850,8 +863,15 @@ DrawingAlgorithms.o: ../3D/DrawingAlgorithms.cpp ../3D/DrawingAlgorithms.h \
 		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
 		../../../../Qt/5.4/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
 		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
-		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qstring.h \
+		../3D/loadObj.h \
+		../3D/structures.h \
+		../../../../Qt/5.4/clang_64/lib/QtCore.framework/Versions/5/Headers/qdir.h \
+		../../../../Qt/5.4/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qfiledialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DrawingAlgorithms.o ../3D/DrawingAlgorithms.cpp
+
+qrc_objectfiles.o: qrc_objectfiles.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_objectfiles.o qrc_objectfiles.cpp
 
 moc_GLWidget.o: moc_GLWidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_GLWidget.o moc_GLWidget.cpp

@@ -21,7 +21,10 @@ signals:
 	void drawDialogLineFromMW();
 	void drawMouseLineFromMW();
 	void drawMousePolygonFromMW();
-	
+    void drawCubeFromMW();
+    void drawTetraFromMW();
+    void drawObjFromMW();
+
 private:
 	
 	GLWidget* glWindow;

@@ -56,7 +56,7 @@ MainWindow::MainWindow()
 
     setWindowTitle(tr("CS 4610/7610 Assignment 1 Framework"));
     setMinimumSize(100, 100);
-    resize(720, 720);
+    resize(1000, 1000);
 }
 
 void MainWindow::updateStatusLabel(int x, int y)
@@ -94,6 +94,18 @@ void MainWindow::createActions()
 //    mouseLineAct->setStatusTip(tr("Activate mouse line drawing"));
 //    connect(mouseLineAct, SIGNAL(triggered()), childWindow, SIGNAL(drawMouseLineFromMW()));
 //    //connect(mouseLineAct, SIGNAL(triggered()), glWindow, SLOT(drawMouseLine()));
+
+    cubeAct  = new QAction(tr("Cube"), this);
+    cubeAct->setStatusTip(tr("Draw a poly cube"));
+    connect(cubeAct, SIGNAL(triggered()), childWindow, SIGNAL(drawCubeFromMW()));
+
+    tetraAct  = new QAction(tr("Tetra"), this);
+    tetraAct->setStatusTip(tr("Draw a tetra"));
+    connect(tetraAct, SIGNAL(triggered()), childWindow, SIGNAL(drawTetraFromMW()));
+
+    objAct  = new QAction(tr("LoadObjFile"), this);
+    objAct->setStatusTip(tr("Draw an object from a test .obj file"));
+    connect(objAct, SIGNAL(triggered()), childWindow, SIGNAL(drawObjFromMW()));
 }
 
 /*<<<<<<<<<<<<<<<<<<<<<<createMenus>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -128,4 +140,7 @@ void MainWindow::createToolBar()
 {
     interactToolBar = addToolBar(tr("Interact"));
     //interactToolBar->addAction(mouseLineAct);
+    interactToolBar->addAction(cubeAct);
+    interactToolBar->addAction(tetraAct);
+    interactToolBar->addAction(objAct);
 }

@@ -17,6 +17,9 @@ Window::Window(MainWindow *mw) : mainWindow(mw)
     connect(this, SIGNAL(drawDialogLineFromMW()), glWindow, SLOT(drawDialogLine()));
     connect(this, SIGNAL(drawMouseLineFromMW()), glWindow, SLOT(drawMouseLine()));
     connect(this, SIGNAL(drawMousePolygonFromMW()), glWindow, SLOT(drawMousePolygon()));
+    connect(this, SIGNAL(drawCubeFromMW()), glWindow, SLOT(drawCubePolygon()));
+    connect(this, SIGNAL(drawTetraFromMW()), glWindow, SLOT(drawTetraPolygon()));
+    connect(this, SIGNAL(drawObjFromMW()), glWindow, SLOT(drawObjPolygon()));
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     QHBoxLayout* container = new QHBoxLayout;

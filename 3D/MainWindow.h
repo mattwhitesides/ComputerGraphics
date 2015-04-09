@@ -72,6 +72,9 @@ private:
 
     QAction* diagLineAct;
     QAction* mouseLineAct;
+    QAction* cubeAct;
+    QAction* tetraAct;
+    QAction* objAct;
 
     Window* childWindow;
     //GLWidget* glWindow;

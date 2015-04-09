@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Window_t {
-    QByteArrayData data[7];
-    char stringdata[106];
+    QByteArrayData data[10];
+    char stringdata[151];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,12 +35,16 @@ QT_MOC_LITERAL(2, 23, 0), // ""
 QT_MOC_LITERAL(3, 24, 17), // "chooseColorFromMW"
 QT_MOC_LITERAL(4, 42, 20), // "drawDialogLineFromMW"
 QT_MOC_LITERAL(5, 63, 19), // "drawMouseLineFromMW"
-QT_MOC_LITERAL(6, 83, 22) // "drawMousePolygonFromMW"
+QT_MOC_LITERAL(6, 83, 22), // "drawMousePolygonFromMW"
+QT_MOC_LITERAL(7, 106, 14), // "drawCubeFromMW"
+QT_MOC_LITERAL(8, 121, 15), // "drawTetraFromMW"
+QT_MOC_LITERAL(9, 137, 13) // "drawObjFromMW"
 
     },
     "Window\0printCallFromMW\0\0chooseColorFromMW\0"
     "drawDialogLineFromMW\0drawMouseLineFromMW\0"
-    "drawMousePolygonFromMW"
+    "drawMousePolygonFromMW\0drawCubeFromMW\0"
+    "drawTetraFromMW\0drawObjFromMW"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,21 +54,27 @@ static const uint qt_meta_data_Window[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       5,       // signalCount
+       8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   39,    2, 0x06 /* Public */,
-       3,    0,   40,    2, 0x06 /* Public */,
-       4,    0,   41,    2, 0x06 /* Public */,
-       5,    0,   42,    2, 0x06 /* Public */,
-       6,    0,   43,    2, 0x06 /* Public */,
+       1,    0,   54,    2, 0x06 /* Public */,
+       3,    0,   55,    2, 0x06 /* Public */,
+       4,    0,   56,    2, 0x06 /* Public */,
+       5,    0,   57,    2, 0x06 /* Public */,
+       6,    0,   58,    2, 0x06 /* Public */,
+       7,    0,   59,    2, 0x06 /* Public */,
+       8,    0,   60,    2, 0x06 /* Public */,
+       9,    0,   61,    2, 0x06 /* Public */,
 
  // signals: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -84,6 +94,9 @@ void Window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 2: _t->drawDialogLineFromMW(); break;
         case 3: _t->drawMouseLineFromMW(); break;
         case 4: _t->drawMousePolygonFromMW(); break;
+        case 5: _t->drawCubeFromMW(); break;
+        case 6: _t->drawTetraFromMW(); break;
+        case 7: _t->drawObjFromMW(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -119,6 +132,24 @@ void Window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
                 *result = 4;
             }
         }
+        {
+            typedef void (Window::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawCubeFromMW)) {
+                *result = 5;
+            }
+        }
+        {
+            typedef void (Window::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawTetraFromMW)) {
+                *result = 6;
+            }
+        }
+        {
+            typedef void (Window::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Window::drawObjFromMW)) {
+                *result = 7;
+            }
+        }
     }
     Q_UNUSED(_a);
 }
@@ -148,13 +179,13 @@ int Window::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 8;
     }
     return _id;
 }
@@ -187,5 +218,23 @@ void Window::drawMouseLineFromMW()
 void Window::drawMousePolygonFromMW()
 {
     QMetaObject::activate(this, &staticMetaObject, 4, Q_NULLPTR);
+}
+
+// SIGNAL 5
+void Window::drawCubeFromMW()
+{
+    QMetaObject::activate(this, &staticMetaObject, 5, Q_NULLPTR);
+}
+
+// SIGNAL 6
+void Window::drawTetraFromMW()
+{
+    QMetaObject::activate(this, &staticMetaObject, 6, Q_NULLPTR);
+}
+
+// SIGNAL 7
+void Window::drawObjFromMW()
+{
+    QMetaObject::activate(this, &staticMetaObject, 7, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

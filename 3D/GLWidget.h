@@ -22,6 +22,12 @@ typedef struct coord {
     int y;
 } Coord;
 
+enum Shape {
+    CUBE,
+    TETRA,
+    OBJ
+};
+
 class PrintDialog;
 class LineDialog;
 class CircleDialog;
@@ -130,6 +136,12 @@ public slots:
   Enables interactive polygon drawing
   */
   void drawMousePolygon();
+
+  void drawCubePolygon();
+
+  void drawTetraPolygon();
+
+  void drawObjPolygon();
  
   /*----------------------clearWindow-----------------------
   Clears the render window
@@ -176,6 +188,7 @@ protected:
   virtual void mousePressEvent(QMouseEvent* e);
 
   virtual void keyPressEvent(QKeyEvent* event);
+
 
 
 private:

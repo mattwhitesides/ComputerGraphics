@@ -7,6 +7,7 @@
 
 #include "GLWidget.h"
 #include "LineDialog.h"
+#include "loadObj.h"
 
 #include "PrintDialog.h"
 #include "DrawingAlgorithms.h"
@@ -27,12 +28,12 @@ const int GLWidget::CLEAR = 0;
 const int GLWidget::LINE = 1;
 const int GLWidget::POLYGON = 4;
 
-GLfloat translateX = 0.0;
-GLfloat translateY = 0.0;
-GLfloat translateZ = -2.0;
-GLfloat rotX = 0.0;
-GLfloat rotY = 0.0;
-GLfloat rotZ = 0.0;
+Translate t = {0.0,0.0,-2.0};
+Rotate r = {0.0,0.0,0.0};
+Scale s = {1.0,1.0,1.0};
+
+Shape shape = TETRA;
+loadObj *objLoader = new loadObj();
 
 //------------------------GLWidget::GLWidget-------------------------
 GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
@@ -65,7 +66,7 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
     //	STEP 2: Update the GL graphics every time the timer is fired off
     connect(timer, SIGNAL(timeout()), this, SLOT(updateGL()));
     //	STEP 3: Start the timer to go off every 20 milliseconds.
-    timer->start(20);
+    timer->start(16);
 
     // Enables mouse tracking. This means that whenever the mouse is moved
     // and/or clicked on the widget, a mouse event is generated
@@ -157,6 +158,19 @@ void GLWidget::drawMouseLine()
     clearShapeVariables();
 }
 
+void GLWidget::drawCubePolygon() {
+    shape = CUBE;
+}
+
+void GLWidget::drawTetraPolygon() {
+    shape = TETRA;
+}
+
+void GLWidget::drawObjPolygon() {
+    DrawingAlgorithms::drawObj(objLoader);
+    shape = OBJ;
+}
+
 /*-------------------------GLWidget::drawMousePolygon-----------------------*/
 void GLWidget::drawMousePolygon()
 {
@@ -244,9 +258,17 @@ void GLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //DrawingAlgorithms::drawCube();
-
-    DrawingAlgorithms::displayTetra(translateX,translateY,translateZ,rotX,rotY,rotZ);
+    switch (shape) {
+    case TETRA:
+        DrawingAlgorithms::displayTetra(&t,&r,&s);
+        break;
+    case CUBE:
+        DrawingAlgorithms::drawCube(&t,&r,&s);
+        break;
+    case OBJ:
+        objLoader->drawmodel(&t,&r,&s);
+        break;
+    }
 
     glFlush();
 }
@@ -315,35 +337,48 @@ void GLWidget::mousePressEvent(QMouseEvent* e)
 void GLWidget::keyPressEvent(QKeyEvent* event) {
     GLfloat moveInc = 0.15;
     GLfloat rotInc = 2.0;
+    GLfloat scaleInc = 0.05;
     switch (event->key()) {
     case Qt::Key_Up:
-        if(event->modifiers() & Qt::ShiftModifier ) translateZ += moveInc;
-        else translateY += moveInc;
+        if(event->modifiers() & Qt::ShiftModifier ) t.z += moveInc;
+        else t.y += moveInc;
         break;
     case Qt::Key_Down:
-        if(event->modifiers() & Qt::ShiftModifier ) translateZ -= moveInc;
-        else translateY -= moveInc;
+        if(event->modifiers() & Qt::ShiftModifier ) t.z -= moveInc;
+        else t.y -= moveInc;
         break;
     case Qt::Key_Left:
-        translateX -= moveInc;
+        t.x -= moveInc;
         break;
     case Qt::Key_Right:
-        translateX += moveInc;
+        t.x += moveInc;
         break;
     case Qt::Key_W:
-        rotX += rotInc;
+        r.x += rotInc;
         break;
     case Qt::Key_A:
-        rotY -= rotInc;
+        r.y -= rotInc;
         break;
     case Qt::Key_S:
-        rotX -= rotInc;
+        r.x -= rotInc;
         break;
     case Qt::Key_D:
-        rotY += rotInc;
+        r.y += rotInc;
+        break;
+    case Qt::Key_I:
+        s.y += scaleInc;
+        break;
+    case Qt::Key_J:
+        s.x -= scaleInc;
+        break;
+    case Qt::Key_K:
+        s.y -= scaleInc;
+        break;
+    case Qt::Key_L:
+        s.x += scaleInc;
         break;
     }
-    printf("Translate:\n\t%lf\n\t%lf\n\t%lf\n\n",translateX,translateY,translateZ);
+    printf("Translate:\n\t%lf\n\t%lf\n\t%lf\n\n",t.x,t.y,t.z);
 }
 
 //-----------------GLWidget::ClearShapeVariables-------------------------

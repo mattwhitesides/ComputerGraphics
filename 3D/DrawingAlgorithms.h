@@ -9,6 +9,8 @@
   
 #include <QVector>
 #include <GLWidget.h>
+#include "loadObj.h"
+#include "structures.h"
 
 class DrawingAlgorithms
 {
@@ -28,11 +30,13 @@ public:
 
     static void divide_tetra(GLfloat *a, GLfloat *b, GLfloat *c, GLfloat *d, int m);
 
-    static void displayTetra(GLfloat translateX, GLfloat translateY, GLfloat translateZ, GLfloat rotX, GLfloat rotY, GLfloat rotZ);
+    static void displayTetra(Translate* t, Rotate* r, Scale* s);
 
     static void myReshape(int w, int h);
 
-    static void drawCube();
+    static void drawCube(Translate* t, Rotate* r, Scale* s);
+
+    static void drawObj(loadObj* objLoader);
 
 private:
 	/*<<<<<<<<<<<<<<<<<<convertCoordsToString>>>>>>>>>>>>>>>

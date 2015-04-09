@@ -1,0 +1,19 @@
+Translation:
+  Arrow Up: 		Translate Up Y
+  Arrow Down: 		Translate Down Y
+  Arrow Left: 		Translate Left X
+  Arrow Right: 		Translate Right X
+  Shift + Arrow Up: 	Translate Up Z
+  Shift + Arrow Down: 	Translate Down Z
+
+Rotation:
+  w: Rotate Up
+  a: Rotate Left
+  s: Rotate Down
+  d: Rotate Right
+
+Rotation:
+  i: Scale Increase On Y
+  j: Scale Decrease On X
+  k: Scale Decrease On Y
+  l: Scale Increase On X
