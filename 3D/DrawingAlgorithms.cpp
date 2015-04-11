@@ -26,12 +26,17 @@
 //76,175,80
 
 
-GLfloat v[4][3]={{0.0, 0.0, 1.0}, {0.0, 0.942809, -0.33333}, {-0.816497, -0.471405, -0.333333}, {0.816497, -0.471405, -0.333333}};
-GLfloat colors[4][3] = {{0.97, 0.26, 0.21}, {0.13, 0.59, 0.95}, {0.30, 0.69, 0.31}, {1.0, 0.47, 0.0}};
+GLfloat v[4][3]={{0.0f, 0.0f, 1.0f}, {0.0f, 0.942809f, -0.33333f}, {-0.816497f, -0.471405f, -0.333333f}, {0.816497f, -0.471405f, -0.333333f}};
+GLfloat colors[4][3] = {{0.97f, 0.26f, 0.21f}, {0.13f, 0.59f, 0.95f}, {0.30f, 0.69f, 0.31f}, {1.0f, 0.47f, 0.0f}};
 
-GLfloat	rtri = 0.0;
-GLfloat	rquad = 0.0;
-int numDivisions = 2;
+GLfloat	rtri = 0.0f;
+GLfloat	rquad = 0.0f;
+Scale sAni = {0.5f,0.5f,0.5f};
+Translate tAni = {0.0f,0.0f,-2.0f};
+bool sAniSwitch = true;
+bool tAniSwitch = true;
+
+int numDivisions = 3;
 
 //Use OpenGL to draw a line for testing
 void DrawingAlgorithms::openGLDrawLine(int xa, int ya, int xb, int yb) {
@@ -96,9 +101,6 @@ void DrawingAlgorithms::drawCube(Translate* t, Rotate* r, Scale* s) {
     glVertex3f( 0.5f,-0.5f, 0.5f);
     glVertex3f( 0.5f,-0.5f,-0.5f);
     glEnd();
-
-    rtri+=0.2f;
-    rquad-=0.15f;
 }
 
 /*<<<<<<<<<<<<<<<<<<convertCoordsToString>>>>>>>>>>>>>>>*/
@@ -190,6 +192,73 @@ void DrawingAlgorithms::myReshape(int w, int h)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
+}
+
+void DrawingAlgorithms::animationTest() {
+    glLoadIdentity();
+    glTranslatef(tAni.x,tAni.y,tAni.z);
+    glRotatef(rtri, 1.0f, 0.0f, 0.0f);   //X
+    glRotatef(rtri, 0.0f, 1.0f, 0.0f);   //Y
+    glRotatef(rtri, 0.0f, 0.0f, 1.0f);   //Z
+    glScalef(sAni.x,sAni.y,sAni.z);
+    glBegin(GL_QUADS);
+    glColor3f(0.0f,1.0f,0.0f);
+    glVertex3f( 0.5f, 0.5f,-0.5f);
+    glVertex3f(-0.5f, 0.5f,-0.5f);
+    glVertex3f(-0.5f, 0.5f, 0.5f);
+    glVertex3f( 0.5f, 0.5f, 0.5f);
+    glColor3f(1.0f,0.5f,0.0f);
+    glVertex3f( 0.5f,-0.5f, 0.5f);
+    glVertex3f(-0.5f,-0.5f, 0.5f);
+    glVertex3f(-0.5f,-0.5f,-0.5f);
+    glVertex3f( 0.5f,-0.5f,-0.5f);
+    glColor3f(1.0f,0.0f,0.0f);
+    glVertex3f( 0.5f, 0.5f, 0.5f);
+    glVertex3f(-0.5f, 0.5f, 0.5f);
+    glVertex3f(-0.5f,-0.5f, 0.5f);
+    glVertex3f( 0.5f,-0.5f, 0.5f);
+    glColor3f(1.0f,1.0f,0.0f);
+    glVertex3f( 0.5f,-0.5f,-0.5f);
+    glVertex3f(-0.5f,-0.5f,-0.5f);
+    glVertex3f(-0.5f, 0.5f,-0.5f);
+    glVertex3f( 0.5f, 0.5f,-0.5f);
+    glColor3f(0.0f,0.0f,1.0f);
+    glVertex3f(-0.5f, 0.5f, 0.5f);
+    glVertex3f(-0.5f, 0.5f,-0.5f);
+    glVertex3f(-0.5f,-0.5f,-0.5f);
+    glVertex3f(-0.5f,-0.5f, 0.5f);
+    glColor3f(1.0f,0.0f,1.0f);
+    glVertex3f( 0.5f, 0.5f,-0.5f);
+    glVertex3f( 0.5f, 0.5f, 0.5f);
+    glVertex3f( 0.5f,-0.5f, 0.5f);
+    glVertex3f( 0.5f,-0.5f,-0.5f);
+    glEnd();
+
+    rtri+=0.75f;
+
+    if (sAni.x > 0.6f) sAniSwitch = false;
+    if (sAni.x < 0.25f) sAniSwitch = true;
+    if (sAniSwitch) {
+        sAni.x += 0.001f;
+        sAni.y += 0.001f;
+        sAni.z += 0.001f;
+    } else {
+        sAni.x -= 0.001f;
+        sAni.y -= 0.001f;
+        sAni.z -= 0.001f;
+    }
+
+    if (tAni.x > 1.0f) tAniSwitch = false;
+    if (tAni.x < -2.0f) tAniSwitch = true;
+    if (tAniSwitch) {
+        tAni.x += 0.005f;
+        tAni.y += 0.007f;
+        tAni.z += 0.002f;
+    } else {
+        tAni.x -= 0.005f;
+        tAni.y -= 0.007f;
+        tAni.z -= 0.002f;
+    }
 }
 
 void DrawingAlgorithms::drawObj(loadObj* obj) {

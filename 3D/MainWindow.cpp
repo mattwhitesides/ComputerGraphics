@@ -103,6 +103,10 @@ void MainWindow::createActions()
     tetraAct->setStatusTip(tr("Draw a tetra"));
     connect(tetraAct, SIGNAL(triggered()), childWindow, SIGNAL(drawTetraFromMW()));
 
+    animationAct  = new QAction(tr("AnimationTest"), this);
+    animationAct->setStatusTip(tr("Draw a test animation combining rotation, translation, & scaling."));
+    connect(animationAct, SIGNAL(triggered()), childWindow, SIGNAL(drawAnimationFromMW()));
+
     objAct  = new QAction(tr("LoadObjFile"), this);
     objAct->setStatusTip(tr("Draw an object from a test .obj file"));
     connect(objAct, SIGNAL(triggered()), childWindow, SIGNAL(drawObjFromMW()));
@@ -142,5 +146,6 @@ void MainWindow::createToolBar()
     //interactToolBar->addAction(mouseLineAct);
     interactToolBar->addAction(cubeAct);
     interactToolBar->addAction(tetraAct);
+    interactToolBar->addAction(animationAct);
     interactToolBar->addAction(objAct);
 }

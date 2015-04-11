@@ -38,6 +38,8 @@ public:
 
     static void drawObj(loadObj* objLoader);
 
+    static void animationTest();
+
 private:
 	/*<<<<<<<<<<<<<<<<<<convertCoordsToString>>>>>>>>>>>>>>>
     Converts the X and Y coordinates to a formated string output

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_GLWidget_t {
-    QByteArrayData data[19];
-    char stringdata[190];
+    QByteArrayData data[20];
+    char stringdata[208];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,15 +46,17 @@ QT_MOC_LITERAL(13, 101, 16), // "drawMousePolygon"
 QT_MOC_LITERAL(14, 118, 15), // "drawCubePolygon"
 QT_MOC_LITERAL(15, 134, 16), // "drawTetraPolygon"
 QT_MOC_LITERAL(16, 151, 14), // "drawObjPolygon"
-QT_MOC_LITERAL(17, 166, 11), // "clearWindow"
-QT_MOC_LITERAL(18, 178, 11) // "chooseColor"
+QT_MOC_LITERAL(17, 166, 17), // "drawAnimationTest"
+QT_MOC_LITERAL(18, 184, 11), // "clearWindow"
+QT_MOC_LITERAL(19, 196, 11) // "chooseColor"
 
     },
     "GLWidget\0mouseMoved\0\0x\0y\0togglePrintDialog\0"
     "drawDialogLine\0updateDialogLine\0x1\0"
     "y1\0x2\0y2\0drawMouseLine\0drawMousePolygon\0"
     "drawCubePolygon\0drawTetraPolygon\0"
-    "drawObjPolygon\0clearWindow\0chooseColor"
+    "drawObjPolygon\0drawAnimationTest\0"
+    "clearWindow\0chooseColor"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,7 +66,7 @@ static const uint qt_meta_data_GLWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -72,19 +74,20 @@ static const uint qt_meta_data_GLWidget[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   69,    2, 0x06 /* Public */,
+       1,    2,   74,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    0,   74,    2, 0x0a /* Public */,
-       6,    0,   75,    2, 0x0a /* Public */,
-       7,    4,   76,    2, 0x0a /* Public */,
-      12,    0,   85,    2, 0x0a /* Public */,
-      13,    0,   86,    2, 0x0a /* Public */,
-      14,    0,   87,    2, 0x0a /* Public */,
-      15,    0,   88,    2, 0x0a /* Public */,
-      16,    0,   89,    2, 0x0a /* Public */,
-      17,    0,   90,    2, 0x0a /* Public */,
-      18,    0,   91,    2, 0x0a /* Public */,
+       5,    0,   79,    2, 0x0a /* Public */,
+       6,    0,   80,    2, 0x0a /* Public */,
+       7,    4,   81,    2, 0x0a /* Public */,
+      12,    0,   90,    2, 0x0a /* Public */,
+      13,    0,   91,    2, 0x0a /* Public */,
+      14,    0,   92,    2, 0x0a /* Public */,
+      15,    0,   93,    2, 0x0a /* Public */,
+      16,    0,   94,    2, 0x0a /* Public */,
+      17,    0,   95,    2, 0x0a /* Public */,
+      18,    0,   96,    2, 0x0a /* Public */,
+      19,    0,   97,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    3,    4,
@@ -93,6 +96,7 @@ static const uint qt_meta_data_GLWidget[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int,    8,    9,   10,   11,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -118,8 +122,9 @@ void GLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 6: _t->drawCubePolygon(); break;
         case 7: _t->drawTetraPolygon(); break;
         case 8: _t->drawObjPolygon(); break;
-        case 9: _t->clearWindow(); break;
-        case 10: _t->chooseColor(); break;
+        case 9: _t->drawAnimationTest(); break;
+        case 10: _t->clearWindow(); break;
+        case 11: _t->chooseColor(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -159,13 +164,13 @@ int GLWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 12)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 11;
+        _id -= 12;
     }
     return _id;
 }

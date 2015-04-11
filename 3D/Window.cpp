@@ -20,6 +20,7 @@ Window::Window(MainWindow *mw) : mainWindow(mw)
     connect(this, SIGNAL(drawCubeFromMW()), glWindow, SLOT(drawCubePolygon()));
     connect(this, SIGNAL(drawTetraFromMW()), glWindow, SLOT(drawTetraPolygon()));
     connect(this, SIGNAL(drawObjFromMW()), glWindow, SLOT(drawObjPolygon()));
+    connect(this, SIGNAL(drawAnimationFromMW()), glWindow, SLOT(drawAnimationTest()));
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     QHBoxLayout* container = new QHBoxLayout;

@@ -75,6 +75,7 @@ private:
     QAction* cubeAct;
     QAction* tetraAct;
     QAction* objAct;
+    QAction* animationAct;
 
     Window* childWindow;
     //GLWidget* glWindow;

@@ -25,7 +25,8 @@ typedef struct coord {
 enum Shape {
     CUBE,
     TETRA,
-    OBJ
+    OBJ,
+    ANIMATION
 };
 
 class PrintDialog;
@@ -142,6 +143,8 @@ public slots:
   void drawTetraPolygon();
 
   void drawObjPolygon();
+
+  void drawAnimationTest();
  
   /*----------------------clearWindow-----------------------
   Clears the render window
@@ -188,6 +191,10 @@ protected:
   virtual void mousePressEvent(QMouseEvent* e);
 
   virtual void keyPressEvent(QKeyEvent* event);
+
+  virtual void keyReleaseEvent(QKeyEvent* event);
+
+  virtual void keyHoldUpdate();
 
 
 

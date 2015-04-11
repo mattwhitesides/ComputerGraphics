@@ -24,6 +24,7 @@ signals:
     void drawCubeFromMW();
     void drawTetraFromMW();
     void drawObjFromMW();
+    void drawAnimationFromMW();
 
 private:
 	

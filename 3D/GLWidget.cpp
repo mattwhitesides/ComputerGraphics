@@ -28,6 +28,21 @@ const int GLWidget::CLEAR = 0;
 const int GLWidget::LINE = 1;
 const int GLWidget::POLYGON = 4;
 
+bool wKey = false;
+bool aKey = false;
+bool sKey = false;
+bool dKey = false;
+bool iKey = false;
+bool jKey = false;
+bool kKey = false;
+bool lKey = false;
+bool upKey = false;
+bool leftKey = false;
+bool downKey = false;
+bool rightKey = false;
+bool shiftUpKey = false;
+bool shiftDownKey = false;
+
 Translate t = {0.0,0.0,-2.0};
 Rotate r = {0.0,0.0,0.0};
 Scale s = {1.0,1.0,1.0};
@@ -65,6 +80,7 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
     QTimer *timer = new QTimer(this);
     //	STEP 2: Update the GL graphics every time the timer is fired off
     connect(timer, SIGNAL(timeout()), this, SLOT(updateGL()));
+    //connect(timer, SIGNAL(timeout()), this, SLOT(keyHoldUpdate()));
     //	STEP 3: Start the timer to go off every 20 milliseconds.
     timer->start(16);
 
@@ -160,6 +176,10 @@ void GLWidget::drawMouseLine()
 
 void GLWidget::drawCubePolygon() {
     shape = CUBE;
+}
+
+void GLWidget::drawAnimationTest() {
+    shape = ANIMATION;
 }
 
 void GLWidget::drawTetraPolygon() {
@@ -265,6 +285,9 @@ void GLWidget::paintGL()
     case CUBE:
         DrawingAlgorithms::drawCube(&t,&r,&s);
         break;
+    case ANIMATION:
+        DrawingAlgorithms::animationTest();
+        break;
     case OBJ:
         objLoader->drawmodel(&t,&r,&s);
         break;
@@ -340,45 +363,118 @@ void GLWidget::keyPressEvent(QKeyEvent* event) {
     GLfloat scaleInc = 0.05;
     switch (event->key()) {
     case Qt::Key_Up:
-        if(event->modifiers() & Qt::ShiftModifier ) t.z += moveInc;
-        else t.y += moveInc;
+        if(event->modifiers() & Qt::ShiftModifier ) {
+            t.z += moveInc;
+            shiftUpKey = true;
+        }
+        else {
+            t.y += moveInc;
+            upKey = true;
+        }
         break;
     case Qt::Key_Down:
-        if(event->modifiers() & Qt::ShiftModifier ) t.z -= moveInc;
-        else t.y -= moveInc;
+        if(event->modifiers() & Qt::ShiftModifier ) {
+            t.z -= moveInc;
+            shiftDownKey = true;
+        }
+        else {
+            t.y -= moveInc;
+            downKey = true;
+        }
         break;
     case Qt::Key_Left:
         t.x -= moveInc;
+        leftKey = true;
         break;
     case Qt::Key_Right:
         t.x += moveInc;
+        rightKey = true;
         break;
     case Qt::Key_W:
         r.x += rotInc;
+        wKey = true;
         break;
     case Qt::Key_A:
         r.y -= rotInc;
+        aKey = true;
         break;
     case Qt::Key_S:
         r.x -= rotInc;
+        sKey = true;
         break;
     case Qt::Key_D:
         r.y += rotInc;
+        dKey = true;
         break;
     case Qt::Key_I:
         s.y += scaleInc;
+        iKey = true;
         break;
     case Qt::Key_J:
         s.x -= scaleInc;
+        jKey = true;
         break;
     case Qt::Key_K:
         s.y -= scaleInc;
+        kKey = true;
         break;
     case Qt::Key_L:
         s.x += scaleInc;
+        lKey = true;
         break;
     }
     printf("Translate:\n\t%lf\n\t%lf\n\t%lf\n\n",t.x,t.y,t.z);
+}
+
+void GLWidget::keyReleaseEvent(QKeyEvent* event) {
+    switch (event->key()) {
+    case Qt::Key_Up:
+        if(event->modifiers() & Qt::ShiftModifier ) {
+            shiftUpKey = false;
+        }
+        else {
+            upKey = false;
+        }
+        break;
+    case Qt::Key_Down:
+        if(event->modifiers() & Qt::ShiftModifier ) {
+            shiftDownKey = false;
+        }
+        else {
+            downKey = false;
+        }
+        break;
+    case Qt::Key_Left:
+        leftKey = false;
+        break;
+    case Qt::Key_Right:
+        rightKey = false;
+        break;
+    case Qt::Key_W:
+        wKey = false;
+        break;
+    case Qt::Key_A:
+        aKey = false;
+        break;
+    case Qt::Key_S:
+        sKey = false;
+        break;
+    case Qt::Key_D:
+        dKey = false;
+        break;
+    case Qt::Key_I:
+        iKey = false;
+        break;
+    case Qt::Key_J:
+        jKey = false;
+        break;
+    case Qt::Key_K:
+        kKey = false;
+        break;
+    case Qt::Key_L:
+        lKey = false;
+        break;
+    }
 }
 
 //-----------------GLWidget::ClearShapeVariables-------------------------
@@ -390,4 +486,24 @@ void GLWidget::clearShapeVariables()
     areShapesClear = true;
 
     printOnce = true;
+}
+
+void GLWidget::keyHoldUpdate() {
+    GLfloat moveInc = 0.15;
+    GLfloat rotInc = 2.0;
+    GLfloat scaleInc = 0.05;
+    if(shiftUpKey) t.z += moveInc;
+    if(upKey) t.y += moveInc;
+    if(shiftDownKey) t.z -= moveInc;
+    if(downKey) t.y -= moveInc;
+    if(leftKey) t.x -= moveInc;
+    if(rightKey) t.x += moveInc;
+    if(wKey) r.x += rotInc;
+    if(aKey) r.y -= rotInc;
+    if(sKey) r.x -= rotInc;
+    if(dKey) r.y += rotInc;
+    if(iKey) s.y += scaleInc;
+    if(jKey) s.x -= scaleInc;
+    if(kKey) s.y -= scaleInc;
+    if(lKey) s.x += scaleInc;
 }
