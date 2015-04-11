@@ -35,6 +35,7 @@ Scale sAni = {0.5f,0.5f,0.5f};
 Translate tAni = {0.0f,0.0f,-2.0f};
 bool sAniSwitch = true;
 bool tAniSwitch = true;
+bool tYAniSwitch = true;
 
 int numDivisions = 3;
 
@@ -202,39 +203,11 @@ void DrawingAlgorithms::animationTest() {
     glRotatef(rtri, 0.0f, 0.0f, 1.0f);   //Z
     glScalef(sAni.x,sAni.y,sAni.z);
     glBegin(GL_QUADS);
-    glColor3f(0.0f,1.0f,0.0f);
-    glVertex3f( 0.5f, 0.5f,-0.5f);
-    glVertex3f(-0.5f, 0.5f,-0.5f);
-    glVertex3f(-0.5f, 0.5f, 0.5f);
-    glVertex3f( 0.5f, 0.5f, 0.5f);
-    glColor3f(1.0f,0.5f,0.0f);
-    glVertex3f( 0.5f,-0.5f, 0.5f);
-    glVertex3f(-0.5f,-0.5f, 0.5f);
-    glVertex3f(-0.5f,-0.5f,-0.5f);
-    glVertex3f( 0.5f,-0.5f,-0.5f);
-    glColor3f(1.0f,0.0f,0.0f);
-    glVertex3f( 0.5f, 0.5f, 0.5f);
-    glVertex3f(-0.5f, 0.5f, 0.5f);
-    glVertex3f(-0.5f,-0.5f, 0.5f);
-    glVertex3f( 0.5f,-0.5f, 0.5f);
-    glColor3f(1.0f,1.0f,0.0f);
-    glVertex3f( 0.5f,-0.5f,-0.5f);
-    glVertex3f(-0.5f,-0.5f,-0.5f);
-    glVertex3f(-0.5f, 0.5f,-0.5f);
-    glVertex3f( 0.5f, 0.5f,-0.5f);
-    glColor3f(0.0f,0.0f,1.0f);
-    glVertex3f(-0.5f, 0.5f, 0.5f);
-    glVertex3f(-0.5f, 0.5f,-0.5f);
-    glVertex3f(-0.5f,-0.5f,-0.5f);
-    glVertex3f(-0.5f,-0.5f, 0.5f);
-    glColor3f(1.0f,0.0f,1.0f);
-    glVertex3f( 0.5f, 0.5f,-0.5f);
-    glVertex3f( 0.5f, 0.5f, 0.5f);
-    glVertex3f( 0.5f,-0.5f, 0.5f);
-    glVertex3f( 0.5f,-0.5f,-0.5f);
+    glColor3f(0.80f,0.86f,0.22f);
+    glutSolidSphere(1,50,30);
     glEnd();
 
-    rtri+=0.75f;
+    rtri+= 2.0f;
 
     if (sAni.x > 0.6f) sAniSwitch = false;
     if (sAni.x < 0.25f) sAniSwitch = true;
@@ -252,12 +225,20 @@ void DrawingAlgorithms::animationTest() {
     if (tAni.x < -2.0f) tAniSwitch = true;
     if (tAniSwitch) {
         tAni.x += 0.005f;
-        tAni.y += 0.007f;
+        //tAni.y += 0.007f;
         tAni.z += 0.002f;
     } else {
         tAni.x -= 0.005f;
-        tAni.y -= 0.007f;
+        //tAni.y -= 0.007f;
         tAni.z -= 0.002f;
+    }
+
+    if (tAni.y > 2.0f) tYAniSwitch = false;
+    if (tAni.y < -2.0f) tYAniSwitch = true;
+    if (tYAniSwitch) {
+        tAni.y += 0.007f;
+    } else {
+        tAni.y -= 0.007f;
     }
 }
 
