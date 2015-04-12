@@ -19,5 +19,12 @@ typedef struct _rotate {
     GLfloat z;
 } Rotate;
 
+typedef struct _camera {
+    GLdouble fov;
+    GLdouble zNear;
+    GLdouble zFar;
+    GLdouble aspect;
+} Camera;
+
 #endif // STRUCTURES
 

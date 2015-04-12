@@ -51,7 +51,7 @@ bool loadObj::Save(char* filename)
 // Loads a default OBJ file. The path to the file may be changed 
 // as desired. Loads up material from the approp. material file if 
 // so specifed in the OBJ file. See function objmDraw().
-void loadObj::drawmodel(Translate* t, Rotate* r, Scale* s)
+void loadObj::drawmodel(Translate* t, Rotate* r, Scale* s, Camera* c)
 {
     if (!pmodel)
     {
@@ -64,6 +64,9 @@ void loadObj::drawmodel(Translate* t, Rotate* r, Scale* s)
     }
 
     glLoadIdentity();
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(c->fov,c->aspect,c->zNear,c->zFar);
     glTranslatef(t->x,t->y,t->z);
     glRotatef(r->x, 1.0f, 0.0f, 0.0f);   //X
     glRotatef(r->y, 0.0f, 1.0f, 0.0f);   //Y

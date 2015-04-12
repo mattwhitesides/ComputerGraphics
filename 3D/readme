@@ -12,8 +12,14 @@ Rotation:
   s: Rotate Down
   d: Rotate Right
 
-Rotation:
+Scale:
   i: Scale Increase On Y
   j: Scale Decrease On X
   k: Scale Decrease On Y
   l: Scale Increase On X
+
+Camera:
+  z: Increase Field of View
+  x: Decrease Field of View
+  c: Increase distance of clipping plane
+  v: Decrease distance of clipping plane

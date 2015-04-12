@@ -28,6 +28,7 @@
 
 GLfloat v[4][3]={{0.0f, 0.0f, 1.0f}, {0.0f, 0.942809f, -0.33333f}, {-0.816497f, -0.471405f, -0.333333f}, {0.816497f, -0.471405f, -0.333333f}};
 GLfloat colors[4][3] = {{0.97f, 0.26f, 0.21f}, {0.13f, 0.59f, 0.95f}, {0.30f, 0.69f, 0.31f}, {1.0f, 0.47f, 0.0f}};
+GLdouble aspect = 0.0;
 
 GLfloat	rtri = 0.0f;
 GLfloat	rquad = 0.0f;
@@ -63,8 +64,11 @@ int DrawingAlgorithms::roundf2(float f)
 }
 
 
-void DrawingAlgorithms::drawCube(Translate* t, Rotate* r, Scale* s) {
+void DrawingAlgorithms::drawCube(Translate* t, Rotate* r, Scale* s, Camera* c) {
     glLoadIdentity();
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(c->fov,aspect,c->zNear,c->zFar);
     glTranslatef(t->x,t->y,t->z);
     glRotatef(r->x, 1.0f, 0.0f, 0.0f);   //X
     glRotatef(r->y, 0.0f, 1.0f, 0.0f);   //Y
@@ -157,10 +161,13 @@ void DrawingAlgorithms::divide_tetra(GLfloat *a, GLfloat *b, GLfloat *c, GLfloat
 }
 
 
-void DrawingAlgorithms::displayTetra(Translate* t, Rotate* r, Scale* s)
+void DrawingAlgorithms::displayTetra(Translate* t, Rotate* r, Scale* s, Camera* c)
 {
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(c->fov,aspect,c->zNear,c->zFar);
     glTranslatef(t->x,t->y,t->z);
     glRotatef(r->x, 1.0f, 0.0f, 0.0f);   //X
     glRotatef(r->y, 0.0f, 1.0f, 0.0f);   //Y
@@ -176,11 +183,12 @@ void DrawingAlgorithms::displayTetra(Translate* t, Rotate* r, Scale* s)
 
 void DrawingAlgorithms::myReshape(int w, int h)
 {
+    aspect = w/h;
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    gluPerspective(90,(w/h),0.1,600);
+    gluPerspective(90,aspect,0.1,600);
 
     //    if (w <= h) {
     //        //glOrtho(-2.0, 2.0, -2.0 * (GLfloat) h / (GLfloat) w, 2.0 * (GLfloat) h / (GLfloat) w, -10.0, 10.0);

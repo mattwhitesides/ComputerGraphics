@@ -30,11 +30,11 @@ public:
 
     static void divide_tetra(GLfloat *a, GLfloat *b, GLfloat *c, GLfloat *d, int m);
 
-    static void displayTetra(Translate* t, Rotate* r, Scale* s);
+    static void displayTetra(Translate* t, Rotate* r, Scale* s, Camera* c);
 
     static void myReshape(int w, int h);
 
-    static void drawCube(Translate* t, Rotate* r, Scale* s);
+    static void drawCube(Translate* t, Rotate* r, Scale* s, Camera* c);
 
     static void drawObj(loadObj* objLoader);
 

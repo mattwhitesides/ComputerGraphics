@@ -180,7 +180,7 @@ public:
     float normalize(float* v);
     GLboolean invert(GLdouble src[16], GLdouble inverse[16]);
     void identity(GLdouble m[16]);
-    void drawmodel(Translate* t, Rotate* r, Scale* s);
+    void drawmodel(Translate* t, Rotate* r, Scale* s, Camera* c);
     void buildEdgeList(OBJMmodel* model, int numtriangles);
 
 private:

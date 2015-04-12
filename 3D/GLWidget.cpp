@@ -46,6 +46,7 @@ bool shiftDownKey = false;
 Translate t = {0.0,0.0,-2.0};
 Rotate r = {0.0,0.0,0.0};
 Scale s = {1.0,1.0,1.0};
+Camera c = {90.0,0.1,600,0.0};
 
 Shape shape = TETRA;
 loadObj *objLoader = new loadObj();
@@ -270,6 +271,7 @@ void GLWidget::resizeGL(int w, int h)
     //    glOrtho(left, right, down, up, -1, 1);
 
     DrawingAlgorithms::myReshape(w, h);
+    c.aspect = w/h;
 }
 
 
@@ -280,16 +282,16 @@ void GLWidget::paintGL()
 
     switch (shape) {
     case TETRA:
-        DrawingAlgorithms::displayTetra(&t,&r,&s);
+        DrawingAlgorithms::displayTetra(&t,&r,&s,&c);
         break;
     case CUBE:
-        DrawingAlgorithms::drawCube(&t,&r,&s);
+        DrawingAlgorithms::drawCube(&t,&r,&s,&c);
         break;
     case ANIMATION:
         DrawingAlgorithms::animationTest();
         break;
     case OBJ:
-        objLoader->drawmodel(&t,&r,&s);
+        objLoader->drawmodel(&t,&r,&s,&c);
         break;
     }
 
@@ -421,6 +423,17 @@ void GLWidget::keyPressEvent(QKeyEvent* event) {
     case Qt::Key_L:
         s.x += scaleInc;
         lKey = true;
+        break;
+    case Qt::Key_Z:
+        c.fov += 1;
+        break;
+    case Qt::Key_X:
+        c.fov -= 1;
+    case Qt::Key_C:
+        c.zNear += 0.1;
+        break;
+    case Qt::Key_V:
+        c.zNear -= 0.1;
         break;
     }
     printf("Translate:\n\t%lf\n\t%lf\n\t%lf\n\n",t.x,t.y,t.z);
